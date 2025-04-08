@@ -1,0 +1,43 @@
+# Fichiers temporaires
+temp_files/
+*.tmp
+*.temp
+*.bak
+
+# Fichiers de build/distribution
+dist/
+build/
+*.xlsm
+*.xlam
+*.accdb
+
+# Fichiers de logs
+logs/
+*.log
+
+# Fichiers spécifiques au système
+.DS_Store
+Thumbs.db
+
+# Fichiers d'environnement
+.env
+
+# Fichiers liés à l'historique ou aux outils
+CHANGELOG.md
+ROADMAP.md
+clean_framework_doc.py
+generate_doc.py
+LICENSE.md
+
+# Anciennes versions et copies
+Excel_VBA/
+samples/
+templates/
+docs/
+tests/
+src/
+
+# Fichiers markdown autres que le principal
+*.md
+!README.md
+!APEX_VBA_FRAMEWORK_COMPLET.md
