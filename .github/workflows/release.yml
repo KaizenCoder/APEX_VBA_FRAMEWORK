@@ -1,0 +1,41 @@
+name: Génération de PDF
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build_pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install Markdown PDF
+        run: npm install -g markdown-pdf
+
+      - name: Convert to PDF
+        run: markdown-pdf APEX_VBA_FRAMEWORK_COMPLET.md -o APEX_VBA_FRAMEWORK.pdf
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: APEX_VBA_FRAMEWORK.pdf
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Framework APEX VBA ${{ github.ref_name }}
+          body: |
+            Documentation complète du framework APEX VBA
+
+            Cette release contient:
+            - Documentation en format PDF du framework
+            - Référence complète des classes et modules
+            - Exemples d'utilisation
