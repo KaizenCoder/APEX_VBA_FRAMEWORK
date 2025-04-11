@@ -41,3 +41,6 @@ src/
 *.md
 !README.md
 !APEX_VBA_FRAMEWORK_COMPLET.md
+
+# Fichiers obsolètes marqués pour suppression
+*.DEPRECATED
