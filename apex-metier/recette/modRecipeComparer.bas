@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/recette - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Module : modRecipeComparer
 ' Version : 1.0
@@ -27,6 +34,10 @@ Private m_Config As RecipeConfig
 Private m_Logger As Object ' ILoggerBase
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize(Optional ByVal configPath As String = "")
     ' Charge la configuration et initialise les composants
     Dim configFilePath As String
@@ -54,13 +65,21 @@ Public Sub Initialize(Optional ByVal configPath As String = "")
 End Sub
 
 ' --- Fonctions principales ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function CompareWorkbooks(ByVal sourceWorkbookPath As String, ByVal targetWorkbookPath As String) As Object
     ' Compare deux classeurs Excel complets
     ' TODO: Implémenter la comparaison complète de classeurs
     
     ' Placeholder
     ' TODO: Retourner un objet résultat
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CompareSheets(ByVal sourceSheet As Object, ByVal targetSheet As Object) As Object
     ' Compare deux feuilles Excel
@@ -68,12 +87,20 @@ Public Function CompareSheets(ByVal sourceSheet As Object, ByVal targetSheet As 
     
     ' Placeholder
     ' TODO: Retourner un objet résultat
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Sub GenerateReport(ByVal comparisonResults As Object, Optional ByVal outputPath As String = "")
     ' Génère un rapport à partir des résultats de comparaison
     ' TODO: Implémenter la génération de rapport
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub RunRecette()
     ' Point d'entrée principal pour exécution depuis une interface utilisateur
@@ -81,15 +108,27 @@ Public Sub RunRecette()
 End Sub
 
 ' --- Fonctions auxiliaires privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GetKeyColumns(ByVal sheet As Object) As Variant
     ' Retourne les indices des colonnes clés
     ' TODO: Implémenter la recherche des colonnes clés
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function FormatValue(ByVal value As Variant, ByVal dataType As Integer) As Variant
     ' Formate une valeur selon son type
     ' TODO: Implémenter le formatage des valeurs
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function CompareCells(ByVal value1 As Variant, ByVal value2 As Variant, ByVal dataType As Integer) As Boolean
     ' Compare deux valeurs avec prise en compte de tolérance si nécessaire

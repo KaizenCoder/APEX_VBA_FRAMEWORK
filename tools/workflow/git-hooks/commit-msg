@@ -1,0 +1,20 @@
+﻿#!/bin/bash
+
+# Hook de validation des messages de commit
+# Installation: copier ce fichier dans .git/hooks/commit-msg et le rendre exécutable
+
+commit_msg_file=$1
+commit_msg=$(cat $commit_msg_file)
+
+# Regex pour le format Conventional Commits
+pattern='^(feat|fix|docs|refactor|test|chore|perf)(\([a-z-]+\))?: .+(\n\n.+)?'
+
+if ! [[ $commit_msg =~ $pattern ]]; then
+  echo -e "\033[0;31mErreur: Format de commit invalide\033[0m"
+  echo -e "\033[0;33mFormat attendu: <type>(<portée>): <description>\033[0m"
+  echo -e "\033[0;33mExemple: feat(logger): ajout de la rotation des logs\033[0m"
+  echo -e "\033[0;33mUtilisez ./tools/workflow/scripts/commit_with_context.ps1 pour créer un commit conforme\033[0m"
+  exit 1
+fi
+
+exit 0

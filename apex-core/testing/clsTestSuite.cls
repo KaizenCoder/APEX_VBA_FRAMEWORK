@@ -5,6 +5,13 @@ BEGIN
   MultiUse = -1  'True
 END
 Attribute VB_Name = "clsTestSuite"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
@@ -60,7 +67,11 @@ Private Sub Class_Initialize()
     m_PassedCount = 0
     m_FailedCount = 0
     m_SkippedCount = 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub Class_Terminate()
     Set m_Results = Nothing
@@ -137,11 +148,19 @@ Public Property Let TeardownSuiteProcedure(ByVal value As String)
 End Property
 
 ' --- Méthodes publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub AddTest(ByVal testName As String, ByVal testProc As String, _
                   Optional ByVal moduleName As String = "", Optional ByVal description As String = "")
     ' Méthode de compatibilité avec l'ancienne version
     AddTestEx testName, testProc, moduleName, description, "", 1, False, "", 0, ""
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AddTestEx(ByVal testName As String, ByVal testProc As String, _
                     Optional ByVal moduleName As String = "", _
@@ -174,10 +193,18 @@ Public Sub AddTestEx(ByVal testName As String, ByVal testProc As String, _
     
     ' Incrémenter le compteur
     m_TestCount = m_TestCount + 1
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub RunAllTests(Optional ByVal stopOnFailure As Boolean = False)
-    If m_TestCount = 0 Then Exit Sub
+    If m_TestCount = 0 Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     Dim i As Long
     Dim result As Object ' clsTestResult
@@ -305,7 +332,11 @@ NextTest:
         
         Application.Run m_TeardownSuiteProcedure
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Function GetFailureDetails() As String
     Dim result As String
@@ -323,14 +354,22 @@ Public Function GetFailureDetails() As String
     Next testResult
     
     GetFailureDetails = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetTestInfo(ByVal testIndex As Long) As Variant
     Dim result As Object
     
     If testIndex < 0 Or testIndex >= m_TestCount Then
         GetTestInfo = Null
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Set result = CreateObject("Scripting.Dictionary")
@@ -348,7 +387,11 @@ Public Function GetTestInfo(ByVal testIndex As Long) As Variant
     End With
     
     GetTestInfo = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetDetailedReport() As String
     Dim report As String
@@ -390,6 +433,10 @@ Public Function GetDetailedReport() As String
 End Function
 
 ' --- Méthodes privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GetDefaultTimeout() As Long
     On Error Resume Next
     
@@ -407,7 +454,11 @@ Private Function GetDefaultTimeout() As Long
     End If
     
     On Error GoTo 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub SortTestsByPriority()
     Dim i As Long, j As Long
@@ -423,12 +474,20 @@ Private Sub SortTestsByPriority()
             End If
         Next j
     Next i
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function CheckDependencies(ByVal dependencies As String) As Boolean
     If Trim(dependencies) = "" Then
         CheckDependencies = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Dim depArray() As String
@@ -459,7 +518,11 @@ Private Function CheckDependencies(ByVal dependencies As String) As Boolean
         ' Si dépendance non trouvée ou échouée
         If Not found Or Not testPassed Then
             CheckDependencies = False
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     Next i
     

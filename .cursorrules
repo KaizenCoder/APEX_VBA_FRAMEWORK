@@ -1,0 +1,108 @@
+# Configuration APEX Framework pour Cursor
+
+<ai_requirements>
+### ⚠️ INITIALISATION OBLIGATOIRE
+AVANT toute réponse, l'IA DOIT :
+1. Lire ce fichier (.cursor-rules) en ENTIER
+2. Confirmer la lecture par : "✅ Règles APEX Framework lues"
+
+3. Consulter l'historique des sessions :
+   a. Session du jour : `/tools/workflow/sessions/YYYY_MM_DD_*.md`
+   b. Sessions clés : `_workflow_rules.md`, `_architecture.md`, `_refactoring.md`
+   c. Dernière session de chaque type (développement, revue, architecture)
+4. Confirmer par : "✅ Sessions prioritaires consultées"
+
+5. Consulter les documents essentiels :
+   - [📝 Guide d'Encodage](docs/requirements/powershell_encoding.md)
+   - [🏗️ Architecture Core](docs/Components/CoreArchitecture.md)
+   - [📜 Conventions Git](docs/GIT_COMMIT_CONVENTION.md)
+6. Confirmer par : "✅ Documentation de référence consultée"
+
+7. Demander le contexte si non fourni : "⚠️ Contexte requis"
+</ai_requirements>
+
+# 📋 STANDARDS ET PRÉCONISATIONS
+
+## 1. Architecture et Développement
+### Architecture en Couches
+```
+                      ┌───────────────────┐
+                      │  ApplicationCode  │
+                      └───────────┬───────┘
+                                  │
+                        ┌─────────▼────────┐
+                        │  ModDbConnFactory│
+                        └─────────┬────────┘
+                                  │
+┌───────────────┐    ┌────────────▼────────────┐    ┌──────────────┐
+│  ConfigLoader │◄───┤     IDbAccessorBase     │────►  ILoggerBase  │
+└───────────────┘    └────────────┬────────────┘    └──────────────┘
+                                  │
+                                  │
+         ┌────────────────────────┼───────────────────────┐
+         │                        │                       │
+┌────────▼───────┐       ┌────────▼──────┐        ┌──────▼────────┐
+│  IDbDriver     │       │ IQueryBuilder │        │  ClsOrmBase   │
+└────────────────┘       └───────────────┘        └───────────────┘
+```
+
+### Principes Fondamentaux
+1. **Injection de Dépendances**
+   - Via factories uniquement
+   - Pas de création directe d'instances
+   → [Détails](docs/patterns/dependency_injection.md)
+
+2. **Architecture en Couches**
+   - Core : Interfaces et contrats
+   - Métier : Logique business
+   - UI : Présentation et interactions
+   → [Implémentation](docs/architecture/layers.md)
+
+3. **Configuration**
+   - Externalisée dans Excel
+   - Pas de valeurs en dur
+   → [Guide](docs/config/external_config.md)
+
+## 2. Validation Systématique
+- ✅ Encodage UTF-8 sans BOM
+- ✅ Tests unitaires et intégration
+- ✅ Documentation Markdown
+- ✅ Conventions Git
+→ [Scripts](tools/workflow/validation/)
+
+## 3. Format de Feedback IA
+```markdown
+2024-04-11 14:30
+Chat : 001
+
+### 📋 Contexte & Analyse
+- 🔴 Critique : Point majeur
+- 🟡 Important : Point significatif
+- 🟢 Standard : Point contextuel
+
+### ⚡ Action & Impact
+- 🎯 Action : {action} [REF:{ID}]
+- 📊 Résultat : {statut} [⏱️ {temps}]
+- 📈 Impact : {métrique}
+
+### 💭 Synthèse & Réflexion
+Analyse libre
+```
+
+## 4. Points de Vigilance
+- Architecture en couches stricte
+- Tests pour chaque fonctionnalité
+- Documentation systématique
+- Validation pré-commit
+- Standards des composants
+
+## 5. Documentation Détaillée
+- [📚 Guide Complet](docs/DOCUMENTATION_GUIDELINES.md)
+- [🔧 Guide Développeur](docs/DEVELOPPER_GUIDE.md)
+- [🧪 Framework de Tests](docs/Components/Testing.md)
+- [📝 Templates](docs/templates/)
+- [🔍 Exemples](docs/examples/)
+
+---
+Version: 2.0
+Dernière mise à jour : 2024-04-11 

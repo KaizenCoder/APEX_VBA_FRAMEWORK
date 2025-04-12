@@ -1,6 +1,13 @@
 ' Migrated to apex-core - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Attribute VB_Name = "modVersionInfo"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 Option Explicit
 ' ==========================================================================
 ' Module : modVersionInfo
@@ -23,13 +30,25 @@ Private Const VERSION_FILE As String = "VERSION.txt"
 Private Const VERSION_REGEX_PATTERN As String = "^(\d+)\.(\d+)\.(\d+)(?:\-(alpha|beta|rc)\.(\d+))?$"
 
 ' --- Propriétés publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function GetFrameworkVersion() As String
     GetFrameworkVersion = FRAMEWORK_VERSION
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetFrameworkVersionFull() As String
     GetFrameworkVersionFull = FRAMEWORK_NAME & " v" & FRAMEWORK_VERSION & " (Build " & FRAMEWORK_BUILD & ")"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetFrameworkVersionInfo() As String
     GetFrameworkVersionInfo = "Nom: " & FRAMEWORK_NAME & vbCrLf & _
@@ -38,7 +57,11 @@ Public Function GetFrameworkVersionInfo() As String
                               "Date de sortie: " & FRAMEWORK_RELEASE_DATE & vbCrLf & _
                               "Compatibilité: " & FRAMEWORK_COMPATIBILITY & vbCrLf & _
                               "Copyright: " & FRAMEWORK_COPYRIGHT
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function IsPreRelease() As Boolean
     ' Vérifier si la version actuelle est une préversion (alpha, beta, rc)
@@ -69,7 +92,11 @@ Public Function IsPreRelease() As Boolean
     Else
         IsPreRelease = False
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CompareVersions(ByVal version1 As String, ByVal version2 As String) As Long
     ' Compare deux versions et retourne:
@@ -91,7 +118,11 @@ Public Function CompareVersions(ByVal version1 As String, ByVal version2 As Stri
     If Not regex.Test(version1) Or Not regex.Test(version2) Then
         ' Version non valide
         CompareVersions = 0
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Extraire les composants de version1
@@ -163,7 +194,11 @@ Public Function CompareVersions(ByVal version1 As String, ByVal version2 As Stri
     Else
         CompareVersions = 0 ' Versions identiques
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetMajorVersion() As Long
     Dim regex As Object
@@ -184,7 +219,11 @@ Public Function GetMajorVersion() As Long
     Else
         GetMajorVersion = 0
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetMinorVersion() As Long
     Dim regex As Object
@@ -205,7 +244,11 @@ Public Function GetMinorVersion() As Long
     Else
         GetMinorVersion = 0
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetPatchVersion() As Long
     Dim regex As Object
@@ -226,7 +269,11 @@ Public Function GetPatchVersion() As Long
     Else
         GetPatchVersion = 0
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ReadVersionFromFile(Optional ByVal filePath As String = "") As String
     On Error Resume Next
@@ -240,7 +287,11 @@ Public Function ReadVersionFromFile(Optional ByVal filePath As String = "") As S
     
     If Not fso.FileExists(filePath) Then
         ReadVersionFromFile = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Lire le fichier
@@ -260,14 +311,22 @@ Public Function ReadVersionFromFile(Optional ByVal filePath As String = "") As S
         ' Rechercher une ligne commençant par "Version:"
         If Left(Trim(lines(i)), 8) = "Version:" Then
             ReadVersionFromFile = Trim(Mid(lines(i), 9))
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     Next i
     
     ' Si aucune version trouvée
     ReadVersionFromFile = ""
     On Error GoTo 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetVersionLabel() As String
     ' Retourne un libellé pour la version actuelle
@@ -305,7 +364,11 @@ Public Function GetVersionLabel() As String
     Else
         GetVersionLabel = "Version stable"
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ShowVersionDialog()
     ' Afficher une boîte de dialogue avec les informations de version

@@ -1,6 +1,13 @@
 ' Migrated to apex-core - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Attribute VB_Name = "modReleaseValidator"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 Option Explicit
 ' ==========================================================================
 ' Module : modReleaseValidator
@@ -47,6 +54,10 @@ Private m_currentDir As String
 Private m_fso As Object
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub Initialize()
     ' Créer le gestionnaire de fichiers
     Set m_fso = CreateObject("Scripting.FileSystemObject")
@@ -73,6 +84,10 @@ Private Sub Initialize()
 End Sub
 
 ' --- Validation publique ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function ValidateRelease(Optional ByVal releasePath As String = "") As Boolean
     ' Initialiser
     Initialize
@@ -93,7 +108,11 @@ Public Function ValidateRelease(Optional ByVal releasePath As String = "") As Bo
         
         LogMessage "ERREUR: " & m_result.Message, "error"
         ValidateRelease = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Effectuer les validations
@@ -121,15 +140,27 @@ Public Function ValidateRelease(Optional ByVal releasePath As String = "") As Bo
     WriteValidationReport
     
     ValidateRelease = isValid
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetValidationMessage() As String
     GetValidationMessage = m_result.Message
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetValidationDetails() As String
     GetValidationDetails = m_result.Details
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetMissingFiles() As Variant
     ' Convertir le tableau en variant pour le retour
@@ -146,15 +177,27 @@ Public Function GetMissingFiles() As Variant
         
         GetMissingFiles = result
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetErrorCount() As Long
     GetErrorCount = m_result.ErrorCount
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetWarningCount() As Long
     GetWarningCount = m_result.WarningCount
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Sub ShowValidationReport()
     Dim title As String
@@ -197,6 +240,10 @@ Public Sub ShowValidationReport()
 End Sub
 
 ' --- Validations spécifiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function ValidateEssentialModules(ByVal basePath As String) As Boolean
     LogMessage "Vérification des modules essentiels...", "info"
     
@@ -230,7 +277,11 @@ Private Function ValidateEssentialModules(ByVal basePath As String) As Boolean
     Else
         LogMessage "Tous les modules essentiels sont présents", "info"
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function ValidateConfigFiles(ByVal basePath As String) As Boolean
     LogMessage "Vérification des fichiers de configuration...", "info"
@@ -265,7 +316,11 @@ Private Function ValidateConfigFiles(ByVal basePath As String) As Boolean
     Else
         LogMessage "Tous les fichiers de configuration sont présents", "info"
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function ValidateStructure(ByVal basePath As String) As Boolean
     LogMessage "Vérification de la structure du framework...", "info"
@@ -319,7 +374,11 @@ Private Function ValidateStructure(ByVal basePath As String) As Boolean
     If ValidateStructure Then
         LogMessage "La structure du framework est valide", "info"
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function ValidateVersionFile(ByVal basePath As String) As Boolean
     LogMessage "Vérification du fichier de version...", "info"
@@ -338,7 +397,11 @@ Private Function ValidateVersionFile(ByVal basePath As String) As Boolean
         m_result.MissingFiles(m_result.MissingFilesCount - 1) = "VERSION.txt"
         
         ValidateVersionFile = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Lire le fichier
@@ -419,6 +482,10 @@ Private Function ValidateVersionFile(ByVal basePath As String) As Boolean
 End Function
 
 ' --- Fonctions utilitaires ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function CountFilesWithExtension(ByVal folderPath As String, ByVal extension As String) As Long
     Dim count As Long
     Dim folder As Object
@@ -433,7 +500,11 @@ Private Function CountFilesWithExtension(ByVal folderPath As String, ByVal exten
     ' Vérifier si le dossier existe
     If Not m_fso.FolderExists(folderPath) Then
         CountFilesWithExtension = 0
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Set folder = m_fso.GetFolder(folderPath)
@@ -451,7 +522,11 @@ Private Function CountFilesWithExtension(ByVal folderPath As String, ByVal exten
     Next subfolder
     
     CountFilesWithExtension = count
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub LogMessage(ByVal message As String, ByVal logLevel As String)
     ' Ajouter le message aux détails de validation
@@ -477,7 +552,11 @@ Private Sub LogMessage(ByVal message As String, ByVal logLevel As String)
         Debug.Print Now & " - " & logLevel & " - " & message
     End If
     On Error GoTo 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function GenerateValidationReport() As String
     Dim report As String
@@ -505,7 +584,11 @@ Private Function GenerateValidationReport() As String
     report = report & m_result.Details
     
     GenerateValidationReport = report
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub WriteValidationReport()
     On Error Resume Next

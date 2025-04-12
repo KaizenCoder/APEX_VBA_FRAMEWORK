@@ -7,10 +7,21 @@
 
 Option Explicit
 
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
+
 ' Référence au logger global
 Private Logger As clsLogger
 
 ' Initialisation du module
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub Initialize()
     If Logger Is Nothing Then
         Set Logger = New clsLogger
@@ -19,6 +30,10 @@ Private Sub Initialize()
 End Sub
 
 ' Exécute tous les tests unitaires
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub OnAction_RunAllTests(control As IRibbonControl)
     On Error GoTo ErrorHandler
     
@@ -28,12 +43,20 @@ Public Sub OnAction_RunAllTests(control As IRibbonControl)
     ' Appeler le module de test
     Call modTestRunner.RunAllTests
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 ErrorHandler:
     Logger.LogError "OnAction_RunAllTests : " & Err.Description
 End Sub
 
 ' Affiche les logs du système
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub OnAction_ViewLogs(control As IRibbonControl)
     On Error GoTo ErrorHandler
     
@@ -43,12 +66,20 @@ Public Sub OnAction_ViewLogs(control As IRibbonControl)
     ' Afficher le formulaire de logs (à implémenter)
     MsgBox "Fonctionnalité de visualisation des logs à implémenter", vbInformation
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 ErrorHandler:
     Logger.LogError "OnAction_ViewLogs : " & Err.Description
 End Sub
 
 ' Chiffre une chaîne avec DPAPI
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub OnAction_EncryptString(control As IRibbonControl)
     On Error GoTo ErrorHandler
     
@@ -79,12 +110,20 @@ Public Sub OnAction_EncryptString(control As IRibbonControl)
         MsgBox "La chaîne cryptée a été copiée dans le presse-papier", vbInformation
     End If
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 ErrorHandler:
     Logger.LogError "OnAction_EncryptString : " & Err.Description
 End Sub
 
 ' Lance la comparaison de recettes
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub OnAction_RunRecipe(control As IRibbonControl)
     On Error GoTo ErrorHandler
     
@@ -94,12 +133,20 @@ Public Sub OnAction_RunRecipe(control As IRibbonControl)
     ' Appeler le module de recette
     Call modRecipeComparer.CompareRecipes
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 ErrorHandler:
     Logger.LogError "OnAction_RunRecipe : " & Err.Description
 End Sub
 
 ' Analyse un fichier XML
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub OnAction_ParseXml(control As IRibbonControl)
     On Error GoTo ErrorHandler
     
@@ -109,7 +156,11 @@ Public Sub OnAction_ParseXml(control As IRibbonControl)
     ' Code pour analyse XML (à implémenter)
     MsgBox "Fonctionnalité d'analyse XML à implémenter", vbInformation
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 ErrorHandler:
     Logger.LogError "OnAction_ParseXml : " & Err.Description
 End Sub 

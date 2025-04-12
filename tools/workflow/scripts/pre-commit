@@ -1,0 +1,20 @@
+#!/bin/sh
+# Pre-commit hook pour la validation d'encodage
+# Référence: chat_050 (2024-04-11 16:50)
+# Source: chat_049 (Pipeline validation)
+
+# Chemin vers PowerShell
+POWERSHELL_PATH="powershell"
+
+# Exécution du pipeline de validation
+echo "🔍 Validation des fichiers avant commit..."
+$POWERSHELL_PATH -NoProfile -ExecutionPolicy Bypass -File "tools/workflow/scripts/Start-EncodingPipeline.ps1"
+
+# Vérification du résultat
+if [ $? -ne 0 ]; then
+    echo "❌ La validation a échoué. Corrigez les erreurs avant de commiter."
+    echo "💡 Utilisez 'tools/workflow/scripts/Start-EncodingPipeline.ps1 -Fix' pour corriger automatiquement."
+    exit 1
+fi
+
+exit 0 

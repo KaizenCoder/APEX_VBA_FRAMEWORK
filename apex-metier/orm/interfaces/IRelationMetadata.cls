@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/orm/interfaces - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Interface : IRelationMetadata
 ' Version : 1.0

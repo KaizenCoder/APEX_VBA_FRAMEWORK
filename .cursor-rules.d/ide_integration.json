@@ -1,0 +1,7 @@
+{
+  "shared.workspace.enabled": true,
+  "shared.terminal.integration": true,
+  "shared.workspace.path": "D:\\Dev\\Apex_VBA_FRAMEWORK",
+  "shared.extensions.sync": true,
+  "shared.debugging.allowCrossIDE": true
+}

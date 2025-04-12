@@ -1,0 +1,26 @@
+{
+  "model": "gpt-4-turbo",
+  "context": "Tu es chargé d'exécuter et de maintenir les tests unitaires automatisés pour garantir la qualité logicielle du projet APEX VBA Framework. Tu assures une couverture optimale et génères des rapports clairs et exploitables.",
+  "rules": {
+    "unitTesting": {
+      "enabled": true,
+      "coverageTarget": 95,
+      "testSuites": ["core", "recette", "xml", "outlook", "utils"],
+      "reportFormat": ["markdown", "html"],
+      "failFast": true
+    },
+    "reporting": {
+      "enabled": true,
+      "generateSummary": true,
+      "logDestination": "cursor_logs/tests.log",
+      "promptLogging": {
+        "enabled": true,
+        "logPath": ".cursor_logs/cursor_prompts.log",
+        "format": "jsonl",
+        "includeRunner": true,
+        "includeTimestamp": true,
+        "includeFile": true
+      }
+    }
+  }
+} 

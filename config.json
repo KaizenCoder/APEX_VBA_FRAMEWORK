@@ -1,0 +1,46 @@
+{
+  "output_dir": "dist",
+  "addin_basename": "APEX_Framework", 
+  "vba_project_name": "APEXVbaFramework",
+  "source_folders": [
+    "apex-core",
+    "apex-metier",
+    "apex-ui"
+  ],
+  "import_order": [
+    ".cls",
+    ".bas",
+    ".frm"
+  ],
+  "essential_files": [
+    "apex-core/clsLogger.cls", 
+    "apex-core/modConfigManager.bas",
+    "apex-core/modVersionInfo.bas",
+    "apex-core/utils/modFileUtils.bas",
+    "apex-core/utils/modTextUtils.bas",
+    "apex-core/utils/modDateUtils.bas"
+    
+  ],
+  "logging": {
+    "file": "apex_addin_generator.log",
+    "level": "INFO",
+    "format": "%(asctime)s - %(levelname)s - %(message)s"
+  },
+  "options": {
+    "enable_backup": true,
+    "create_startup_module": true,
+    "rename_components_to_filename": true,
+    "delete_default_workbook_items": true,
+    "close_excel_after_generation": true
+  },
+  "startup_module": {
+     "filename": "modAddInStartup.bas",
+     "name_in_vba": "modAddInStartup",
+     "default_content": "Public Sub Auto_Open()\n    ' APEX Framework Add-in Loaded\n    On Error Resume Next\n    Debug.Print \"APEX Framework Add-in Loaded: \" & Now()\n    On Error GoTo 0\nEnd Sub\n\nPublic Sub Auto_Close()\n    ' APEX Framework Add-in Unloaded\n    On Error Resume Next\n    Debug.Print \"APEX Framework Add-in Unloaded: \" & Now()\n    On Error GoTo 0\nEnd Sub"
+  },
+  "vba_component_types": {
+    ".bas": 1,
+    ".cls": 2,
+    ".frm": 3
+  }
+} 

@@ -1,0 +1,28 @@
+{
+  "model": "claude-3-opus",
+  "context": "Tu es en charge du développement du code pour le projet APEX VBA Framework. Tu produis du code VBA précis, robuste, modulaire, et parfaitement documenté selon les spécifications métier.",
+  "rules": {
+    "codeGeneration": {
+      "enabled": true,
+      "modules": ["core", "recette", "utils", "xml", "outlook"],
+      "standards": ["SOLID", "CleanCode"],
+      "errorHandling": "robust",
+      "loggingIntegration": true
+    },
+    "documentation": {
+      "inlineComments": true,
+      "functionHeaders": true
+    },
+    "logging": {
+      "enabled": true,
+      "promptLogging": {
+        "enabled": true,
+        "logPath": ".cursor_logs/cursor_prompts.log",
+        "format": "jsonl",
+        "includeRunner": true,
+        "includeTimestamp": true,
+        "includeFile": true
+      }
+    }
+  }
+} 

@@ -1,6 +1,13 @@
 ' Migrated to apex-core - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsPluginManager
 ' Version : 1.0
@@ -18,16 +25,28 @@ Private Sub Class_Initialize()
     Set m_Plugins = CreateObject("Scripting.Dictionary")
     Set m_EventSubscriptions = CreateObject("Scripting.Dictionary")
     m_IsInitialized = False
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub Initialize(Optional ByVal logger As ILoggerBase = Nothing)
-    If m_IsInitialized Then Exit Sub
+    If m_IsInitialized Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     Set m_Logger = logger
     LogIfAble "Initialize", LogLevelInfo, "Plugin Manager initialized", "PLUGIN"
     m_IsInitialized = True
 End Sub
 
 ' --- Gestion de plugins ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function RegisterPlugin(plugin As IPlugin, Optional ByVal pluginId As String = "") As String
     Dim pluginIdToUse As String
     
@@ -50,7 +69,11 @@ Public Function RegisterPlugin(plugin As IPlugin, Optional ByVal pluginId As Str
         LogIfAble "RegisterPlugin", LogLevelError, "Failed to initialize plugin '" & plugin.PluginName & "': " & Err.Description, "PLUGIN"
         Set plugin = Nothing
         RegisterPlugin = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     On Error GoTo 0
     
@@ -59,21 +82,37 @@ Public Function RegisterPlugin(plugin As IPlugin, Optional ByVal pluginId As Str
     LogIfAble "RegisterPlugin", LogLevelInfo, "Plugin '" & plugin.PluginName & "' v" & plugin.PluginVersion & " registered with ID: " & pluginIdToUse, "PLUGIN"
     
     RegisterPlugin = pluginIdToUse
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetPlugin(ByVal pluginId As String) As IPlugin
     If Not m_IsInitialized Or Not m_Plugins.Exists(pluginId) Then
         Set GetPlugin = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Set GetPlugin = m_Plugins(pluginId)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function UnregisterPlugin(ByVal pluginId As String) As Boolean
     If Not m_IsInitialized Or Not m_Plugins.Exists(pluginId) Then
         UnregisterPlugin = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Dim plugin As IPlugin
@@ -95,7 +134,11 @@ Public Function UnregisterPlugin(ByVal pluginId As String) As Boolean
     LogIfAble "UnregisterPlugin", LogLevelInfo, "Plugin '" & pluginId & "' unregistered", "PLUGIN"
     
     UnregisterPlugin = True
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetAllPlugins() As Collection
     Dim result As New Collection
@@ -103,7 +146,11 @@ Public Function GetAllPlugins() As Collection
     
     If Not m_IsInitialized Then
         Set GetAllPlugins = result
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     For Each key In m_Plugins.Keys
@@ -114,8 +161,16 @@ Public Function GetAllPlugins() As Collection
 End Function
 
 ' --- Gestion des événements ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub SubscribeToEvent(ByVal pluginId As String, ByVal eventName As String)
-    If Not m_IsInitialized Or Not m_Plugins.Exists(pluginId) Then Exit Sub
+    If Not m_IsInitialized Or Not m_Plugins.Exists(pluginId) Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     Dim eventKey As String
     eventKey = UCase$(eventName)
@@ -131,15 +186,27 @@ Public Sub SubscribeToEvent(ByVal pluginId As String, ByVal eventName As String)
         eventSubscribers.Add pluginId, True
         LogIfAble "SubscribeToEvent", LogLevelDebug, "Plugin '" & pluginId & "' subscribed to event '" & eventName & "'", "PLUGIN"
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub UnsubscribeFromEvent(ByVal pluginId As String, ByVal eventName As String)
-    If Not m_IsInitialized Then Exit Sub
+    If Not m_IsInitialized Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     Dim eventKey As String
     eventKey = UCase$(eventName)
     
-    If Not m_EventSubscriptions.Exists(eventKey) Then Exit Sub
+    If Not m_EventSubscriptions.Exists(eventKey) Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     Dim eventSubscribers As Object ' Dictionary
     Set eventSubscribers = m_EventSubscriptions(eventKey)
@@ -153,10 +220,18 @@ Public Sub UnsubscribeFromEvent(ByVal pluginId As String, ByVal eventName As Str
     If eventSubscribers.Count = 0 Then
         m_EventSubscriptions.Remove eventKey
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub RemovePluginSubscriptions(ByVal pluginId As String)
-    If Not m_IsInitialized Then Exit Sub
+    If Not m_IsInitialized Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     Dim eventKey As Variant
     Dim eventSubscribers As Object ' Dictionary
@@ -180,14 +255,22 @@ Private Sub RemovePluginSubscriptions(ByVal pluginId As String)
     For Each key In keysToRemove
         m_EventSubscriptions.Remove key
     Next key
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Function TriggerEvent(ByVal eventName As String, Optional ByVal eventData As Variant) As Collection
     Dim results As New Collection
     
     If Not m_IsInitialized Then
         Set TriggerEvent = results
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Dim eventKey As String
@@ -196,7 +279,11 @@ Public Function TriggerEvent(ByVal eventName As String, Optional ByVal eventData
     If Not m_EventSubscriptions.Exists(eventKey) Then
         LogIfAble "TriggerEvent", LogLevelDebug, "Event '" & eventName & "' triggered but no subscribers", "PLUGIN"
         Set TriggerEvent = results
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Dim eventSubscribers As Object ' Dictionary
@@ -228,12 +315,24 @@ Public Function TriggerEvent(ByVal eventName As String, Optional ByVal eventData
 End Function
 
 ' --- Utilitaires ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub SetLogger(ByVal logger As ILoggerBase)
     Set m_Logger = logger
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogIfAble(ByVal sourceMethod As String, ByVal level As LogLevelEnum, ByVal msg As String, ByVal category As String)
-    If m_Logger Is Nothing Then Exit Sub
+    If m_Logger Is Nothing Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     On Error Resume Next
     m_Logger.LogMessage msg, level, category, "clsPluginManager." & sourceMethod

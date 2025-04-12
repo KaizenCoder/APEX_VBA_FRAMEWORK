@@ -1,0 +1,29 @@
+{
+  "model": "gemini-1.5-pro",
+  "context": "Tu prends en charge la relecture et le refactoring du code existant dans le projet APEX VBA Framework. Ton rôle est de détecter et d'améliorer les éventuels problèmes de lisibilité, performance, ou maintenabilité du code.",
+  "rules": {
+    "refactoring": {
+      "enabled": true,
+      "criteria": ["readability", "performance", "maintainability"],
+      "suggestionFormat": "markdown",
+      "maxSuggestions": 10
+    },
+    "codeReview": {
+      "enabled": true,
+      "severityLevels": ["info", "warning", "error"]
+    },
+    "logging": {
+      "enabled": true,
+      "logLevel": "detailed",
+      "logDestination": "cursor_logs/refactoring.log",
+      "promptLogging": {
+        "enabled": true,
+        "logPath": ".cursor_logs/cursor_prompts.log",
+        "format": "jsonl",
+        "includeRunner": true,
+        "includeTimestamp": true,
+        "includeFile": true
+      }
+    }
+  }
+} 

@@ -1,6 +1,13 @@
 ' Migrated to apex-core/testing - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Attribute VB_Name = "modTestRegistry"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 Option Explicit
 ' ==========================================================================
 ' Module : modTestRegistry
@@ -20,8 +27,16 @@ Private m_logger As Object
 Private m_configManager As Object
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize()
-    If m_initialized Then Exit Sub
+    If m_initialized Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     Set m_testSuites = New Collection
     
@@ -36,6 +51,10 @@ Public Sub Initialize()
 End Sub
 
 ' --- Enregistrement des suites ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub RegisterSuite(suite As clsTestSuite)
     ' Initialiser si ce n'est pas déjà fait
     If Not m_initialized Then Initialize
@@ -64,6 +83,10 @@ Public Sub RegisterSuite(suite As clsTestSuite)
 End Sub
 
 ' --- Récupération des suites ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function GetSuite(ByVal suiteName As String) As clsTestSuite
     ' Initialiser si ce n'est pas déjà fait
     If Not m_initialized Then Initialize
@@ -78,14 +101,22 @@ Public Function GetSuite(ByVal suiteName As String) As clsTestSuite
     End If
     
     On Error GoTo 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetAllSuites() As Collection
     ' Initialiser si ce n'est pas déjà fait
     If Not m_initialized Then Initialize
     
     Set GetAllSuites = m_testSuites
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetSuiteCount() As Long
     ' Initialiser si ce n'est pas déjà fait
@@ -95,6 +126,10 @@ Public Function GetSuiteCount() As Long
 End Function
 
 ' --- Découverte automatique ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub DiscoverTests()
     ' Initialiser si ce n'est pas déjà fait
     If Not m_initialized Then Initialize
@@ -118,7 +153,11 @@ Public Sub DiscoverTests()
     If Err.Number <> 0 Then
         LogMessage "Erreur lors de l'accès au projet VBA. Vérifiez que la sécurité du modèle d'objet est activée.", "error"
         Err.Clear
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     On Error GoTo 0
     
@@ -139,6 +178,10 @@ Public Sub DiscoverTests()
 End Sub
 
 ' --- Exécution des tests ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub RunAllDiscoveredTests(Optional ByVal outputReport As Boolean = True)
     ' Initialiser si ce n'est pas déjà fait
     If Not m_initialized Then Initialize
@@ -151,7 +194,11 @@ Public Sub RunAllDiscoveredTests(Optional ByVal outputReport As Boolean = True)
     ' Vérifier si des suites ont été trouvées
     If m_testSuites.Count = 0 Then
         LogMessage "Aucune suite de test trouvée. Impossible d'exécuter les tests.", "warning"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Obtenir le paramètre d'arrêt sur échec
@@ -167,6 +214,10 @@ Public Sub RunAllDiscoveredTests(Optional ByVal outputReport As Boolean = True)
 End Sub
 
 ' --- Création de suite ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function CreateSuite(ByVal suiteName As String) As clsTestSuite
     ' Initialiser si ce n'est pas déjà fait
     If Not m_initialized Then Initialize
@@ -190,6 +241,10 @@ Public Function CreateSuite(ByVal suiteName As String) As clsTestSuite
 End Function
 
 ' --- Fonctions utilitaires ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function ProcessTestModule(vbComp As Object) As Boolean
     Dim procKind As Long
     Dim procName As String
@@ -229,7 +284,11 @@ Private Function ProcessTestModule(vbComp As Object) As Boolean
     Next i
     
     ProcessTestModule = suiteCreated
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub InitializeDependencies()
     ' Initialiser le logger si disponible
@@ -243,7 +302,11 @@ Private Sub InitializeDependencies()
     
     Err.Clear
     On Error GoTo 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogMessage(message As String, logLevel As String)
     ' Écrire dans le journal si disponible

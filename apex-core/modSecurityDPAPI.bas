@@ -1,6 +1,13 @@
 ' Migrated to apex-core - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Module : modSecurityDPAPI
 ' Version : 1.0
@@ -11,42 +18,82 @@ Option Explicit
 ' --- API Windows pour le chiffrement DPAPI ---
 #If VBA7 Then
     ' Pour VBA 64 bits (Office 64 bits)
-    Private Declare PtrSafe Function CryptProtectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function CryptProtectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
         ByVal szDataDescr As LongPtr, pOptionalEntropy As DATA_BLOB, _
         ByVal pvReserved As LongPtr, pPromptStruct As Any, _
         ByVal dwFlags As Long, pDataOut As DATA_BLOB) As Long
     
-    Private Declare PtrSafe Function CryptUnprotectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function CryptUnprotectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
         ByVal ppszDataDescr As LongPtr, pOptionalEntropy As DATA_BLOB, _
         ByVal pvReserved As LongPtr, pPromptStruct As Any, _
         ByVal dwFlags As Long, pDataOut As DATA_BLOB) As Long
     
-    Private Declare PtrSafe Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" _
         (Destination As Any, Source As Any, ByVal Length As LongPtr)
     
-    Private Declare PtrSafe Function LocalAlloc Lib "kernel32" (ByVal uFlags As Long, _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function LocalAlloc Lib "kernel32" (ByVal uFlags As Long, _
         ByVal uBytes As LongPtr) As LongPtr
     
-    Private Declare PtrSafe Function LocalFree Lib "kernel32" (ByVal hMem As LongPtr) As LongPtr
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function LocalFree Lib "kernel32" (ByVal hMem As LongPtr) As LongPtr
 #Else
     ' Pour VBA 32 bits (Office 32 bits)
-    Private Declare Function CryptProtectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function CryptProtectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
         ByVal szDataDescr As Long, pOptionalEntropy As DATA_BLOB, _
         ByVal pvReserved As Long, pPromptStruct As Any, _
         ByVal dwFlags As Long, pDataOut As DATA_BLOB) As Long
     
-    Private Declare Function CryptUnprotectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function CryptUnprotectData Lib "crypt32.dll" (pDataIn As DATA_BLOB, _
         ByVal ppszDataDescr As Long, pOptionalEntropy As DATA_BLOB, _
         ByVal pvReserved As Long, pPromptStruct As Any, _
         ByVal dwFlags As Long, pDataOut As DATA_BLOB) As Long
     
-    Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" _
         (Destination As Any, Source As Any, ByVal Length As Long)
     
-    Private Declare Function LocalAlloc Lib "kernel32" (ByVal uFlags As Long, _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function LocalAlloc Lib "kernel32" (ByVal uFlags As Long, _
         ByVal uBytes As Long) As Long
     
-    Private Declare Function LocalFree Lib "kernel32" (ByVal hMem As Long) As Long
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function LocalFree Lib "kernel32" (ByVal hMem As Long) As Long
 #End If
 
 ' --- Constantes pour l'API DPAPI ---
@@ -71,6 +118,10 @@ Private m_Entropy As String ' Salt optionnel pour renforcer le chiffrement
 Private m_LastError As String ' Dernière erreur
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize(Optional ByVal logger As Object = Nothing, Optional ByVal entropy As String = "")
     ' Initialise le module avec un logger et une entropie optionnels
     Set m_Logger = logger
@@ -84,6 +135,10 @@ Public Sub Initialize(Optional ByVal logger As Object = Nothing, Optional ByVal 
 End Sub
 
 ' --- Fonctions publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function EncryptString(ByVal plainText As String) As Byte()
     ' Chiffre une chaîne en utilisant DPAPI
     ' Retourne un tableau de bytes chiffrés
@@ -130,14 +185,22 @@ Cleanup:
     LocalFree dataOut.pbData
     LocalFree dataIn.pbData
     If m_Entropy <> "" Then LocalFree dataEntropy.pbData
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du chiffrement: " & Err.Description
     LogError m_LastError
     EncryptString = vbNullString
     Resume Cleanup
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function DecryptString(ByVal encryptedBytes() As Byte) As String
     ' Déchiffre un tableau de bytes chiffrés avec DPAPI
@@ -183,14 +246,22 @@ Cleanup:
     LocalFree dataOut.pbData
     LocalFree dataIn.pbData
     If m_Entropy <> "" Then LocalFree dataEntropy.pbData
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du déchiffrement: " & Err.Description
     LogError m_LastError
     DecryptString = vbNullString
     Resume Cleanup
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function EncryptStringToBase64(ByVal plainText As String) As String
     ' Chiffre une chaîne et retourne le résultat encodé en Base64
@@ -204,7 +275,11 @@ Public Function EncryptStringToBase64(ByVal plainText As String) As String
     Else
         EncryptStringToBase64 = ""
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function DecryptStringFromBase64(ByVal base64Text As String) As String
     ' Déchiffre une chaîne préalablement chiffrée et encodée en Base64
@@ -217,7 +292,11 @@ Public Function DecryptStringFromBase64(ByVal base64Text As String) As String
     Else
         DecryptStringFromBase64 = ""
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Property Get LastError() As String
     ' Retourne la dernière erreur survenue
@@ -225,6 +304,10 @@ Public Property Get LastError() As String
 End Property
 
 ' --- Fonctions utilitaires privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function CreateBlob(ByRef bytes() As Byte) As DATA_BLOB
     ' Crée une structure DATA_BLOB à partir d'un tableau de bytes
     Dim blob As DATA_BLOB
@@ -234,14 +317,22 @@ Private Function CreateBlob(ByRef bytes() As Byte) As DATA_BLOB
     CopyMemory ByVal blob.pbData, bytes(LBound(bytes)), blob.cbData
     
     CreateBlob = blob
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function StringToBytes(ByVal text As String) As Byte()
     ' Convertit une chaîne en tableau de bytes
     Dim bytes() As Byte
     bytes = text
     StringToBytes = bytes
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function BytesToString(ByRef bytes() As Byte) As String
     ' Convertit un tableau de bytes en chaîne
@@ -249,7 +340,11 @@ Private Function BytesToString(ByRef bytes() As Byte) As String
     
     If IsArrayEmpty(bytes) Then
         BytesToString = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Convertir en chaîne en s'assurant que la longueur est correcte
@@ -257,7 +352,11 @@ Private Function BytesToString(ByRef bytes() As Byte) As String
     CopyMemory ByVal StrPtr(result), bytes(LBound(bytes)), Len(result)
     
     BytesToString = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function BytesToBase64(ByRef bytes() As Byte) As String
     ' Convertit un tableau de bytes en chaîne Base64
@@ -268,7 +367,11 @@ Private Function BytesToBase64(ByRef bytes() As Byte) As String
     
     If IsArrayEmpty(bytes) Then
         BytesToBase64 = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Utiliser XML pour l'encodage Base64
@@ -279,13 +382,21 @@ Private Function BytesToBase64(ByRef bytes() As Byte) As String
     xmlNode.nodeTypedValue = bytes
     BytesToBase64 = xmlNode.Text
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'encodage Base64: " & Err.Description
     LogError m_LastError
     BytesToBase64 = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function Base64ToBytes(ByVal base64Text As String) As Byte()
     ' Convertit une chaîne Base64 en tableau de bytes
@@ -299,7 +410,11 @@ Private Function Base64ToBytes(ByVal base64Text As String) As Byte()
         ReDim bytes(0 To 0)
         bytes(0) = 0
         Base64ToBytes = bytes
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Utiliser XML pour le décodage Base64
@@ -310,7 +425,11 @@ Private Function Base64ToBytes(ByVal base64Text As String) As Byte()
     xmlNode.Text = base64Text
     Base64ToBytes = xmlNode.nodeTypedValue
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du décodage Base64: " & Err.Description
@@ -318,14 +437,22 @@ ErrorHandler:
     ReDim bytes(0 To 0)
     bytes(0) = 0
     Base64ToBytes = bytes
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IsArrayEmpty(ByRef arr As Variant) As Boolean
     ' Vérifie si un tableau est vide ou non initialisé
     On Error Resume Next
     IsArrayEmpty = (UBound(arr) < LBound(arr))
     On Error GoTo 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub LogError(ByVal errorMessage As String)
     ' Log les erreurs si un logger est disponible

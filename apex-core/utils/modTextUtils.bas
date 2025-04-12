@@ -1,6 +1,13 @@
 ' Migrated to apex-core/utils - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Module : modTextUtils
 ' Version : 1.0
@@ -13,6 +20,10 @@ Private m_Logger As Object ' ILoggerBase
 Private m_LastError As String
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize(Optional ByVal logger As Object = Nothing)
     ' Initialise le module avec un logger optionnel
     Set m_Logger = logger
@@ -25,6 +36,10 @@ Public Sub Initialize(Optional ByVal logger As Object = Nothing)
 End Sub
 
 ' --- Fonctions de base sur les chaînes ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function IsNullOrEmpty(ByVal text As Variant) As Boolean
     ' Vérifie si une chaîne est nulle ou vide
     On Error GoTo ErrorHandler
@@ -38,13 +53,21 @@ Public Function IsNullOrEmpty(ByVal text As Variant) As Boolean
         IsNullOrEmpty = (Len(text) = 0)
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si la chaîne est nulle ou vide: " & Err.Description
     LogError m_LastError
     IsNullOrEmpty = True
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function IsNullOrWhiteSpace(ByVal text As Variant) As Boolean
     ' Vérifie si une chaîne est nulle, vide ou ne contient que des espaces
@@ -53,19 +76,31 @@ Public Function IsNullOrWhiteSpace(ByVal text As Variant) As Boolean
     ' Si la chaîne est nulle ou vide, retourner vrai
     If IsNullOrEmpty(text) Then
         IsNullOrWhiteSpace = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si la chaîne ne contient que des espaces
     IsNullOrWhiteSpace = (Len(Trim(text)) = 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si la chaîne est nulle, vide ou ne contient que des espaces: " & Err.Description
     LogError m_LastError
     IsNullOrWhiteSpace = True
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function IfNullOrEmpty(ByVal value As Variant, ByVal defaultValue As Variant) As Variant
     ' Retourne la valeur ou une valeur par défaut si elle est nulle ou vide
@@ -77,13 +112,21 @@ Public Function IfNullOrEmpty(ByVal value As Variant, ByVal defaultValue As Vari
         IfNullOrEmpty = value
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du remplacement d'une valeur nulle ou vide: " & Err.Description
     LogError m_LastError
     IfNullOrEmpty = defaultValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SafeLeft(ByVal text As String, ByVal length As Long) As String
     ' Version sécurisée de la fonction Left
@@ -91,31 +134,51 @@ Public Function SafeLeft(ByVal text As String, ByVal length As Long) As String
     
     If IsNullOrEmpty(text) Then
         SafeLeft = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la longueur demandée est négative, retourner une chaîne vide
     If length <= 0 Then
         SafeLeft = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la longueur demandée est supérieure à la longueur de la chaîne, retourner la chaîne entière
     If length >= Len(text) Then
         SafeLeft = text
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Sinon, utiliser la fonction Left standard
     SafeLeft = Left(text, length)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction de caractères à gauche: " & Err.Description
     LogError m_LastError
     SafeLeft = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SafeRight(ByVal text As String, ByVal length As Long) As String
     ' Version sécurisée de la fonction Right
@@ -123,31 +186,51 @@ Public Function SafeRight(ByVal text As String, ByVal length As Long) As String
     
     If IsNullOrEmpty(text) Then
         SafeRight = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la longueur demandée est négative, retourner une chaîne vide
     If length <= 0 Then
         SafeRight = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la longueur demandée est supérieure à la longueur de la chaîne, retourner la chaîne entière
     If length >= Len(text) Then
         SafeRight = text
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Sinon, utiliser la fonction Right standard
     SafeRight = Right(text, length)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction de caractères à droite: " & Err.Description
     LogError m_LastError
     SafeRight = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SafeMid(ByVal text As String, ByVal start As Long, Optional ByVal length As Long = -1) As String
     ' Version sécurisée de la fonction Mid
@@ -155,7 +238,11 @@ Public Function SafeMid(ByVal text As String, ByVal start As Long, Optional ByVa
     
     If IsNullOrEmpty(text) Then
         SafeMid = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la position de départ est négative ou nulle, la fixer à 1
@@ -166,7 +253,11 @@ Public Function SafeMid(ByVal text As String, ByVal start As Long, Optional ByVa
     ' Si la position de départ est au-delà de la longueur de la chaîne, retourner une chaîne vide
     If start > Len(text) Then
         SafeMid = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la longueur n'est pas spécifiée ou est négative, extraire jusqu'à la fin de la chaîne
@@ -177,7 +268,11 @@ Public Function SafeMid(ByVal text As String, ByVal start As Long, Optional ByVa
         SafeMid = Mid(text, start, length)
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction de caractères au milieu: " & Err.Description
@@ -186,6 +281,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions de manipulation de chaînes ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function RemoveAccents(ByVal text As String) As String
     ' Supprime les accents d'une chaîne
     Dim i As Long
@@ -196,7 +295,11 @@ Public Function RemoveAccents(ByVal text As String) As String
     
     If IsNullOrEmpty(text) Then
         RemoveAccents = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     result = ""
@@ -266,13 +369,21 @@ Public Function RemoveAccents(ByVal text As String) As String
     
     RemoveAccents = result
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la suppression des accents: " & Err.Description
     LogError m_LastError
     RemoveAccents = text
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function Contains(ByVal text As String, ByVal subString As String, _
                          Optional ByVal caseSensitive As Boolean = True) As Boolean
@@ -281,7 +392,11 @@ Public Function Contains(ByVal text As String, ByVal subString As String, _
     
     If IsNullOrEmpty(text) Or IsNullOrEmpty(subString) Then
         Contains = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si la chaîne contient la sous-chaîne
@@ -291,13 +406,21 @@ Public Function Contains(ByVal text As String, ByVal subString As String, _
         Contains = (InStr(1, text, subString, vbTextCompare) > 0)
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si la chaîne contient une sous-chaîne: " & Err.Description
     LogError m_LastError
     Contains = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function StartsWith(ByVal text As String, ByVal prefix As String, _
                            Optional ByVal caseSensitive As Boolean = True) As Boolean
@@ -306,18 +429,30 @@ Public Function StartsWith(ByVal text As String, ByVal prefix As String, _
     
     If IsNullOrEmpty(text) Then
         StartsWith = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If IsNullOrEmpty(prefix) Then
         StartsWith = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si le préfixe est plus long que la chaîne, retourner faux
     If Len(prefix) > Len(text) Then
         StartsWith = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si la chaîne commence par le préfixe
@@ -327,13 +462,21 @@ Public Function StartsWith(ByVal text As String, ByVal prefix As String, _
         StartsWith = (StrComp(Left(text, Len(prefix)), prefix, vbTextCompare) = 0)
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si la chaîne commence par un préfixe: " & Err.Description
     LogError m_LastError
     StartsWith = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function EndsWith(ByVal text As String, ByVal suffix As String, _
                          Optional ByVal caseSensitive As Boolean = True) As Boolean
@@ -342,18 +485,30 @@ Public Function EndsWith(ByVal text As String, ByVal suffix As String, _
     
     If IsNullOrEmpty(text) Then
         EndsWith = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If IsNullOrEmpty(suffix) Then
         EndsWith = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si le suffixe est plus long que la chaîne, retourner faux
     If Len(suffix) > Len(text) Then
         EndsWith = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si la chaîne se termine par le suffixe
@@ -363,13 +518,21 @@ Public Function EndsWith(ByVal text As String, ByVal suffix As String, _
         EndsWith = (StrComp(Right(text, Len(suffix)), suffix, vbTextCompare) = 0)
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si la chaîne se termine par un suffixe: " & Err.Description
     LogError m_LastError
     EndsWith = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function Truncate(ByVal text As String, ByVal maxLength As Long, _
                          Optional ByVal ellipsis As String = "...") As String
@@ -378,31 +541,51 @@ Public Function Truncate(ByVal text As String, ByVal maxLength As Long, _
     
     If IsNullOrEmpty(text) Then
         Truncate = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la chaîne est déjà plus courte que la longueur maximale, la retourner telle quelle
     If Len(text) <= maxLength Then
         Truncate = text
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la longueur maximale est trop petite pour l'ellipsis, tronquer sans ellipsis
     If maxLength <= Len(ellipsis) Then
         Truncate = Left(text, maxLength)
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Tronquer la chaîne avec ellipsis
     Truncate = Left(text, maxLength - Len(ellipsis)) & ellipsis
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la troncature de la chaîne: " & Err.Description
     LogError m_LastError
     Truncate = text
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function PadLeft(ByVal text As String, ByVal totalWidth As Long, _
                         Optional ByVal paddingChar As String = " ") As String
@@ -411,25 +594,41 @@ Public Function PadLeft(ByVal text As String, ByVal totalWidth As Long, _
     
     If IsNullOrEmpty(text) Then
         PadLeft = String(totalWidth, paddingChar)
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la chaîne est déjà plus longue que la largeur totale, la retourner telle quelle
     If Len(text) >= totalWidth Then
         PadLeft = text
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Compléter la chaîne à gauche
     PadLeft = String(totalWidth - Len(text), paddingChar) & text
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du remplissage à gauche de la chaîne: " & Err.Description
     LogError m_LastError
     PadLeft = text
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function PadRight(ByVal text As String, ByVal totalWidth As Long, _
                          Optional ByVal paddingChar As String = " ") As String
@@ -438,19 +637,31 @@ Public Function PadRight(ByVal text As String, ByVal totalWidth As Long, _
     
     If IsNullOrEmpty(text) Then
         PadRight = String(totalWidth, paddingChar)
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Si la chaîne est déjà plus longue que la largeur totale, la retourner telle quelle
     If Len(text) >= totalWidth Then
         PadRight = text
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Compléter la chaîne à droite
     PadRight = text & String(totalWidth - Len(text), paddingChar)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du remplissage à droite de la chaîne: " & Err.Description
@@ -459,6 +670,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions utilitaires avancées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function ExtractNumbers(ByVal text As String) As String
     ' Extrait tous les chiffres d'une chaîne
     Dim i As Long
@@ -469,7 +684,11 @@ Public Function ExtractNumbers(ByVal text As String) As String
     
     If IsNullOrEmpty(text) Then
         ExtractNumbers = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     result = ""
@@ -486,13 +705,21 @@ Public Function ExtractNumbers(ByVal text As String) As String
     
     ExtractNumbers = result
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction des chiffres: " & Err.Description
     LogError m_LastError
     ExtractNumbers = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ExtractLetters(ByVal text As String) As String
     ' Extrait toutes les lettres d'une chaîne
@@ -504,7 +731,11 @@ Public Function ExtractLetters(ByVal text As String) As String
     
     If IsNullOrEmpty(text) Then
         ExtractLetters = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     result = ""
@@ -521,13 +752,21 @@ Public Function ExtractLetters(ByVal text As String) As String
     
     ExtractLetters = result
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction des lettres: " & Err.Description
     LogError m_LastError
     ExtractLetters = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function IsNumeric2(ByVal text As String, Optional ByVal decimalSeparator As String = ",") As Boolean
     ' Version améliorée de la fonction IsNumeric
@@ -539,13 +778,21 @@ Public Function IsNumeric2(ByVal text As String, Optional ByVal decimalSeparator
     
     If IsNullOrEmpty(text) Then
         IsNumeric2 = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si la chaîne est vide après avoir supprimé les espaces
     If Len(Trim(text)) = 0 Then
         IsNumeric2 = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Gérer le signe +/-
@@ -567,26 +814,42 @@ Public Function IsNumeric2(ByVal text As String, Optional ByVal decimalSeparator
             ' Si on a déjà rencontré un séparateur, la chaîne n'est pas un nombre
             If hasSeparator Then
                 IsNumeric2 = False
-                Exit Function
+                Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
             End If
             
             hasSeparator = True
         ' Si ce n'est ni un chiffre ni un séparateur, la chaîne n'est pas un nombre
         Else
             IsNumeric2 = False
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     Next i
     
     IsNumeric2 = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si la chaîne est un nombre: " & Err.Description
     LogError m_LastError
     IsNumeric2 = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CountOccurrences(ByVal text As String, ByVal subString As String, _
                                 Optional ByVal caseSensitive As Boolean = True) As Long
@@ -599,7 +862,11 @@ Public Function CountOccurrences(ByVal text As String, ByVal subString As String
     
     If IsNullOrEmpty(text) Or IsNullOrEmpty(subString) Then
         CountOccurrences = 0
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Définir la méthode de comparaison
@@ -626,13 +893,21 @@ Public Function CountOccurrences(ByVal text As String, ByVal subString As String
     
     CountOccurrences = count
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du comptage des occurrences: " & Err.Description
     LogError m_LastError
     CountOccurrences = 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SplitToArray(ByVal text As String, ByVal delimiter As String, _
                             Optional ByVal caseSensitive As Boolean = True) As Variant
@@ -643,7 +918,11 @@ Public Function SplitToArray(ByVal text As String, ByVal delimiter As String, _
     
     If IsNullOrEmpty(text) Then
         SplitToArray = Array()
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Définir la méthode de comparaison
@@ -706,13 +985,21 @@ Public Function SplitToArray(ByVal text As String, ByVal delimiter As String, _
         End If
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du split de la chaîne: " & Err.Description
     LogError m_LastError
     SplitToArray = Array()
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function JoinArray(ByVal arr As Variant, ByVal delimiter As String) As String
     ' Join un tableau en chaîne
@@ -721,12 +1008,20 @@ Public Function JoinArray(ByVal arr As Variant, ByVal delimiter As String) As St
     ' Vérifier si le tableau est vide
     If Not IsArray(arr) Then
         JoinArray = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     JoinArray = Join(arr, delimiter)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du join du tableau: " & Err.Description
@@ -741,6 +1036,10 @@ Public Property Get LastError() As String
 End Property
 
 ' --- Fonctions privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub LogError(ByVal errorMessage As String)
     ' Log les erreurs si un logger est disponible
     If Not m_Logger Is Nothing Then

@@ -1,0 +1,26 @@
+{
+  "model": "gpt-4-turbo",
+  "context": "Tu gères la documentation complète du projet APEX VBA Framework. Ton rôle est de produire une documentation claire, structurée, facile à comprendre et adaptée aux utilisateurs finaux et développeurs du projet.",
+  "rules": {
+    "documentationGeneration": {
+      "enabled": true,
+      "formats": ["markdown", "html"],
+      "sectionsRequired": ["Introduction", "Installation", "QuickStart", "API Reference", "Examples", "Troubleshooting"],
+      "styleGuide": "concise",
+      "examplesIncluded": true
+    },
+    "logging": {
+      "enabled": true,
+      "logLevel": "summary",
+      "logDestination": "cursor_logs/docs.log",
+      "promptLogging": {
+        "enabled": true,
+        "logPath": ".cursor_logs/cursor_prompts.log",
+        "format": "jsonl",
+        "includeRunner": true,
+        "includeTimestamp": true,
+        "includeFile": true
+      }
+    }
+  }
+} 

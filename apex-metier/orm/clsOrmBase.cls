@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/orm - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsOrmBase
 ' Version : 2.0 - Phase 4 - Relations and Composite Keys
@@ -43,6 +50,10 @@ Private Sub Class_Initialize()
 End Sub
 
 ' --- Méthodes protégées à surcharger ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize(ByVal dbAccessor As clsDbAccessor, Optional ByVal tableName As String = "", Optional ByVal logger As ILoggerBase = Nothing)
     ' Initialiser les références et propriétés de base
     Set m_DbAccessor = dbAccessor
@@ -51,7 +62,11 @@ Public Sub Initialize(ByVal dbAccessor As clsDbAccessor, Optional ByVal tableNam
     If tableName <> "" Then m_TableName = tableName
     
     LogIfAble "Initialize", LogLevelDebug, "ORM initialisé pour table: " & m_TableName
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Property Let TableName(ByVal value As String)
     m_TableName = value
@@ -64,6 +79,10 @@ End Property
 Public Property Get PrimaryKeyColumns() As String()
     PrimaryKeyColumns = m_PrimaryKeyColumns
 End Property
+
+'@Description: 
+'@Param: 
+'@Returns: 
 
 Public Sub SetPrimaryKeys(ParamArray keyColumns() As Variant)
     Dim i As Long
@@ -107,6 +126,10 @@ Public Property Get LastError() As String
 End Property
 
 ' --- CRUD Operations ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function Load(ByVal id As Variant) As Boolean
     ' Cette méthode devrait être surchargée dans les classes dérivées
     ' Vérifier les préconditions
@@ -114,14 +137,22 @@ Public Function Load(ByVal id As Variant) As Boolean
         m_LastError = "Erreur: DbAccessor n'est pas initialisé"
         LogIfAble "Load", LogLevelError, m_LastError
         Load = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If m_TableName = "" Then
         m_LastError = "Erreur: Nom de table non défini"
         LogIfAble "Load", LogLevelError, m_LastError
         Load = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Pour les clés composites, cette méthode accepte un variant mais n'implémente que le cas simple
@@ -160,7 +191,11 @@ Public Function Load(ByVal id As Variant) As Boolean
     LogIfAble "Load", IIf(Load, LogLevelInfo, LogLevelWarning), _
               IIf(Load, "Chargé avec succès ID " & id, "Échec du chargement ID " & id & ": " & m_LastError)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 LoadError:
     m_LastError = "Erreur lors du chargement: " & Err.Description
@@ -174,7 +209,11 @@ LoadCleanup:
         Set rs = Nothing
     End If
     Set qb = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function LoadFromRecordset(rs As ADODB.Recordset) As Boolean
     ' Cette méthode doit être surchargée dans les classes dérivées
@@ -183,7 +222,11 @@ Public Function LoadFromRecordset(rs As ADODB.Recordset) As Boolean
     ' Implémentation de base
     LogIfAble "LoadFromRecordset", LogLevelWarning, "Méthode appelée sans être surchargée"
     LoadFromRecordset = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function Save() As Boolean
     ' Cette méthode devrait être surchargée dans les classes dérivées pour une implémentation complète
@@ -192,14 +235,22 @@ Public Function Save() As Boolean
         m_LastError = "Erreur: DbAccessor n'est pas initialisé"
         LogIfAble "Save", LogLevelError, m_LastError
         Save = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If m_TableName = "" Then
         m_LastError = "Erreur: Nom de table non défini"
         LogIfAble "Save", LogLevelError, m_LastError
         Save = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si l'objet est déjà chargé
@@ -216,7 +267,11 @@ Public Function Save() As Boolean
     LogIfAble "Save", IIf(Save, LogLevelInfo, LogLevelWarning), _
               IIf(Save, "Sauvegardé avec succès", "Échec de la sauvegarde: " & m_LastError)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 SaveError:
     m_LastError = "Erreur lors de la sauvegarde: " & Err.Description
@@ -226,6 +281,10 @@ SaveError:
 End Function
 
 ' --- Nouvelles méthodes pour le support des clés primaires (Phase 4) ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function GetPrimaryKeyValue() As Variant
     ' Retourne la valeur de la clé primaire simple
     ' Cette méthode doit être surchargée pour les clés composites
@@ -235,7 +294,11 @@ Public Function GetPrimaryKeyValue() As Variant
     Else
         GetPrimaryKeyValue = Null
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetPrimaryKeyValues() As Variant()
     ' Retourne les valeurs de la clé primaire composite
@@ -252,6 +315,10 @@ Public Function GetPrimaryKeyValues() As Variant()
 End Function
 
 ' --- Gestion des relations ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function AddRelation(ByVal relationMetadata As IRelationMetadata) As Boolean
     Dim relationName As String
     relationName = relationMetadata.RelationName
@@ -280,7 +347,11 @@ Public Function AddRelation(ByVal relationMetadata As IRelationMetadata) As Bool
               RelationTypeToString(relationMetadata.RelationType) & ") -> " & relationMetadata.TargetEntity
     
     AddRelation = True
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function RelationTypeToString(ByVal relationType As RelationTypeEnum) As String
     Select Case relationType
@@ -293,6 +364,10 @@ Private Function RelationTypeToString(ByVal relationType As RelationTypeEnum) As
 End Function
 
 ' --- IRelationalObject Implementation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IRelationalObject_GetRelatedObjects(ByVal relationName As String) As Collection
     Dim result As New Collection
     
@@ -300,7 +375,11 @@ Private Function IRelationalObject_GetRelatedObjects(ByVal relationName As Strin
     If Not m_Relations.Exists(relationName) Then
         LogIfAble "GetRelatedObjects", LogLevelWarning, "Relation non trouvée: " & relationName
         Set IRelationalObject_GetRelatedObjects = result
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si des objets sont déjà chargés
@@ -320,7 +399,11 @@ Private Function IRelationalObject_GetRelatedObjects(ByVal relationName As Strin
     End If
     
     Set IRelationalObject_GetRelatedObjects = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IRelationalObject_GetRelatedObject(ByVal relationName As String, Optional ByVal relatedId As Variant) As Object
     Set IRelationalObject_GetRelatedObject = Nothing
@@ -328,7 +411,11 @@ Private Function IRelationalObject_GetRelatedObject(ByVal relationName As String
     ' Vérifier si la relation existe
     If Not m_Relations.Exists(relationName) Then
         LogIfAble "GetRelatedObject", LogLevelWarning, "Relation non trouvée: " & relationName
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si des objets sont déjà chargés
@@ -346,10 +433,18 @@ Private Function IRelationalObject_GetRelatedObject(ByVal relationName As String
             If m_RelatedObjects.Exists(relationName) Then
                 Set objects = m_RelatedObjects(relationName)
             Else
-                Exit Function
+                Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
             End If
         Else
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     End If
     
@@ -361,7 +456,11 @@ Private Function IRelationalObject_GetRelatedObject(ByVal relationName As String
             On Error Resume Next
             If obj.GetPrimaryKeyValue = relatedId Then
                 Set IRelationalObject_GetRelatedObject = obj
-                Exit Function
+                Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
             End If
             On Error GoTo 0
         Next obj
@@ -369,14 +468,22 @@ Private Function IRelationalObject_GetRelatedObject(ByVal relationName As String
         ' Sinon retourner le premier objet
         Set IRelationalObject_GetRelatedObject = objects(1)
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IRelationalObject_AddRelatedObject(ByVal relationName As String, ByVal relatedObject As Object) As Boolean
     ' Vérifier si la relation existe
     If Not m_Relations.Exists(relationName) Then
         LogIfAble "AddRelatedObject", LogLevelWarning, "Relation non trouvée: " & relationName
         IRelationalObject_AddRelatedObject = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Initialiser la collection si nécessaire
@@ -397,14 +504,22 @@ Private Function IRelationalObject_AddRelatedObject(ByVal relationName As String
         m_IsDirty = True
     End If
     On Error GoTo 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IRelationalObject_RemoveRelatedObject(ByVal relationName As String, ByVal relatedObject As Object) As Boolean
     ' Vérifier si la relation existe
     If Not m_Relations.Exists(relationName) Or Not m_RelatedObjects.Exists(relationName) Then
         LogIfAble "RemoveRelatedObject", LogLevelWarning, "Relation non trouvée: " & relationName
         IRelationalObject_RemoveRelatedObject = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Trouver et supprimer l'objet
@@ -439,13 +554,21 @@ Private Function IRelationalObject_RemoveRelatedObject(ByVal relationName As Str
         IRelationalObject_RemoveRelatedObject = False
         LogIfAble "RemoveRelatedObject", LogLevelWarning, "Objet non trouvé dans la relation"
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IRelationalObject_HasRelatedObjects(ByVal relationName As String) As Boolean
     ' Vérifier si la relation existe et contient des objets
     If Not m_Relations.Exists(relationName) Then
         IRelationalObject_HasRelatedObjects = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If m_RelatedObjects.Exists(relationName) Then
@@ -456,6 +579,10 @@ Private Function IRelationalObject_HasRelatedObjects(ByVal relationName As Strin
 End Function
 
 ' --- Chargement et sauvegarde en cascade ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IRelationalObject_LoadWithRelations(Optional ByVal depth As Integer = 1) As Boolean
     ' Cette méthode doit d'abord charger l'objet lui-même
     ' puis charger ses relations jusqu'à la profondeur spécifiée
@@ -465,7 +592,11 @@ Private Function IRelationalObject_LoadWithRelations(Optional ByVal depth As Int
     
     ' Pour l'instant simple validation - la classe dérivée doit implémenter sa propre logique
     IRelationalObject_LoadWithRelations = (m_IsLoaded Or depth <= 0)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IRelationalObject_SaveWithRelations(Optional ByVal cascadingMode As Integer = 1) As Boolean
     ' Cette méthode doit d'abord sauvegarder l'objet lui-même
@@ -477,6 +608,10 @@ Private Function IRelationalObject_SaveWithRelations(Optional ByVal cascadingMod
 End Function
 
 ' --- Méthode pour chargement différé des relations ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function LoadRelatedObjects(ByVal relationName As String) As Boolean
     ' Cette méthode devrait être surchargée dans les classes dérivées
     ' Elle doit charger les objets liés à la relation spécifiée
@@ -486,13 +621,25 @@ Private Function LoadRelatedObjects(ByVal relationName As String) As Boolean
 End Function
 
 ' --- Utilitaires ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub LogIfAble(ByVal method As String, ByVal level As LogLevelEnum, ByVal message As String)
-    If m_Logger Is Nothing Then Exit Sub
+    If m_Logger Is Nothing Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     On Error Resume Next
     m_Logger.LogMessage message, level, ORM_TAG, TypeName(Me) & "." & method
     On Error GoTo 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub Class_Terminate()
     ' Nettoyage des collections et références

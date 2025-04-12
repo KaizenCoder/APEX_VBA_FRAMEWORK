@@ -1,0 +1,92 @@
+{
+    "vba_patterns": {
+        "module_header": [
+            "@Module",
+            "@Folder",
+            "@Description",
+            "@Version",
+            "@Date",
+            "@Author",
+            "@Dependencies"
+        ],
+        "method_header": [
+            "@Description",
+            "@Param",
+            "@Returns"
+        ],
+        "class_prefixes": ["cls"],
+        "module_prefixes": ["mod"],
+        "form_prefixes": ["frm"]
+    },
+    "markdown_patterns": {
+        "required_sections": {
+            "guide": [
+                "Objectif",
+                "Prérequis",
+                "Utilisation",
+                "Exemples"
+            ],
+            "api": [
+                "Description",
+                "Interface",
+                "Méthodes",
+                "Exemples d'utilisation"
+            ],
+            "component": [
+                "Vue d'ensemble",
+                "Architecture",
+                "Dépendances",
+                "Configuration",
+                "Utilisation"
+            ]
+        },
+        "document_types": {
+            "guide": ["GUIDE", "HOW_TO", "TUTORIAL"],
+            "api": ["API", "REFERENCE"],
+            "component": ["COMPONENT", "MODULE", "SERVICE"]
+        }
+    },
+    "file_patterns": {
+        "vba": [".cls", ".bas", ".frm"],
+        "markdown": [".md"],
+        "config": [".json", ".ini"]
+    },
+    "naming_conventions": {
+        "class": "^cls[A-Z][a-zA-Z]+$",
+        "module": "^mod[A-Z][a-zA-Z]+$",
+        "form": "^frm[A-Z][a-zA-Z]+$",
+        "interface": "^I[A-Z][a-zA-Z]+$",
+        "method": "^[A-Z][a-zA-Z0-9_]+$",
+        "variable": {
+            "local": "^[a-z][a-zA-Z0-9_]+$",
+            "module": "^m_[a-z][a-zA-Z0-9_]+$",
+            "constant": "^[A-Z_]+$"
+        }
+    },
+    "folder_structure": {
+        "apex-core": [
+            "utils",
+            "interfaces",
+            "implementations"
+        ],
+        "apex-metier": [
+            "database",
+            "xml",
+            "outlook",
+            "recette"
+        ],
+        "apex-ui": [
+            "forms",
+            "ribbon",
+            "handlers"
+        ],
+        "docs": [
+            "Components",
+            "Guidelines"
+        ]
+    },
+    "documentation_reminders": {
+        "days_before_warning": 90,
+        "days_before_error": 180
+    }
+}

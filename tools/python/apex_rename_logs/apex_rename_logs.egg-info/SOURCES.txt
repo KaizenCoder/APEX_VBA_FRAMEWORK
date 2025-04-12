@@ -1,0 +1,9 @@
+README.md
+rename_logs.py
+setup.py
+apex_rename_logs.egg-info/PKG-INFO
+apex_rename_logs.egg-info/SOURCES.txt
+apex_rename_logs.egg-info/dependency_links.txt
+apex_rename_logs.egg-info/entry_points.txt
+apex_rename_logs.egg-info/not-zip-safe
+apex_rename_logs.egg-info/top_level.txt

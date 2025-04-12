@@ -1,0 +1,19 @@
+{
+    "project": {
+        "name": "APEX_VBA_FRAMEWORK",
+        "type": "vba",
+        "root": "src"
+    },
+    "vba": {
+        "modules": {
+            "path": "src/Modules",
+            "test_path": "src/Tests"
+        },
+        "debug": {
+            "enabled": true,
+            "watch_paths": [
+                "src/Modules/split"
+            ]
+        }
+    }
+}

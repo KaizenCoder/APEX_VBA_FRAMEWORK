@@ -1,59 +1,110 @@
-' Migrated to apex-core/interfaces - 2025-04-09
-' Part of the APEX Framework v1.1 architecture refactoring
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "ILoggerBase"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'@Interface
+'@Folder("APEX.Core.Interfaces.Logging")
 Option Explicit
 
 ' ==========================================================================
-' Interface : ILoggerBase
-' Version : 3.0
-' Purpose : Defines the standard contract for logger implementations.
+' Interface  : ILoggerBase
+' Purpose   : Interface de base pour tous les loggers du framework APEX
+' Author    : APEX Framework Team
+' Date      : 2024-04-11
 ' ==========================================================================
 
-' --- Initialization & Configuration ---
-Public Sub Initialize(Optional ByVal minLevel As LogLevelEnum = LogLevelInfo, Optional ByVal logSheetName As String = "Logs", Optional ByVal logFileNamePattern As String = "{WorkbookName}\_{Date}.log", Optional ByVal maxLogFileSizeKB As Long = 5120, Optional ByVal targetWorkbook As Workbook = Nothing, Optional ByVal enabledCategories As String = "\*", Optional ByVal disabledCategories As String = "", Optional ByVal bufferSize As Long = 1, Optional ByVal crashLogBufferSize As Long = 10)
-Err.Raise vbObjectError + 1001, "ILoggerBase", "Initialize method not implemented."
-End Sub
-Public Sub SetLogger(ByVal loggerInstance As ILoggerBase) ' Usually NOOP for logger itself
-Err.Raise vbObjectError + 1001, "ILoggerBase", "SetLogger method not implemented."
+'@Description("Niveaux de log standards")
+Public Enum LogLevel
+    LogDebug = 0     ' Messages de débogage détaillés
+    LogInfo = 1      ' Informations générales sur le fonctionnement
+    LogWarning = 2   ' Avertissements non critiques
+    LogError = 3     ' Erreurs récupérables
+    LogCritical = 4  ' Erreurs critiques nécessitant une attention immédiate
+End Enum
+
+'@Description("Enregistre un message avec un niveau et une catégorie spécifiés")
+'@Description: 
+'@Param: 
+'@Returns: 
+
+Public Sub Log(ByVal level As LogLevel, ByVal message As String, Optional ByVal category As String = "")
 End Sub
 
-' --- Logging Methods ---
-Public Sub LogMessage(ByVal msg As String, Optional ByVal level As LogLevelEnum = LogLevelInfo, Optional ByVal category As String = "", Optional ByVal source As String = "", Optional ByVal user As String = "", Optional ByVal toConsole As Boolean = True, Optional ByVal toSheet As Boolean = False, Optional ByVal toFile As Boolean = True)
-Err.Raise vbObjectError + 1001, "ILoggerBase", "LogMessage method not implemented."
-End Sub
-Public Sub LogConsole(ByVal msg As String, Optional ByVal level As LogLevelEnum = LogLevelInfo, Optional ByVal category As String = "", Optional ByVal source As String = "", Optional ByVal user As String = "")
-Err.Raise vbObjectError + 1001, "ILoggerBase", "LogConsole method not implemented."
-End Sub
-Public Sub LogSheet(ByVal msg As String, Optional ByVal level As LogLevelEnum = LogLevelInfo, Optional ByVal category As String = "", Optional ByVal source As String = "", Optional ByVal user As String = "")
-Err.Raise vbObjectError + 1001, "ILoggerBase", "LogSheet method not implemented."
-End Sub
-Public Sub LogFile(ByVal msg As String, Optional ByVal level As LogLevelEnum = LogLevelInfo, Optional ByVal category As String = "", Optional ByVal source As String = "", Optional ByVal user As String = "")
-Err.Raise vbObjectError + 1001, "ILoggerBase", "LogFile method not implemented."
-End Sub
-Public Sub LogError(ByVal errObject As ErrObject, Optional ByVal level As LogLevelEnum = LogLevelError, Optional ByVal sourceRoutine As String = "", Optional ByVal category As String = "ERROR", Optional ByVal user As String = "", Optional ByVal toConsole As Boolean = True, Optional ByVal toSheet As Boolean = True, Optional ByVal toFile As Boolean = True)
-Err.Raise vbObjectError + 1001, "ILoggerBase", "LogError method not implemented."
+'@Description("Enregistre un message de niveau Debug")
+'@Description: 
+'@Param: 
+'@Returns: 
+
+Public Sub LogDebug(ByVal message As String, Optional ByVal category As String = "")
 End Sub
 
-' --- Control Methods ---
-Public Sub FlushLogs()
-Err.Raise vbObjectError + 1001, "ILoggerBase", "FlushLogs method not implemented."
-End Sub
-Public Sub GenerateCrashReport(Optional ByVal crashFilePath As String = "")
-Err.Raise vbObjectError + 1001, "ILoggerBase", "GenerateCrashReport method not implemented."
+'@Description("Enregistre un message de niveau Info")
+'@Description: 
+'@Param: 
+'@Returns: 
+
+Public Sub LogInfo(ByVal message As String, Optional ByVal category As String = "")
 End Sub
 
-' --- Read-only Properties ---
-Public Property Get MinLogLevel() As LogLevelEnum
-Err.Raise vbObjectError + 1001, "ILoggerBase", "MinLogLevel property not implemented."
-End Property
-Public Property Get IsInitialized() As Boolean
-Err.Raise vbObjectError + 1001, "ILoggerBase", "IsInitialized property not implemented."
-End Property
+'@Description("Enregistre un message de niveau Warning")
+'@Description: 
+'@Param: 
+'@Returns: 
 
-' --- Log Level Enum (Defined here for interface context) ---
-Public Enum LogLevelEnum
-LogLevelDebug = 10
-LogLevelInfo = 20
-LogLevelWarning = 30
-LogLevelError = 40
-LogLevelFatal = 50
-End Enum 
+Public Sub LogWarning(ByVal message As String, Optional ByVal category As String = "")
+End Sub
+
+'@Description("Enregistre un message de niveau Error")
+'@Description: 
+'@Param: 
+'@Returns: 
+
+Public Sub LogError(ByVal message As String, Optional ByVal category As String = "")
+End Sub
+
+'@Description("Enregistre un message de niveau Critical")
+'@Description: 
+'@Param: 
+'@Returns: 
+
+Public Sub LogCritical(ByVal message As String, Optional ByVal category As String = "")
+End Sub
+
+'@Description("Configure le logger avec des options spécifiques")
+'@Param options Un dictionnaire contenant les options de configuration
+' Options possibles :
+' - "minimumLevel" : LogLevel - Niveau minimum des messages à logger
+' - "includeTimestamp" : Boolean - Inclure l'horodatage dans les messages
+' - "includeCategory" : Boolean - Inclure la catégorie dans les messages
+' - "format" : String - Format personnalisé des messages
+' - "outputPath" : String - Chemin de sortie pour les loggers de fichier
+' - "maxSize" : Long - Taille maximale du fichier/buffer de log
+' - "rotateCount" : Long - Nombre de fichiers de rotation à conserver
+'@Description: 
+'@Param: 
+'@Returns: 
+
+Public Sub Configure(ByVal options As Variant)
+End Sub
+
+'@Description("Vide le buffer de logs si applicable")
+'@Remarks Cette méthode doit être appelée pour s'assurer que tous les logs sont écrits,
+' particulièrement important pour les loggers avec buffer ou les loggers de fichier
+'@Description: 
+'@Param: 
+'@Returns: 
+
+Public Sub Flush()
+End Sub 

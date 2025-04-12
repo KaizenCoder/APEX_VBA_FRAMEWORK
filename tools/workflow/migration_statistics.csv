@@ -1,0 +1,8 @@
+Métrique,Valeur
+Temps total (s),0.07
+Temps moyen par fichier (s),0.00
+Fichiers traités,1
+Fichiers en erreur,0
+""
+Fichier,Temps de traitement (s),Statut
+2024_04_11_pipeline_validation.md,0.00,Succès

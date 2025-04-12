@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/xml - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsXmlNode
 ' Version : 1.0
@@ -17,7 +24,11 @@ Private m_LastError As String
 Private Sub Class_Initialize()
     m_LastError = ""
     Set m_Node = Nothing
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub Class_Terminate()
     Set m_Node = Nothing
@@ -171,6 +182,10 @@ ErrorHandler:
 End Property
 
 ' --- Méthodes publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function GetChildNodes() As Collection
     ' Retourne une collection de tous les nœuds enfants
     Dim result As Collection
@@ -185,7 +200,11 @@ Public Function GetChildNodes() As Collection
         m_LastError = "Aucun nœud défini pour obtenir les enfants"
         LogError m_LastError
         Set GetChildNodes = result
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Parcourir tous les nœuds enfants
@@ -200,13 +219,21 @@ Public Function GetChildNodes() As Collection
     
     Set GetChildNodes = result
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'obtention des nœuds enfants: " & Err.Description
     LogError m_LastError
     Set GetChildNodes = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetChildNodeByName(ByVal nodeName As String) As clsXmlNode
     ' Retourne le premier nœud enfant avec le nom spécifié
@@ -218,7 +245,11 @@ Public Function GetChildNodeByName(ByVal nodeName As String) As clsXmlNode
         m_LastError = "Aucun nœud défini pour obtenir l'enfant"
         LogError m_LastError
         Set GetChildNodeByName = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Rechercher l'enfant par nom
@@ -229,20 +260,32 @@ Public Function GetChildNodeByName(ByVal nodeName As String) As clsXmlNode
             If Not m_Logger Is Nothing Then
                 Set GetChildNodeByName.Logger = m_Logger
             End If
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     Next childNode
     
     ' Aucun enfant trouvé avec ce nom
     Set GetChildNodeByName = Nothing
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la recherche de l'enfant par nom: " & Err.Description
     LogError m_LastError
     Set GetChildNodeByName = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetAttribute(ByVal attributeName As String) As String
     ' Obtient la valeur d'un attribut
@@ -250,13 +293,21 @@ Public Function GetAttribute(ByVal attributeName As String) As String
     
     If m_Node Is Nothing Then
         GetAttribute = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier que c'est un élément
     If m_Node.nodeType <> 1 Then ' NODE_ELEMENT
         GetAttribute = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Obtenir l'attribut
@@ -266,13 +317,21 @@ Public Function GetAttribute(ByVal attributeName As String) As String
         GetAttribute = ""
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'obtention de l'attribut: " & Err.Description
     LogError m_LastError
     GetAttribute = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SetAttribute(ByVal attributeName As String, ByVal attributeValue As String) As Boolean
     ' Définit la valeur d'un attribut
@@ -282,7 +341,11 @@ Public Function SetAttribute(ByVal attributeName As String, ByVal attributeValue
         m_LastError = "Aucun nœud défini pour définir l'attribut"
         LogError m_LastError
         SetAttribute = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier que c'est un élément
@@ -290,20 +353,32 @@ Public Function SetAttribute(ByVal attributeName As String, ByVal attributeValue
         m_LastError = "Le nœud n'est pas un élément, impossible de définir un attribut"
         LogError m_LastError
         SetAttribute = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Définir l'attribut
     m_Node.setAttribute attributeName, attributeValue
     SetAttribute = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la définition de l'attribut: " & Err.Description
     LogError m_LastError
     SetAttribute = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function RemoveAttribute(ByVal attributeName As String) As Boolean
     ' Supprime un attribut
@@ -313,7 +388,11 @@ Public Function RemoveAttribute(ByVal attributeName As String) As Boolean
         m_LastError = "Aucun nœud défini pour supprimer l'attribut"
         LogError m_LastError
         RemoveAttribute = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier que c'est un élément
@@ -321,27 +400,43 @@ Public Function RemoveAttribute(ByVal attributeName As String) As Boolean
         m_LastError = "Le nœud n'est pas un élément, impossible de supprimer un attribut"
         LogError m_LastError
         RemoveAttribute = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si l'attribut existe
     If Not m_Node.hasAttribute(attributeName) Then
         ' L'attribut n'existe pas, considérer comme réussi
         RemoveAttribute = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Supprimer l'attribut
     m_Node.removeAttribute attributeName
     RemoveAttribute = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la suppression de l'attribut: " & Err.Description
     LogError m_LastError
     RemoveAttribute = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function HasAttribute(ByVal attributeName As String) As Boolean
     ' Vérifie si un attribut existe
@@ -349,25 +444,41 @@ Public Function HasAttribute(ByVal attributeName As String) As Boolean
     
     If m_Node Is Nothing Then
         HasAttribute = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier que c'est un élément
     If m_Node.nodeType <> 1 Then ' NODE_ELEMENT
         HasAttribute = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier l'attribut
     HasAttribute = m_Node.hasAttribute(attributeName)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification de l'attribut: " & Err.Description
     LogError m_LastError
     HasAttribute = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function AppendChild(ByVal childNode As clsXmlNode) As Boolean
     ' Ajoute un nœud enfant
@@ -377,34 +488,54 @@ Public Function AppendChild(ByVal childNode As clsXmlNode) As Boolean
         m_LastError = "Aucun nœud parent défini pour ajouter un enfant"
         LogError m_LastError
         AppendChild = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If childNode Is Nothing Then
         m_LastError = "Aucun nœud enfant fourni à ajouter"
         LogError m_LastError
         AppendChild = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If childNode.Node Is Nothing Then
         m_LastError = "Le nœud enfant fourni ne contient pas de nœud XML"
         LogError m_LastError
         AppendChild = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Ajouter l'enfant
     m_Node.appendChild childNode.Node
     AppendChild = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'ajout d'un nœud enfant: " & Err.Description
     LogError m_LastError
     AppendChild = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function RemoveChild(ByVal childNode As clsXmlNode) As Boolean
     ' Supprime un nœud enfant
@@ -414,34 +545,54 @@ Public Function RemoveChild(ByVal childNode As clsXmlNode) As Boolean
         m_LastError = "Aucun nœud parent défini pour supprimer un enfant"
         LogError m_LastError
         RemoveChild = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If childNode Is Nothing Then
         m_LastError = "Aucun nœud enfant fourni à supprimer"
         LogError m_LastError
         RemoveChild = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If childNode.Node Is Nothing Then
         m_LastError = "Le nœud enfant fourni ne contient pas de nœud XML"
         LogError m_LastError
         RemoveChild = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Supprimer l'enfant
     m_Node.removeChild childNode.Node
     RemoveChild = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la suppression d'un nœud enfant: " & Err.Description
     LogError m_LastError
     RemoveChild = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CloneNode(Optional ByVal deep As Boolean = True) As clsXmlNode
     ' Clone le nœud
@@ -451,7 +602,11 @@ Public Function CloneNode(Optional ByVal deep As Boolean = True) As clsXmlNode
         m_LastError = "Aucun nœud défini à cloner"
         LogError m_LastError
         Set CloneNode = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Cloner le nœud
@@ -465,13 +620,21 @@ Public Function CloneNode(Optional ByVal deep As Boolean = True) As clsXmlNode
         Set CloneNode.Logger = m_Logger
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du clonage d'un nœud: " & Err.Description
     LogError m_LastError
     Set CloneNode = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SelectSingleNode(ByVal xPath As String) As clsXmlNode
     ' Sélectionne un nœud via XPath
@@ -481,7 +644,11 @@ Public Function SelectSingleNode(ByVal xPath As String) As clsXmlNode
         m_LastError = "Aucun nœud défini pour sélectionner un nœud"
         LogError m_LastError
         Set SelectSingleNode = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Sélectionner le nœud
@@ -490,7 +657,11 @@ Public Function SelectSingleNode(ByVal xPath As String) As clsXmlNode
     
     If selectedNode Is Nothing Then
         Set SelectSingleNode = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Créer un nouvel objet clsXmlNode pour le nœud sélectionné
@@ -500,13 +671,21 @@ Public Function SelectSingleNode(ByVal xPath As String) As clsXmlNode
         Set SelectSingleNode.Logger = m_Logger
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la sélection d'un nœud par XPath: " & Err.Description
     LogError m_LastError
     Set SelectSingleNode = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SelectNodes(ByVal xPath As String) As Collection
     ' Sélectionne plusieurs nœuds via XPath
@@ -523,7 +702,11 @@ Public Function SelectNodes(ByVal xPath As String) As Collection
         m_LastError = "Aucun nœud défini pour sélectionner des nœuds"
         LogError m_LastError
         Set SelectNodes = result
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Sélectionner les nœuds
@@ -531,7 +714,11 @@ Public Function SelectNodes(ByVal xPath As String) As Collection
     
     If nodeList Is Nothing Then
         Set SelectNodes = result
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Parcourir tous les nœuds sélectionnés
@@ -546,13 +733,21 @@ Public Function SelectNodes(ByVal xPath As String) As Collection
     
     Set SelectNodes = result
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la sélection de nœuds par XPath: " & Err.Description
     LogError m_LastError
     Set SelectNodes = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ToXmlString() As String
     ' Convertit le nœud en chaîne XML
@@ -562,12 +757,20 @@ Public Function ToXmlString() As String
         m_LastError = "Aucun nœud défini pour la conversion en chaîne"
         LogError m_LastError
         ToXmlString = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ToXmlString = m_Node.xml
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la conversion en chaîne XML: " & Err.Description
@@ -576,6 +779,10 @@ ErrorHandler:
 End Function
 
 ' --- Méthodes privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub LogError(ByVal errorMessage As String)
     ' Log les erreurs si un logger est disponible
     If Not m_Logger Is Nothing Then

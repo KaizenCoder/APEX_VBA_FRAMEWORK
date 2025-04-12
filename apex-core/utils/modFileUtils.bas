@@ -1,6 +1,13 @@
 ' Migrated to apex-core/utils - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Module : modFileUtils
 ' Version : 1.0
@@ -10,30 +17,62 @@ Option Explicit
 
 ' --- API Windows pour la gestion des fichiers ---
 #If VBA7 Then
-    Private Declare PtrSafe Function GetTempPath Lib "kernel32" Alias "GetTempPathA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetTempPath Lib "kernel32" Alias "GetTempPathA" _
         (ByVal nBufferLength As Long, ByVal lpBuffer As String) As Long
     
-    Private Declare PtrSafe Function GetTempFileName Lib "kernel32" Alias "GetTempFileNameA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetTempFileName Lib "kernel32" Alias "GetTempFileNameA" _
         (ByVal lpszPath As String, ByVal lpPrefixString As String, _
         ByVal wUnique As Long, ByVal lpTempFileName As String) As Long
     
-    Private Declare PtrSafe Function GetFileAttributes Lib "kernel32" Alias "GetFileAttributesA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetFileAttributes Lib "kernel32" Alias "GetFileAttributesA" _
         (ByVal lpFileName As String) As Long
         
-    Private Declare PtrSafe Function SetFileAttributes Lib "kernel32" Alias "SetFileAttributesA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function SetFileAttributes Lib "kernel32" Alias "SetFileAttributesA" _
         (ByVal lpFileName As String, ByVal dwFileAttributes As Long) As Long
 #Else
-    Private Declare Function GetTempPath Lib "kernel32" Alias "GetTempPathA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetTempPath Lib "kernel32" Alias "GetTempPathA" _
         (ByVal nBufferLength As Long, ByVal lpBuffer As String) As Long
     
-    Private Declare Function GetTempFileName Lib "kernel32" Alias "GetTempFileNameA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetTempFileName Lib "kernel32" Alias "GetTempFileNameA" _
         (ByVal lpszPath As String, ByVal lpPrefixString As String, _
         ByVal wUnique As Long, ByVal lpTempFileName As String) As Long
     
-    Private Declare Function GetFileAttributes Lib "kernel32" Alias "GetFileAttributesA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetFileAttributes Lib "kernel32" Alias "GetFileAttributesA" _
         (ByVal lpFileName As String) As Long
         
-    Private Declare Function SetFileAttributes Lib "kernel32" Alias "SetFileAttributesA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function SetFileAttributes Lib "kernel32" Alias "SetFileAttributesA" _
         (ByVal lpFileName As String, ByVal dwFileAttributes As Long) As Long
 #End If
 
@@ -52,6 +91,10 @@ Private m_Logger As Object ' ILoggerBase
 Private m_LastError As String
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize(Optional ByVal logger As Object = Nothing)
     ' Initialise le module avec un logger optionnel
     Set m_Logger = logger
@@ -64,6 +107,10 @@ Public Sub Initialize(Optional ByVal logger As Object = Nothing)
 End Sub
 
 ' --- Fonctions publiques pour la vérification d'existence ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function FileExists(ByVal filePath As String) As Boolean
     ' Vérifie si un fichier existe
     On Error GoTo ErrorHandler
@@ -71,13 +118,21 @@ Public Function FileExists(ByVal filePath As String) As Boolean
     ' Utilisation de Dir pour vérifier l'existence du fichier
     FileExists = (Dir(filePath, vbNormal) <> "")
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification de l'existence du fichier: " & Err.Description
     LogError m_LastError
     FileExists = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function DirectoryExists(ByVal folderPath As String) As Boolean
     ' Vérifie si un répertoire existe
@@ -91,13 +146,21 @@ Public Function DirectoryExists(ByVal folderPath As String) As Boolean
     ' Utilisation de Dir pour vérifier l'existence du répertoire
     DirectoryExists = (Dir(folderPath, vbDirectory) <> "")
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification de l'existence du répertoire: " & Err.Description
     LogError m_LastError
     DirectoryExists = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function IsDirectory(ByVal path As String) As Boolean
     ' Vérifie si le chemin est un répertoire
@@ -115,13 +178,21 @@ Public Function IsDirectory(ByVal path As String) As Boolean
         IsDirectory = False
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si le chemin est un répertoire: " & Err.Description
     LogError m_LastError
     IsDirectory = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function IsReadOnly(ByVal filePath As String) As Boolean
     ' Vérifie si un fichier est en lecture seule
@@ -139,7 +210,11 @@ Public Function IsReadOnly(ByVal filePath As String) As Boolean
         IsReadOnly = False
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification si le fichier est en lecture seule: " & Err.Description
@@ -148,6 +223,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour la création ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function CreateDirectory(ByVal folderPath As String) As Boolean
     ' Crée un répertoire (et les répertoires parents si nécessaire)
     Dim parts() As String
@@ -159,7 +238,11 @@ Public Function CreateDirectory(ByVal folderPath As String) As Boolean
     ' Si le répertoire existe déjà, retourner vrai
     If DirectoryExists(folderPath) Then
         CreateDirectory = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Diviser le chemin en ses composants
@@ -179,13 +262,21 @@ Public Function CreateDirectory(ByVal folderPath As String) As Boolean
     
     CreateDirectory = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la création du répertoire: " & Err.Description
     LogError m_LastError
     CreateDirectory = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CreateTemporaryFile(Optional ByVal prefix As String = "APX") As String
     ' Crée un fichier temporaire et retourne son chemin
@@ -203,7 +294,11 @@ Public Function CreateTemporaryFile(Optional ByVal prefix As String = "APX") As 
         m_LastError = "Impossible d'obtenir le chemin du répertoire temporaire"
         LogError m_LastError
         CreateTemporaryFile = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     tempPath = Left$(tempPath, result)
@@ -216,12 +311,20 @@ Public Function CreateTemporaryFile(Optional ByVal prefix As String = "APX") As 
         m_LastError = "Impossible de créer un fichier temporaire"
         LogError m_LastError
         CreateTemporaryFile = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     CreateTemporaryFile = Left$(tempFile, InStr(tempFile, vbNullChar) - 1)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la création du fichier temporaire: " & Err.Description
@@ -230,6 +333,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour la copie et le déplacement ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function CopyFile(ByVal sourcePath As String, ByVal destPath As String, _
                          Optional ByVal overwrite As Boolean = False) As Boolean
     ' Copie un fichier
@@ -240,7 +347,11 @@ Public Function CopyFile(ByVal sourcePath As String, ByVal destPath As String, _
         m_LastError = "Le fichier source n'existe pas: " & sourcePath
         LogError m_LastError
         CopyFile = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si le fichier de destination existe déjà
@@ -248,7 +359,11 @@ Public Function CopyFile(ByVal sourcePath As String, ByVal destPath As String, _
         m_LastError = "Le fichier de destination existe déjà: " & destPath
         LogError m_LastError
         CopyFile = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Créer le répertoire de destination si nécessaire
@@ -258,7 +373,11 @@ Public Function CopyFile(ByVal sourcePath As String, ByVal destPath As String, _
     If Not DirectoryExists(destFolder) Then
         If Not CreateDirectory(destFolder) Then
             CopyFile = False
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     End If
     
@@ -266,13 +385,21 @@ Public Function CopyFile(ByVal sourcePath As String, ByVal destPath As String, _
     FileCopy sourcePath, destPath
     CopyFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la copie du fichier: " & Err.Description
     LogError m_LastError
     CopyFile = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function MoveFile(ByVal sourcePath As String, ByVal destPath As String, _
                          Optional ByVal overwrite As Boolean = False) As Boolean
@@ -284,7 +411,11 @@ Public Function MoveFile(ByVal sourcePath As String, ByVal destPath As String, _
         m_LastError = "Le fichier source n'existe pas: " & sourcePath
         LogError m_LastError
         MoveFile = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si le fichier de destination existe déjà
@@ -293,13 +424,21 @@ Public Function MoveFile(ByVal sourcePath As String, ByVal destPath As String, _
             ' Supprimer le fichier de destination existant
             If Not DeleteFile(destPath) Then
                 MoveFile = False
-                Exit Function
+                Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
             End If
         Else
             m_LastError = "Le fichier de destination existe déjà: " & destPath
             LogError m_LastError
             MoveFile = False
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     End If
     
@@ -310,7 +449,11 @@ Public Function MoveFile(ByVal sourcePath As String, ByVal destPath As String, _
     If Not DirectoryExists(destFolder) Then
         If Not CreateDirectory(destFolder) Then
             MoveFile = False
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     End If
     
@@ -318,7 +461,11 @@ Public Function MoveFile(ByVal sourcePath As String, ByVal destPath As String, _
     Name sourcePath As destPath
     MoveFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du déplacement du fichier: " & Err.Description
@@ -327,6 +474,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour la suppression ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function DeleteFile(ByVal filePath As String) As Boolean
     ' Supprime un fichier
     On Error GoTo ErrorHandler
@@ -335,7 +486,11 @@ Public Function DeleteFile(ByVal filePath As String) As Boolean
     If Not FileExists(filePath) Then
         ' Si le fichier n'existe pas, considérer comme réussi
         DeleteFile = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier si le fichier est en lecture seule
@@ -348,13 +503,21 @@ Public Function DeleteFile(ByVal filePath As String) As Boolean
     Kill filePath
     DeleteFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la suppression du fichier: " & Err.Description
     LogError m_LastError
     DeleteFile = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function DeleteDirectory(ByVal folderPath As String, Optional ByVal recursive As Boolean = False) As Boolean
     ' Supprime un répertoire
@@ -367,7 +530,11 @@ Public Function DeleteDirectory(ByVal folderPath As String, Optional ByVal recur
     If Not DirectoryExists(folderPath) Then
         ' Si le répertoire n'existe pas, considérer comme réussi
         DeleteDirectory = True
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Ajouter un séparateur de chemin si nécessaire
@@ -382,7 +549,11 @@ Public Function DeleteDirectory(ByVal folderPath As String, Optional ByVal recur
         Do While file <> ""
             If Not DeleteFile(folderPath & file) Then
                 DeleteDirectory = False
-                Exit Function
+                Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
             End If
             
             file = Dir()
@@ -397,7 +568,11 @@ Public Function DeleteDirectory(ByVal folderPath As String, Optional ByVal recur
                 If (GetFileAttributes(folderPath & subfolder) And FILE_ATTRIBUTE_DIRECTORY) = FILE_ATTRIBUTE_DIRECTORY Then
                     If Not DeleteDirectory(folderPath & subfolder, True) Then
                         DeleteDirectory = False
-                        Exit Function
+                        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
                     End If
                 End If
             End If
@@ -410,7 +585,11 @@ Public Function DeleteDirectory(ByVal folderPath As String, Optional ByVal recur
     RmDir folderPath
     DeleteDirectory = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la suppression du répertoire: " & Err.Description
@@ -419,6 +598,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour les attributs de fichier ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function SetReadOnly(ByVal filePath As String, ByVal readOnly As Boolean) As Boolean
     ' Définit l'attribut lecture seule d'un fichier
     Dim attributes As Long
@@ -430,7 +613,11 @@ Public Function SetReadOnly(ByVal filePath As String, ByVal readOnly As Boolean)
         m_LastError = "Le fichier n'existe pas: " & filePath
         LogError m_LastError
         SetReadOnly = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Obtenir les attributs actuels du fichier
@@ -440,7 +627,11 @@ Public Function SetReadOnly(ByVal filePath As String, ByVal readOnly As Boolean)
         m_LastError = "Impossible d'obtenir les attributs du fichier: " & filePath
         LogError m_LastError
         SetReadOnly = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Modifier l'attribut lecture seule
@@ -453,13 +644,21 @@ Public Function SetReadOnly(ByVal filePath As String, ByVal readOnly As Boolean)
     ' Appliquer les nouveaux attributs
     SetReadOnly = (SetFileAttributes(filePath, attributes) <> 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la modification de l'attribut lecture seule: " & Err.Description
     LogError m_LastError
     SetReadOnly = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SetHidden(ByVal filePath As String, ByVal hidden As Boolean) As Boolean
     ' Définit l'attribut caché d'un fichier
@@ -472,7 +671,11 @@ Public Function SetHidden(ByVal filePath As String, ByVal hidden As Boolean) As 
         m_LastError = "Le fichier ou répertoire n'existe pas: " & filePath
         LogError m_LastError
         SetHidden = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Obtenir les attributs actuels du fichier
@@ -482,7 +685,11 @@ Public Function SetHidden(ByVal filePath As String, ByVal hidden As Boolean) As 
         m_LastError = "Impossible d'obtenir les attributs du fichier: " & filePath
         LogError m_LastError
         SetHidden = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Modifier l'attribut caché
@@ -495,7 +702,11 @@ Public Function SetHidden(ByVal filePath As String, ByVal hidden As Boolean) As 
     ' Appliquer les nouveaux attributs
     SetHidden = (SetFileAttributes(filePath, attributes) <> 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la modification de l'attribut caché: " & Err.Description
@@ -504,6 +715,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour la gestion des chemins ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function GetFileName(ByVal filePath As String) As String
     ' Retourne le nom du fichier à partir d'un chemin complet
     Dim pos As Long
@@ -518,13 +733,21 @@ Public Function GetFileName(ByVal filePath As String) As String
         GetFileName = filePath
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction du nom de fichier: " & Err.Description
     LogError m_LastError
     GetFileName = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetFileExtension(ByVal filePath As String) As String
     ' Retourne l'extension d'un fichier
@@ -542,13 +765,21 @@ Public Function GetFileExtension(ByVal filePath As String) As String
         GetFileExtension = ""
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction de l'extension: " & Err.Description
     LogError m_LastError
     GetFileExtension = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetFileNameWithoutExtension(ByVal filePath As String) As String
     ' Retourne le nom du fichier sans son extension
@@ -566,13 +797,21 @@ Public Function GetFileNameWithoutExtension(ByVal filePath As String) As String
         GetFileNameWithoutExtension = fileName
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction du nom sans extension: " & Err.Description
     LogError m_LastError
     GetFileNameWithoutExtension = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetDirectoryPath(ByVal filePath As String) As String
     ' Retourne le chemin du répertoire à partir d'un chemin complet
@@ -588,13 +827,21 @@ Public Function GetDirectoryPath(ByVal filePath As String) As String
         GetDirectoryPath = ""
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'extraction du chemin du répertoire: " & Err.Description
     LogError m_LastError
     GetDirectoryPath = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CombinePaths(ByVal path1 As String, ByVal path2 As String) As String
     ' Combine deux chemins
@@ -613,7 +860,11 @@ Public Function CombinePaths(ByVal path1 As String, ByVal path2 As String) As St
     ' Combiner les chemins
     CombinePaths = path1 & "\" & path2
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la combinaison des chemins: " & Err.Description
@@ -622,6 +873,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour la lecture/écriture de fichiers ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function ReadTextFile(ByVal filePath As String, Optional ByVal encoding As String = "utf-8") As String
     ' Lit le contenu d'un fichier texte
     Dim fileNum As Integer
@@ -634,7 +889,11 @@ Public Function ReadTextFile(ByVal filePath As String, Optional ByVal encoding A
         m_LastError = "Le fichier n'existe pas: " & filePath
         LogError m_LastError
         ReadTextFile = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Ouvrir et lire le fichier
@@ -645,7 +904,11 @@ Public Function ReadTextFile(ByVal filePath As String, Optional ByVal encoding A
     
     ReadTextFile = content
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la lecture du fichier: " & Err.Description
@@ -657,7 +920,11 @@ ErrorHandler:
     End If
     
     ReadTextFile = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function WriteTextFile(ByVal filePath As String, ByVal content As String, _
                               Optional ByVal overwrite As Boolean = True, _
@@ -672,7 +939,11 @@ Public Function WriteTextFile(ByVal filePath As String, ByVal content As String,
         m_LastError = "Le fichier existe déjà: " & filePath
         LogError m_LastError
         WriteTextFile = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Créer le répertoire si nécessaire
@@ -682,7 +953,11 @@ Public Function WriteTextFile(ByVal filePath As String, ByVal content As String,
     If folderPath <> "" And Not DirectoryExists(folderPath) Then
         If Not CreateDirectory(folderPath) Then
             WriteTextFile = False
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     End If
     
@@ -694,7 +969,11 @@ Public Function WriteTextFile(ByVal filePath As String, ByVal content As String,
     
     WriteTextFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'écriture dans le fichier: " & Err.Description
@@ -706,7 +985,11 @@ ErrorHandler:
     End If
     
     WriteTextFile = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function AppendToTextFile(ByVal filePath As String, ByVal content As String) As Boolean
     ' Ajoute du contenu à un fichier texte existant
@@ -723,7 +1006,11 @@ Public Function AppendToTextFile(ByVal filePath As String, ByVal content As Stri
         If folderPath <> "" And Not DirectoryExists(folderPath) Then
             If Not CreateDirectory(folderPath) Then
                 AppendToTextFile = False
-                Exit Function
+                Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
             End If
         End If
     End If
@@ -736,7 +1023,11 @@ Public Function AppendToTextFile(ByVal filePath As String, ByVal content As Stri
     
     AppendToTextFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'ajout au fichier: " & Err.Description
@@ -751,6 +1042,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour la recherche de fichiers ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function FindFiles(ByVal folderPath As String, ByVal pattern As String, _
                           Optional ByVal includeSubfolders As Boolean = False) As Variant
     ' Recherche des fichiers dans un répertoire
@@ -770,7 +1065,11 @@ Public Function FindFiles(ByVal folderPath As String, ByVal pattern As String, _
         m_LastError = "Le répertoire n'existe pas: " & folderPath
         LogError m_LastError
         FindFiles = Array()
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Ajouter un séparateur de chemin si nécessaire
@@ -832,7 +1131,11 @@ Public Function FindFiles(ByVal folderPath As String, ByVal pattern As String, _
         FindFiles = Array()
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la recherche de fichiers: " & Err.Description
@@ -850,6 +1153,10 @@ Public Property Get LastError() As String
 End Property
 
 ' --- Fonctions privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub LogError(ByVal errorMessage As String)
     ' Log les erreurs si un logger est disponible
     If Not m_Logger Is Nothing Then

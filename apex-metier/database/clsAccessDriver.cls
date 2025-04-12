@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/database - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsAccessDriver
 ' Version : 2.0
@@ -10,6 +17,10 @@ Option Explicit
 Implements IDbDriver
 
 ' --- Connection String ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbDriver_GetConnectionString(server As String, dbName As String, Optional user As String = "", Optional pwd As String = "", Optional useWindowsAuth As Boolean = True) As String
     IDbDriver_GetConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & dbName & ";"
     If pwd <> "" Then IDbDriver_GetConnectionString = IDbDriver_GetConnectionString & "Jet OLEDB:Database Password=" & pwd & ";"
@@ -20,18 +31,34 @@ Private Property Get IDbDriver_ParameterMarker() As String
     IDbDriver_ParameterMarker = "?"
 End Property
 
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbDriver_FormatParameterName(baseName As String) As String
     IDbDriver_FormatParameterName = "?" ' Access uses positional markers
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_FormatSqlDate(dtValue As Date) As String
     IDbDriver_FormatSqlDate = "#" & Format$(dtValue, "yyyy-mm-dd hh:nn:ss") & "#"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_FormatSqlString(value As String) As String
     ' Doubler les apostrophes pour échapper
     IDbDriver_FormatSqlString = "'" & Replace(value, "'", "''") & "'"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_FormatSqlNumber(value As Variant) As String
     If IsNumeric(value) Then
@@ -39,7 +66,11 @@ Private Function IDbDriver_FormatSqlNumber(value As Variant) As String
     Else
         IDbDriver_FormatSqlNumber = "NULL"
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_EscapeIdentifier(identifier As String) As String
     ' Access utilise les crochets [] pour échapper les identifiants
@@ -47,24 +78,44 @@ Private Function IDbDriver_EscapeIdentifier(identifier As String) As String
 End Function
 
 ' --- SQL Specific Clauses ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbDriver_GetTopClause(n As Long) As String
     If n > 0 Then IDbDriver_GetTopClause = "TOP " & n Else IDbDriver_GetTopClause = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetLimitClause(n As Long) As String
     IDbDriver_GetLimitClause = "" ' Access uses TOP
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetLastIdentitySql() As String
     IDbDriver_GetLastIdentitySql = "SELECT @@IDENTITY"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetPaginationSql(sql As String, pageSize As Long, pageNumber As Long) As String
     ' Access ne supporte pas directement la pagination
     ' On utilise un TOP avec sous-requête pour simuler
     If pageSize <= 0 Or pageNumber <= 0 Then
         IDbDriver_GetPaginationSql = sql
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Dim offset As Long
@@ -88,9 +139,17 @@ Private Function IDbDriver_GetPaginationSql(sql As String, pageSize As Long, pag
 End Function
 
 ' --- Batch Processing ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbDriver_SupportsBatchOperations() As Boolean
     IDbDriver_SupportsBatchOperations = False ' Access ne supporte pas bien les opérations par lots
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetBatchInsertSql(tableName As String, columnNames() As String, rowCount As Long) As String
     ' Access ne supporte pas vraiment les insertions par lots efficaces
@@ -126,19 +185,35 @@ Private Function IDbDriver_GetBatchInsertSql(tableName As String, columnNames() 
 End Function
 
 ' --- Schema Information ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbDriver_GetTableColumnsSql(tableName As String) As String
     IDbDriver_GetTableColumnsSql = "SELECT * FROM " & IDbDriver_EscapeIdentifier(tableName) & " WHERE 1=0"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetTableListSql() As String
     IDbDriver_GetTableListSql = "SELECT Name FROM MSysObjects WHERE Type=1 AND Flags=0"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetPrimaryKeysSql(tableName As String) As String
     ' Access ne fournit pas facilement cette information via SQL
     ' On peut utiliser des méthodes ADO alternatives
     IDbDriver_GetPrimaryKeysSql = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetForeignKeysSql(tableName As String) As String
     ' Access ne fournit pas facilement cette information via SQL
@@ -147,17 +222,33 @@ Private Function IDbDriver_GetForeignKeysSql(tableName As String) As String
 End Function
 
 ' --- Advanced Features ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbDriver_SupportsTransactionIsolationLevel() As Boolean
     IDbDriver_SupportsTransactionIsolationLevel = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_GetSetIsolationLevelSql(level As Long) As String
     IDbDriver_GetSetIsolationLevelSql = "" ' Non supporté par Access
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_SupportsStoredProcedures() As Boolean
     IDbDriver_SupportsStoredProcedures = False ' Access utilise des requêtes nommées, pas des procédures stockées
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbDriver_SupportsUnions() As Boolean
     IDbDriver_SupportsUnions = True

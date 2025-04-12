@@ -1,0 +1,599 @@
+# Configuration APEX Framework pour Cursor
+
+<ai_requirements>
+### ⚠️ INITIALISATION OBLIGATOIRE
+AVANT toute réponse, l'IA DOIT :
+1. Lire ce fichier (.cursor-rules) en ENTIER
+2. Confirmer la lecture par : "✅ Règles APEX Framework lues"
+
+3. Consulter l'historique des sessions :
+   a. Session du jour :
+      - `/tools/workflow/sessions/YYYY_MM_DD_*.md`
+   b. Sessions clés (si existent) :
+      - `_workflow_rules.md` (règles et standards)
+      - `_architecture.md` (décisions architecture)
+      - `_refactoring.md` (changements majeurs)
+   c. Dernière session de chaque type :
+      - Dernière session de développement
+      - Dernière session de revue
+      - Dernière session d'architecture
+4. Confirmer par : "✅ Sessions prioritaires consultées"
+
+5. Consulter les documents essentiels :
+   - [📝 Guide d'Encodage]
+   - [🏗️ Architecture Core]
+   - [📜 Conventions Git]
+6. Confirmer par : "✅ Documentation de référence consultée"
+
+7. Demander le contexte si non fourni : "⚠️ Contexte requis"
+
+AUCUNE action ne doit être entreprise avant ces étapes.
+
+ATTENTION IA : Configuration et Validation OBLIGATOIRES
+
+1. DOCUMENTATION FONDAMENTALE
+   - [📝 Guide d'Encodage](docs/requirements/powershell_encoding.md)
+   - [📚 Standards de Documentation](docs/DOCUMENTATION_GUIDELINES.md)
+   - [🤖 Guide d'Onboarding IA](docs/AI_ONBOARDING_GUIDE.md)
+   - [🏗️ Architecture Core](docs/Components/CoreArchitecture.md)
+   - [🧪 Framework de Tests](docs/Components/Testing.md)
+   - [👨‍💻 Guide Développeur](docs/DEVELOPPER_GUIDE.md)
+   - [📜 Conventions Git](docs/GIT_COMMIT_CONVENTION.md)
+   - [🚀 Guide de Démarrage](docs/QuickStartGuide.md)
+
+2. VALIDATION SYSTÉMATIQUE
+   - Encodage UTF-8 sans BOM
+   - Structure documentaire
+   - Tests unitaires
+   - Cohérence architecturale
+   - Injection de dépendances
+   - Conventions de commit
+   - Standards de documentation
+
+3. POINTS DE CONTRÔLE ARCHITECTURAUX
+   - ✅ Respect des interfaces (ILoggerBase, IDbAccessorBase, etc.)
+   - ✅ Injection des dépendances
+   - ✅ Configuration externalisée
+   - ✅ Tests automatisés
+   - ✅ Documentation mise à jour
+   - ✅ Séparation des couches (Core, Métier, UI)
+   - ✅ Documentation conforme aux directives
+
+4. FORMAT DE FEEDBACK IA
+   ```markdown
+   2024-04-11 14:30
+   Chat : 001
+
+   ### 📋 Contexte & Analyse
+   - 🔴 Critique : Point majeur unique
+   - 🟡 Important : Point significatif unique
+   - 🟢 Standard : Point contextuel unique
+
+   ### ⚡ Action & Impact
+   - 🎯 Action : {action} [REF:{ID}]
+   - 📊 Résultat : {statut} [⏱️ {temps}]
+   - 📈 Impact : {métrique}
+
+   ### 💭 Synthèse & Réflexion
+   Espace de discussion libre
+   ```
+
+   - Usage :
+     * Timestamp format : yyyy-mm-dd hh:mm
+     * Chat counter format : Chat : XXX (où XXX est un nombre sur 3 chiffres)
+     * Un seul point par niveau de priorité
+     * [REF:{ID}] systématique
+     * Intégration Git commits/PR
+
+</ai_requirements>
+
+# 📋 STANDARDS ET PRÉCONISATIONS
+
+## 1. Architecture et Développement
+### Principes SOLID
+- Injection de dépendances obligatoire
+- Programmation orientée interface
+- Responsabilité unique par composant
+- Configuration externalisée (Excel)
+
+### Architecture en Couches
+```
+                      ┌───────────────────┐
+                      │  ApplicationCode  │
+                      └───────────┬───────┘
+                                  │
+                        ┌─────────▼────────┐
+                        │  ModDbConnFactory│
+                        └─────────┬────────┘
+                                  │
+┌───────────────┐    ┌────────────▼────────────┐    ┌──────────────┐
+│  ConfigLoader │◄───┤     IDbAccessorBase     │────►  ILoggerBase  │
+└───────────────┘    └────────────┬────────────┘    └──────────────┘
+                                  │
+                                  │
+         ┌────────────────────────┼───────────────────────┐
+         │                        │                       │
+┌────────▼───────┐       ┌────────▼──────┐        ┌──────▼────────┐
+│  IDbDriver     │       │ IQueryBuilder │        │  ClsOrmBase   │
+└────────────────┘       └───────────────┘        └───────────────┘
+```
+
+#### Couche Core
+- Pas de dépendances externes
+- Interfaces stables et documentées
+- Tests unitaires exhaustifs
+
+##### Interfaces Fondamentales
+```vba
+' ILoggerBase - Contrat pour les services de journalisation
+Public Function Initialize(Optional configFilePath As String = "") As Boolean
+Public Sub LogMessage(message As String, level As LogLevelEnum, category As String)
+Public Function Flush() As Boolean
+
+' IDbAccessorBase - Contrat pour l'accès aux données
+Public Function Connect() As Boolean
+Public Function ExecuteQuery(sql As String, params As Variant) As ADODB.Recordset
+Public Function ExecuteNonQuery(sql As String, params As Variant) As Long
+
+' IQueryBuilder - Contrat pour la construction de requêtes
+Public Function Select(fields As String) As IQueryBuilder
+Public Function From(table As String) As IQueryBuilder
+Public Function Where(condition As String) As IQueryBuilder
+```
+
+```
+
+#### Couche UI
+- Dépend du Core et du Métier
+- Séparation vue/logique
+- Tests d'intégration
+
+##### Principes UI
+```vba
+' Séparation des préoccupations
+Private Sub UserForm_Initialize()
+    ' 1. Configuration de l'interface
+    InitializeControls
+    
+    ' 2. Injection des dépendances
+    Set m_businessService = CreateBusinessService()
+    Set m_logger = CreateLogger()
+    
+    ' 3. Chargement des données
+    LoadInitialData
+End Sub
+```
+
+### Principes Architecturaux Clés
+1. **Injection de Dépendances**
+   - Composants reçoivent leurs dépendances
+   - Pas de création directe d'instances
+   - Utilisation de factories
+
+2. **Programmation Orientée Interface**
+   - Dépendances vers des interfaces
+   - Implémentations interchangeables
+   - Découplage fort
+
+3. **Séparation des Préoccupations**
+   - Responsabilité unique par composant
+   - Isolation des changements
+   - Maintenance facilitée
+
+4. **Configuration Externalisée**
+   - Paramètres dans Excel
+   - Pas de valeurs en dur
+   - Flexibilité maximale
+
+#### Standards des Composants
+##### Logger
+```vba
+' Configuration standard
+Private Sub InitLogger(logger As ILoggerBase)
+    logger.Initialize _
+        minLevel:=LogLevelInfo, _
+        logSheetName:="AppLogs", _
+        logFileNamePattern:="{WorkbookName}_AppLog_{Date}.log", _
+        bufferSize:=10, _
+        maxLogFileSizeKB:=1024
+End Sub
+
+' Catégories standard
+Private Const LOG_CAT_PROCESS As String = "PROCESS"
+Private Const LOG_CAT_DATA As String = "DATA"
+Private Const LOG_CAT_UI As String = "UI"
+Private Const LOG_CAT_ERROR As String = "ERROR"
+Private Const LOG_CAT_SECURITY As String = "SECURITY"
+```
+
+##### ORM
+```vba
+' Configuration standard d'une entité
+Private Sub ConfigureEntity(entity As clsOrmBase)
+    With entity
+        .AutoIncrementPK = True
+        .ValidateBeforeSave = True
+        .EnableLazyLoading = True
+        .CascadeSaveDepth = 1
+        .CascadeDeleteDepth = 1
+    End With
+End Sub
+
+' Relations standard
+Private Sub ConfigureRelations(entity As clsOrmBase)
+    Dim rel As New clsRelationMetadata
+    rel.CreateSimpleRelation("NomRelation", RelationTypeEnum.OneToMany, _
+                            "TableSource", "TableCible", _
+                            "CleLocale", "CleEtrangere") _
+       .WithLazyLoading(True) _
+       .WithCascadeSave(True)
+    entity.RegisterRelation rel
+End Sub
+```
+
+##### XLWings
+```python
+# Configuration standard Python
+import xlwings as xw
+import pandas as pd
+from datetime import datetime
+import os
+
+def init_xlwings_app(visible=False):
+    """Configuration standard de l'application Excel"""
+    app = xw.App(visible=visible, add_book=False)
+    app.display_alerts = False
+    app.screen_updating = False
+    return app
+
+def run_vba_macro(macro_name, *args, workbook_path=None):
+    """Exécution standardisée d'une macro VBA"""
+    app = init_xlwings_app()
+    try:
+        wb = app.books.open(workbook_path) if workbook_path else app.books.active
+        result = wb.macro(macro_name)(*args)
+        return result
+    finally:
+        wb.save()
+        app.quit()
+
+def pandas_to_excel(df, sheet, start_cell="A1"):
+    """Export standard de DataFrame vers Excel"""
+    sheet.range(start_cell).value = df
+    sheet.autofit()
+```
+
+```powershell
+# Installation et configuration XLWings
+function Install-XLWings {
+    # Vérification Python
+    python --version
+    
+    # Installation des packages
+    pip install xlwings pandas openpyxl
+    
+    # Installation de l'add-in Excel
+    python -c "from xlwings.cli import main; main()" addin install
+    
+    # Vérification
+    python -c "from xlwings.cli import main; main()" addin status
+}
+```
+
+### Validation des Composants
+```powershell
+# Validation XLWings
+.\tools\workflow\scripts\Test-XLWingsSetup.ps1
+
+# Test d'intégration
+.\tools\workflow\scripts\Test-XLWingsIntegration.ps1
+```
+
+### Configuration Initiale
+```powershell
+# 1. Création des dossiers
+New-Item -ItemType Directory -Path "config","logs"
+
+# 2. Configuration du logger
+Copy-Item "templates/logger_config.ini" "config/"
+
+# 3. Configuration de la recette (optionnel)
+Copy-Item "templates/recipe_config.ini" "config/"
+```
+
+## 2. Standards de Documentation
+### Format et Structure
+- Format Markdown exclusif
+- Structure hiérarchique claire
+- Références croisées obligatoires
+- Documentation des éléments obsolètes
+
+### Règles de Documentation
+```markdown
+# Titre du Document
+
+## Vue d'ensemble
+Description claire et concise...
+
+## Sections Principales
+### Sous-sections détaillées
+- Points importants
+- Exemples de code
+
+> **DEPRECATED**: Format pour les éléments obsolètes
+```
+
+### Validation Documentaire
+```powershell
+# Validation du format
+.\tools\workflow\scripts\Test-DocumentationFormat.ps1 -Path {file_path}
+
+# Vérification des références
+.\tools\workflow\scripts\Test-DocumentationLinks.ps1
+```
+
+## 3. Framework de Tests
+### Configuration des Tests
+```vba
+' 1. Initialisation du registre
+modTestRegistry.InitializeRegistry
+
+' 2. Enregistrement des tests
+With modTestRegistry
+    .RegisterTest "Suite", "TestName", "TestProc", "Module", "Description"
+End With
+
+' 3. Exécution
+modTestRegistry.RunAllRegisteredTests True, False
+```
+
+### Standards de Test
+- Tests unitaires obligatoires
+- Mocks pour les dépendances
+- Assertions explicites
+- Documentation des cas de test
+
+## 4. Conventions Git
+### Format des Commits
+```
+<type>(<portée>): <description>
+
+<corps>
+
+<pied>
+```
+
+### Types de Modifications
+- feat: Nouvelle fonctionnalité
+- fix: Correction de bug
+- docs: Documentation
+- refactor: Refactoring
+- test: Tests
+- chore: Maintenance
+
+### Validation des Commits
+```powershell
+# Validation du format
+.\tools\workflow\scripts\Test-CommitMessage.ps1 -Message {message}
+
+# Commit avec contexte
+.\tools\workflow\scripts\commit_with_context.ps1
+```
+
+## 5. Commandes Disponibles
+
+[validate_architecture]
+description = "Valide la conformité architecturale"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Test-ArchitecturalRules.ps1"
+notes = """
+Validation architecturale :
+- Interfaces
+- Injection de dépendances
+- Configuration
+- Tests
+"""
+
+[run_tests]
+description = "Exécute la suite de tests"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Run-TestSuite.ps1"
+notes = """
+Tests systématiques :
+- Tests unitaires
+- Tests d'intégration
+- Tests architecturaux
+"""
+
+[validate_session]
+description = "Validation complète d'une session"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Test-SessionMarkdownFormat.ps1 -Path {file_path}"
+notes = """
+Validation requise avant commit :
+- Format Markdown
+- Encodage UTF-8
+- Structure documentaire
+- Métadonnées
+"""
+
+[validate_commit]
+description = "Valide le format du message de commit"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Test-CommitMessage.ps1"
+notes = """
+Validation du commit :
+- Format Conventional Commits
+- Documentation IA
+- Tests associés
+- Validation humaine
+"""
+
+[validate_documentation]
+description = "Valide la conformité de la documentation"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Test-DocumentationFormat.ps1"
+notes = """
+Validation documentaire :
+- Format Markdown
+- Structure standard
+- Références croisées
+- Éléments obsolètes
+"""
+
+[validate_component]
+description = "Valide la conformité d'un composant"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Test-ComponentCompliance.ps1"
+notes = """
+Validation des composants :
+- Standards Logger
+- Standards ORM
+- Interfaces requises
+- Configuration standard
+"""
+
+[generate_component]
+description = "Génère un nouveau composant"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\New-Component.ps1"
+notes = """
+Génération de composant :
+- Structure standard
+- Templates
+- Tests unitaires
+- Documentation
+"""
+
+[validate_xlwings]
+description = "Valide l'intégration XLWings"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Test-XLWingsSetup.ps1"
+notes = """
+Validation XLWings :
+- Installation Python
+- Configuration add-in
+- Tests d'intégration
+- Macros exposées
+"""
+
+[run_xlwings_tests]
+description = "Exécute les tests d'intégration XLWings"
+manual_command = "PowerShell → .\\tools\\workflow\\scripts\\Test-XLWingsIntegration.ps1"
+notes = """
+Tests d'intégration :
+- Communication Python-Excel
+- Manipulation de données
+- Exécution de macros
+- Performance
+"""
+
+## 6. Points de Vigilance
+- Respect strict de l'architecture en couches
+- Tests unitaires pour chaque nouvelle fonctionnalité
+- Documentation des interfaces et composants
+- Validation systématique avant commit
+- Conventions Git strictes
+- Documentation IA des modifications
+- Cohérence de la documentation
+- Mise à jour des références croisées
+- Standards des composants (Logger, ORM)
+- Configuration cohérente des composants
+- Gestion des relations entre composants
+- Configuration Python et XLWings
+- Tests d'intégration bidirectionnelle
+- Performance des échanges de données
+
+## 7. Support et Ressources
+- Architecture : /docs/Components/CoreArchitecture.md
+- Tests : /docs/Components/Testing.md
+- Scripts : /tools/workflow/scripts
+- Templates : /tools/workflow/templates
+- Guide Dev : /docs/DEVELOPPER_GUIDE.md
+- Git : /docs/GIT_COMMIT_CONVENTION.md
+- Documentation : /docs/DOCUMENTATION_GUIDELINES.md
+- Démarrage : /docs/QuickStartGuide.md
+- Logger : /docs/Components/Logger.md
+- ORM : /docs/Components/ORM.md
+- XLWings : /docs/Components/XLWings_Integration.md
+
+---
+Version: 1.7
+Dernière mise à jour : 2024-04-11 
+
+[WORKFLOW_RULES]
+description = "Règles de workflow standardisées pour le développement APEX"
+version = "1.0"
+last_updated = "2024-04-11"
+mandatory = true
+
+[WORKFLOW_RULES.pre_development]
+description = "Actions obligatoires avant toute modification"
+steps = [
+    "Lire .cursor-rules en entier",
+    "Consulter l'historique des sessions du jour",
+    "Vérifier la documentation de référence",
+    "Valider le contexte d'intervention"
+]
+manual_command = "PowerShell → Get-Content .cursor-rules | more"
+validation_required = true
+
+[WORKFLOW_RULES.during_development]
+description = "Règles à suivre pendant le développement"
+steps = [
+    "Suivre l'architecture en couches (Core, Métier, UI)",
+    "Utiliser l'injection de dépendances",
+    "Documenter en Markdown avec références croisées",
+    "Exécuter les tests unitaires systématiquement"
+]
+architecture_validation = "Test-ArchitectureCompliance.ps1"
+documentation_template = "docs/templates/COMPONENT_TEMPLATE.md"
+
+[WORKFLOW_RULES.pre_commit]
+description = "Validation obligatoire avant chaque commit"
+steps = [
+    "Valider l'architecture",
+    "Exécuter la suite de tests",
+    "Vérifier la documentation",
+    "Respecter les conventions Git"
+]
+manual_command = [
+    "PowerShell → .\\tools\\workflow\\scripts\\Test-ArchitecturalRules.ps1",
+    "PowerShell → .\\tools\\workflow\\scripts\\Run-TestSuite.ps1",
+    "PowerShell → .\\tools\\workflow\\scripts\\Test-DocumentationFormat.ps1"
+]
+blocking = true
+
+[WORKFLOW_RULES.vigilance_points]
+description = "Points de vigilance critiques"
+checks = [
+    "Encodage UTF-8 sans BOM obligatoire",
+    "Configuration externalisée dans Excel",
+    "Tests d'intégration XLWings",
+    "Validation des composants standards"
+]
+encoding_check = "Test-FileEncoding.ps1"
+xlwings_validation = "Test-XLWingsIntegration.ps1"
+
+[WORKFLOW_RULES.validation]
+type = "automated"
+frequency = "pre-commit"
+tools = [
+    "Test-ArchitecturalRules.ps1",
+    "Run-TestSuite.ps1",
+    "Test-DocumentationFormat.ps1",
+    "Test-FileEncoding.ps1",
+    "Test-XLWingsIntegration.ps1"
+]
+report_path = "reports/validation/"
+
+[WORKFLOW_RULES.documentation]
+format = "markdown"
+templates_path = "docs/templates/"
+cross_references = true
+mandatory_sections = [
+    "Overview",
+    "Architecture",
+    "Dependencies",
+    "Configuration",
+    "Usage",
+    "Testing"
+]
+
+[WORKFLOW_RULES.git]
+commit_convention = "conventional_commits"
+branch_pattern = "feature|bugfix|hotfix|release"
+review_required = true
+documentation_required = true

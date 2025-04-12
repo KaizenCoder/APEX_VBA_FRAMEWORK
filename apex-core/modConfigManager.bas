@@ -1,6 +1,13 @@
 ' Migrated to apex-core - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Module : modConfigManager
 ' Version : 1.0
@@ -10,34 +17,66 @@ Option Explicit
 
 ' --- API Windows pour accéder aux fichiers INI ---
 #If VBA7 Then
-    Private Declare PtrSafe Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _
         (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpDefault As String, _
         ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
     
-    Private Declare PtrSafe Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" _
         (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpString As String, _
         ByVal lpFileName As String) As Long
     
-    Private Declare PtrSafe Function GetPrivateProfileSection Lib "kernel32" Alias "GetPrivateProfileSectionA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetPrivateProfileSection Lib "kernel32" Alias "GetPrivateProfileSectionA" _
         (ByVal lpAppName As String, ByVal lpReturnedString As String, ByVal nSize As Long, _
         ByVal lpFileName As String) As Long
     
-    Private Declare PtrSafe Function GetPrivateProfileSectionNames Lib "kernel32" Alias "GetPrivateProfileSectionNamesA" _
+    Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetPrivateProfileSectionNames Lib "kernel32" Alias "GetPrivateProfileSectionNamesA" _
         (ByVal lpszReturnBuffer As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
 #Else
-    Private Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _
         (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpDefault As String, _
         ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
     
-    Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" _
         (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpString As String, _
         ByVal lpFileName As String) As Long
     
-    Private Declare Function GetPrivateProfileSection Lib "kernel32" Alias "GetPrivateProfileSectionA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetPrivateProfileSection Lib "kernel32" Alias "GetPrivateProfileSectionA" _
         (ByVal lpAppName As String, ByVal lpReturnedString As String, ByVal nSize As Long, _
         ByVal lpFileName As String) As Long
     
-    Private Declare Function GetPrivateProfileSectionNames Lib "kernel32" Alias "GetPrivateProfileSectionNamesA" _
+    Private Declare'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetPrivateProfileSectionNames Lib "kernel32" Alias "GetPrivateProfileSectionNamesA" _
         (ByVal lpszReturnBuffer As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
 #End If
 
@@ -52,6 +91,10 @@ Private m_Logger As Object ' ILoggerBase
 Private m_LastError As String
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize(Optional ByVal logger As Object = Nothing, Optional ByVal defaultConfigPath As String = "")
     ' Initialise le module avec un logger et un chemin de configuration par défaut
     Set m_Logger = logger
@@ -72,6 +115,10 @@ Public Sub Initialize(Optional ByVal logger As Object = Nothing, Optional ByVal 
 End Sub
 
 ' --- Fonctions publiques pour la lecture ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function ReadString(ByVal section As String, ByVal key As String, Optional ByVal defaultValue As String = "", _
                            Optional ByVal configPath As String = "") As String
     ' Lit une valeur de type chaîne depuis un fichier INI
@@ -93,7 +140,11 @@ Public Function ReadString(ByVal section As String, ByVal key As String, Optiona
         m_LastError = "Fichier de configuration introuvable: " & filePath
         LogError m_LastError
         ReadString = defaultValue
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Lire la valeur
@@ -106,13 +157,21 @@ Public Function ReadString(ByVal section As String, ByVal key As String, Optiona
         ReadString = defaultValue
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la lecture de la valeur: " & Err.Description
     LogError m_LastError
     ReadString = defaultValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ReadInteger(ByVal section As String, ByVal key As String, Optional ByVal defaultValue As Long = 0, _
                             Optional ByVal configPath As String = "") As Long
@@ -131,13 +190,21 @@ Public Function ReadInteger(ByVal section As String, ByVal key As String, Option
         ReadInteger = defaultValue
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la lecture de la valeur entière: " & Err.Description
     LogError m_LastError
     ReadInteger = defaultValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ReadBoolean(ByVal section As String, ByVal key As String, Optional ByVal defaultValue As Boolean = False, _
                             Optional ByVal configPath As String = "") As Boolean
@@ -159,13 +226,21 @@ Public Function ReadBoolean(ByVal section As String, ByVal key As String, Option
             ReadBoolean = defaultValue
     End Select
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la lecture de la valeur booléenne: " & Err.Description
     LogError m_LastError
     ReadBoolean = defaultValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ReadDouble(ByVal section As String, ByVal key As String, Optional ByVal defaultValue As Double = 0, _
                            Optional ByVal configPath As String = "") As Double
@@ -184,13 +259,21 @@ Public Function ReadDouble(ByVal section As String, ByVal key As String, Optiona
         ReadDouble = defaultValue
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la lecture de la valeur double: " & Err.Description
     LogError m_LastError
     ReadDouble = defaultValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ReadSection(ByVal section As String, Optional ByVal configPath As String = "") As Variant
     ' Lit toutes les entrées d'une section et les retourne dans un tableau
@@ -213,7 +296,11 @@ Public Function ReadSection(ByVal section As String, Optional ByVal configPath A
         m_LastError = "Fichier de configuration introuvable: " & filePath
         LogError m_LastError
         ReadSection = Array()
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Lire la section
@@ -237,13 +324,21 @@ Public Function ReadSection(ByVal section As String, Optional ByVal configPath A
         ReadSection = Array()
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la lecture de la section: " & Err.Description
     LogError m_LastError
     ReadSection = Array()
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetSectionNames(Optional ByVal configPath As String = "") As Variant
     ' Récupère les noms de toutes les sections du fichier INI
@@ -266,7 +361,11 @@ Public Function GetSectionNames(Optional ByVal configPath As String = "") As Var
         m_LastError = "Fichier de configuration introuvable: " & filePath
         LogError m_LastError
         GetSectionNames = Array()
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Lire les noms de sections
@@ -290,7 +389,11 @@ Public Function GetSectionNames(Optional ByVal configPath As String = "") As Var
         GetSectionNames = Array()
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la récupération des noms de sections: " & Err.Description
@@ -299,6 +402,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions publiques pour l'écriture ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function WriteString(ByVal section As String, ByVal key As String, ByVal value As String, _
                             Optional ByVal configPath As String = "") As Boolean
     ' Écrit une valeur de type chaîne dans un fichier INI
@@ -321,31 +428,51 @@ Public Function WriteString(ByVal section As String, ByVal key As String, ByVal 
     result = WritePrivateProfileString(section, key, value, filePath)
     WriteString = (result <> 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'écriture de la valeur: " & Err.Description
     LogError m_LastError
     WriteString = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function WriteInteger(ByVal section As String, ByVal key As String, ByVal value As Long, _
                              Optional ByVal configPath As String = "") As Boolean
     ' Écrit une valeur de type entier dans un fichier INI
     WriteInteger = WriteString(section, key, CStr(value), configPath)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function WriteBoolean(ByVal section As String, ByVal key As String, ByVal value As Boolean, _
                              Optional ByVal configPath As String = "") As Boolean
     ' Écrit une valeur de type booléen dans un fichier INI
     WriteBoolean = WriteString(section, key, IIf(value, "True", "False"), configPath)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function WriteDouble(ByVal section As String, ByVal key As String, ByVal value As Double, _
                             Optional ByVal configPath As String = "") As Boolean
     ' Écrit une valeur de type double dans un fichier INI
     WriteDouble = WriteString(section, key, CStr(value), configPath)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function DeleteKey(ByVal section As String, ByVal key As String, _
                           Optional ByVal configPath As String = "") As Boolean
@@ -367,20 +494,32 @@ Public Function DeleteKey(ByVal section As String, ByVal key As String, _
         m_LastError = "Fichier de configuration introuvable: " & filePath
         LogError m_LastError
         DeleteKey = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Supprimer la clé (en écrivant une valeur NULL)
     result = WritePrivateProfileString(section, key, vbNullString, filePath)
     DeleteKey = (result <> 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la suppression de la clé: " & Err.Description
     LogError m_LastError
     DeleteKey = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function DeleteSection(ByVal section As String, Optional ByVal configPath As String = "") As Boolean
     ' Supprime une section entière d'un fichier INI
@@ -401,14 +540,22 @@ Public Function DeleteSection(ByVal section As String, Optional ByVal configPath
         m_LastError = "Fichier de configuration introuvable: " & filePath
         LogError m_LastError
         DeleteSection = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Supprimer la section (en écrivant une section NULL)
     result = WritePrivateProfileString(section, vbNullString, vbNullString, filePath)
     DeleteSection = (result <> 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la suppression de la section: " & Err.Description
@@ -417,6 +564,10 @@ ErrorHandler:
 End Function
 
 ' --- Autres fonctions publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function KeyExists(ByVal section As String, ByVal key As String, _
                          Optional ByVal configPath As String = "") As Boolean
     ' Vérifie si une clé existe dans un fichier INI
@@ -440,7 +591,11 @@ Public Function KeyExists(ByVal section As String, ByVal key As String, _
         m_LastError = "Fichier de configuration introuvable: " & filePath
         LogError m_LastError
         KeyExists = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Utiliser une valeur par défaut unique pour détecter si la clé existe
@@ -455,13 +610,21 @@ Public Function KeyExists(ByVal section As String, ByVal key As String, _
     ' Si la valeur lue est différente de la valeur par défaut, la clé existe
     KeyExists = (value <> defaultValue)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification de l'existence de la clé: " & Err.Description
     LogError m_LastError
     KeyExists = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SectionExists(ByVal section As String, Optional ByVal configPath As String = "") As Boolean
     ' Vérifie si une section existe dans un fichier INI
@@ -477,19 +640,31 @@ Public Function SectionExists(ByVal section As String, Optional ByVal configPath
     For i = LBound(sections) To UBound(sections)
         If UCase(sections(i)) = UCase(section) Then
             SectionExists = True
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     Next i
     
     SectionExists = False
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification de l'existence de la section: " & Err.Description
     LogError m_LastError
     SectionExists = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CreateConfigFile(ByVal configPath As String) As Boolean
     ' Crée un nouveau fichier de configuration
@@ -507,13 +682,21 @@ Public Function CreateConfigFile(ByVal configPath As String) As Boolean
     
     CreateConfigFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la création du fichier de configuration: " & Err.Description
     LogError m_LastError
     CreateConfigFile = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function ConfigFileExists(Optional ByVal configPath As String = "") As Boolean
     ' Vérifie si un fichier de configuration existe
@@ -530,13 +713,21 @@ Public Function ConfigFileExists(Optional ByVal configPath As String = "") As Bo
     
     ConfigFileExists = (Dir(filePath) <> "")
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification de l'existence du fichier: " & Err.Description
     LogError m_LastError
     ConfigFileExists = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Property Get LastError() As String
     ' Retourne la dernière erreur survenue
@@ -554,6 +745,10 @@ Public Property Let DefaultConfigPath(ByVal value As String)
 End Property
 
 ' --- Fonctions privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub CreateConfigDirectory(ByVal filePath As String)
     ' Crée le répertoire de configuration si nécessaire
     Dim folderPath As String
@@ -571,7 +766,11 @@ Private Sub CreateConfigDirectory(ByVal filePath As String)
             MkDir folderPath
         End If
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogError(ByVal errorMessage As String)
     ' Log les erreurs si un logger est disponible

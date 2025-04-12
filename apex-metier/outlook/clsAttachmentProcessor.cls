@@ -3,6 +3,13 @@ BEGIN
   MultiUse = -1  'True
 END
 Attribute VB_Name = "clsAttachmentProcessor"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
@@ -16,7 +23,11 @@ Option Explicit
 ' ==========================================================================
 
 Private Sub Class_Initialize()
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub Class_Terminate()
 End Sub

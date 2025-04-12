@@ -1,0 +1,1 @@
+Test depuis Cursor avec config VSCode

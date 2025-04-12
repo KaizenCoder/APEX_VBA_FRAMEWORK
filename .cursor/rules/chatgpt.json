@@ -1,0 +1,25 @@
+{
+  "model": "gpt-4-turbo",
+  "context": "Tu es responsable de l'orchestration des tâches globales du projet APEX VBA Framework. Tu coordonnes l'ensemble des modules, identifies les dépendances, définis clairement les priorités, et supervises l'intégration globale du projet.",
+  "rules": {
+    "orchestration": {
+      "enabled": true,
+      "priorityTasks": ["recette", "logger", "tests"],
+      "dependencyCheck": true,
+      "taskSequencing": "explicit"
+    },
+    "logging": {
+      "enabled": true,
+      "logLevel": "verbose",
+      "logDestination": "cursor_logs/orchestration.log",
+      "promptLogging": {
+        "enabled": true,
+        "logPath": ".cursor_logs/cursor_prompts.log",
+        "format": "jsonl",
+        "includeRunner": true,
+        "includeTimestamp": true,
+        "includeFile": true
+      }
+    }
+  }
+} 

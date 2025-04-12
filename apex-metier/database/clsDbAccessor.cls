@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/database - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsDbAccessor
 ' Version : 5.0 - Phase 3 - Plugin System and Performance Optimizations
@@ -38,6 +45,10 @@ Private Const MAX_PREPARED_STATEMENTS As Long = 50 ' Nombre maximal de déclarat
 ' --- Interface Implementation ---
 
 ' --- Initialization & Configuration ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub IDbAccessorBase_Initialize(Optional ByVal configSource As Variant)
     Set m_Logger = Nothing
     Set m_Driver = Nothing
@@ -49,7 +60,11 @@ Private Sub IDbAccessorBase_Initialize(Optional ByVal configSource As Variant)
     Set m_StatementCache = CreateObject("Scripting.Dictionary")
     m_StatementCacheEnabled = True
     m_BatchSize = DEFAULT_BATCH_SIZE
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub IDbAccessorBase_SetLogger(ByVal loggerInstance As ILoggerBase)
     Set m_Logger = loggerInstance
@@ -59,7 +74,11 @@ Private Sub IDbAccessorBase_SetLogger(ByVal loggerInstance As ILoggerBase)
     If Not m_PluginManager Is Nothing Then
         m_PluginManager.SetLogger loggerInstance
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub IDbAccessorBase_SetDriver(ByVal dbDriver As IDbDriver)
     Set m_Driver = dbDriver
@@ -67,6 +86,10 @@ Public Sub IDbAccessorBase_SetDriver(ByVal dbDriver As IDbDriver)
 End Sub
 
 ' --- Plugin Management (New) ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub EnablePlugins(Optional ByVal enable As Boolean = True)
     m_UsePlugins = enable
     
@@ -77,7 +100,11 @@ Public Sub EnablePlugins(Optional ByVal enable As Boolean = True)
     ElseIf Not m_UsePlugins And Not m_PluginManager Is Nothing Then
         LogIfAble Me, "EnablePlugins", LogLevelInfo, "Plugin system disabled", "PLUGIN"
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Function RegisterPlugin(plugin As IPlugin, Optional ByVal pluginId As String = "") As String
     If Not m_UsePlugins Then
@@ -87,31 +114,55 @@ Public Function RegisterPlugin(plugin As IPlugin, Optional ByVal pluginId As Str
     If m_PluginManager Is Nothing Then
         LogIfAble Me, "RegisterPlugin", LogLevelError, "Plugin manager not initialized", "PLUGIN"
         RegisterPlugin = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     RegisterPlugin = m_PluginManager.RegisterPlugin(plugin, pluginId)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetPlugin(ByVal pluginId As String) As IPlugin
     If Not m_UsePlugins Or m_PluginManager Is Nothing Then
         Set GetPlugin = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Set GetPlugin = m_PluginManager.GetPlugin(pluginId)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function UnregisterPlugin(ByVal pluginId As String) As Boolean
     If Not m_UsePlugins Or m_PluginManager Is Nothing Then
         UnregisterPlugin = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     UnregisterPlugin = m_PluginManager.UnregisterPlugin(pluginId)
 End Function
 
 ' --- Performance Settings (New) ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub EnableStatementCache(Optional ByVal enable As Boolean = True)
     m_StatementCacheEnabled = enable
     
@@ -121,7 +172,11 @@ Public Sub EnableStatementCache(Optional ByVal enable As Boolean = True)
     End If
     
     LogIfAble Me, "EnableStatementCache", LogLevelInfo, "Statement cache " & IIf(enable, "enabled", "disabled"), "PERFORMANCE"
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub ClearStatementCache()
     ' Nettoyer les ressources COM
@@ -140,7 +195,11 @@ Public Sub ClearStatementCache()
     End If
     
     LogIfAble Me, "ClearStatementCache", LogLevelInfo, "Statement cache cleared", "PERFORMANCE"
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Property Let BatchSize(ByVal value As Long)
     If value > 0 Then
@@ -157,6 +216,10 @@ Public Property Get BatchSize() As Long
 End Property
 
 ' --- New Batch Methods ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function ExecuteBulkInsert(ByVal tableName As String, ByVal data As Object, ByVal columnNames() As String) As Long
     ' Le paramètre data peut être soit un ADO Recordset, soit une Collection de tableaux
     Dim recordCount As Long
@@ -175,7 +238,11 @@ Public Function ExecuteBulkInsert(ByVal tableName As String, ByVal data As Objec
     ' Vérifications préliminaires
     If Not PreExecutionChecks(Me, "ExecuteBulkInsert") Then
         ExecuteBulkInsert = -1
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Déterminer le type de données
@@ -309,6 +376,10 @@ Public Function ExecuteBulkInsert(ByVal tableName As String, ByVal data As Objec
 End Function
 
 ' --- Connection Management ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbAccessorBase_Connect(ByVal connectionString As String, Optional ByVal maxRetries As Long = 1, Optional ByVal retryDelaySeconds As Long = 2) As Boolean
     Dim retryCount As Long
     Dim connectedSuccessfully As Boolean
@@ -324,7 +395,11 @@ Private Function IDbAccessorBase_Connect(ByVal connectionString As String, Optio
         LogIfAble Me, "Connect", LogLevelError, "Connection string is empty", "CONNECTION"
         m_LastError = -1
         IDbAccessorBase_Connect = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     LogIfAble Me, "Connect", LogLevelInfo, "Connecting (Retries=" & maxRetries & ")...", "CONNECTION"
@@ -404,7 +479,11 @@ Private Function IDbAccessorBase_Connect(ByVal connectionString As String, Optio
         GoTo ConnectCleanFail
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ConnectError:
     m_LastError = Err.Number
@@ -422,7 +501,11 @@ ConnectCleanFail:
         On Error GoTo 0
         Set m_cn = Nothing
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub IDbAccessorBase_Disconnect()
     LogIfAble Me, "Disconnect", LogLevelInfo, "Disconnect requested.", "CONNECTION"
@@ -461,7 +544,11 @@ Private Sub IDbAccessorBase_Disconnect()
     m_TransactionNestLevel = 0
     
     LogIfAble Me, "Disconnect", LogLevelInfo, "Connection closed.", "CONNECTION"
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 DisconnectError:
     m_LastError = Err.Number
@@ -484,6 +571,10 @@ DisconnectError:
 End Sub
 
 ' --- Execution Methods ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IDbAccessorBase_ExecuteNonQuery(ByVal sql As String, Optional ByVal params As Variant) As Long
     Dim cmd As ADODB.Command
     Dim recordsAffected As Long
@@ -505,12 +596,20 @@ Private Function IDbAccessorBase_ExecuteNonQuery(ByVal sql As String, Optional B
     If Len(Trim(sql)) = 0 Then
         LogIfAble Me, context, LogLevelError, "SQL is empty", "SQL_ERROR"
         m_LastError = -1
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Run pre-execution checks
     If Not PreExecutionChecks(Me, context) Then
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Apply driver-specific SQL transformations if driver available
@@ -535,7 +634,11 @@ Private Function IDbAccessorBase_ExecuteNonQuery(ByVal sql As String, Optional B
                     If IsNumeric(eventResult(resultKey)) Then
                         IDbAccessorBase_ExecuteNonQuery = CLng(eventResult(resultKey))
                         LogIfAble Me, context, LogLevelInfo, "Result provided by plugin '" & resultKey & "'", "PLUGIN"
-                        Exit Function
+                        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
                     End If
                 End If
             Next resultKey
@@ -622,14 +725,22 @@ ExecNonQueryCleanExit:
     If Not fromCache And Not cmd Is Nothing Then
         Set cmd = Nothing
     End If
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ExecNonQueryError:
     m_LastError = Err.Number
     duration = (Timer - startTime) * 1000
     HandleDbError Me, context, Err, "(Duration: " & Round(duration, 0) & " ms) SQL: " & finalSql
     Resume ExecNonQueryCleanExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IDbAccessorBase_GetRecordset(ByVal sql As String, Optional ByVal params As Variant) As ADODB.Recordset
     Dim cmd As ADODB.Command
@@ -652,12 +763,20 @@ Private Function IDbAccessorBase_GetRecordset(ByVal sql As String, Optional ByVa
     If Len(Trim(sql)) = 0 Then
         LogIfAble Me, context, LogLevelError, "SQL is empty", "SQL_ERROR"
         m_LastError = -1
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Run pre-execution checks
     If Not PreExecutionChecks(Me, context) Then
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Apply driver-specific SQL transformations if driver available
@@ -682,7 +801,11 @@ Private Function IDbAccessorBase_GetRecordset(ByVal sql As String, Optional ByVa
                     If TypeName(eventResult(resultKey)) = "Recordset" Then
                         Set IDbAccessorBase_GetRecordset = eventResult(resultKey)
                         LogIfAble Me, context, LogLevelInfo, "Recordset provided by plugin '" & resultKey & "'", "PLUGIN"
-                        Exit Function
+                        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
                     End If
                 End If
             Next resultKey
@@ -793,6 +916,10 @@ GetRecordsetError:
 End Function
 
 ' --- Private Utility Methods ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GetStatementCacheKey(ByVal sql As String, Optional ByVal params As Variant) As String
     ' Create a unique key for caching prepared statements
     Dim key As String
@@ -803,7 +930,11 @@ Private Function GetStatementCacheKey(ByVal sql As String, Optional ByVal params
     End If
     
     GetStatementCacheKey = key
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function ConnectionStringWithoutPassword(ByVal connString As String) As String
     ' Masque les mots de passe dans les chaînes de connexion pour la journalisation
@@ -834,7 +965,11 @@ Private Function ConnectionStringWithoutPassword(ByVal connString As String) As 
     Next i
     
     ConnectionStringWithoutPassword = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GetFieldDataType(field As ADODB.Field) As ADODB.DataTypeEnum
     ' Obtenir le type ADO d'un champ de recordset
@@ -845,6 +980,10 @@ Private Function GetFieldDataType(field As ADODB.Field) As ADODB.DataTypeEnum
 End Function
 
 ' --- Transaction Methods - Modified for Plugin Support ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub IDbAccessorBase_BeginTrans()
     If Not PreExecutionChecks(Me, "BeginTrans") Then Exit Sub
     
@@ -852,7 +991,11 @@ Private Sub IDbAccessorBase_BeginTrans()
     If m_isInTransaction Then
         m_TransactionNestLevel = m_TransactionNestLevel + 1
         LogIfAble Me, "BeginTrans", LogLevelInfo, "Nested transaction started (level " & m_TransactionNestLevel & ")", "TRANSACTION"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     On Error GoTo BeginTransError
@@ -868,28 +1011,48 @@ Private Sub IDbAccessorBase_BeginTrans()
     End If
     
     LogIfAble Me, "BeginTrans", LogLevelInfo, "Transaction started.", "TRANSACTION"
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 BeginTransError:
     m_LastError = Err.Number
     m_isInTransaction = False
     m_TransactionNestLevel = 0
     HandleDbError Me, "BeginTrans", Err
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub IDbAccessorBase_CommitTrans()
-    If Not PreExecutionChecks(Me, "CommitTrans") Then Exit Sub
+    If Not PreExecutionChecks(Me, "CommitTrans") Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     If Not m_isInTransaction Then
         HandleDbError Me, "CommitTrans", 0, "No active transaction"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Handle nested transactions
     If m_TransactionNestLevel > 1 Then
         m_TransactionNestLevel = m_TransactionNestLevel - 1
         LogIfAble Me, "CommitTrans", LogLevelInfo, "Nested transaction committed (level " & m_TransactionNestLevel & " remaining)", "TRANSACTION"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     On Error GoTo CommitTransError
@@ -905,7 +1068,11 @@ Private Sub IDbAccessorBase_CommitTrans()
     End If
     
     LogIfAble Me, "CommitTrans", LogLevelInfo, "Transaction committed.", "TRANSACTION"
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 CommitTransError:
     m_LastError = Err.Number
@@ -914,14 +1081,26 @@ CommitTransError:
     
     ' Try to rollback on commit failure
     SafeRollbackTransaction
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub IDbAccessorBase_RollbackTrans()
-    If Not PreExecutionChecks(Me, "RollbackTrans") Then Exit Sub
+    If Not PreExecutionChecks(Me, "RollbackTrans") Then Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
     If Not m_isInTransaction Then
         HandleDbError Me, "RollbackTrans", 0, "No active transaction"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Handle nested transactions - a rollback at any level cancels the entire transaction
@@ -938,14 +1117,22 @@ Private Sub IDbAccessorBase_RollbackTrans()
     End If
     
     LogIfAble Me, "RollbackTrans", LogLevelWarning, "Transaction rolled back.", "TRANSACTION"
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 RollbackTransError:
     m_LastError = Err.Number
     HandleDbError Me, "RollbackTrans", Err
     m_isInTransaction = False ' Reset state even on error
     m_TransactionNestLevel = 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub SafeRollbackTransaction()
     ' Helper method to safely roll back a transaction without raising errors

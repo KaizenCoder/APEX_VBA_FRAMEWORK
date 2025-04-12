@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rapport d'Analyse IA pour CI/CD</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2, h3 { color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .chart { margin: 20px 0; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rapport d'Analyse des Logs IA pour CI/CD Apex Framework</h1>
+        
+        <h2>Résumé</h2>
+        <ul>
+            <li><strong>Total de prompts analysés:</strong> 95</li>
+            <li><strong>Prompts liés à CI/CD:</strong> 23 (24.2%)</li>
+            <li><strong>Problèmes détectés:</strong> 32</li>
+            <li><strong>Tests mentionnés:</strong> 7</li>
+        </ul>
+        
+        <h2>Visualisations</h2>
+
+        <div class="chart">
+            <h3>Prompt Types Distribution</h3>
+            <img src="ia_usage\prompt_types_distribution.png" alt="prompt_types_distribution.png" style="max-width: 100%;">
+        </div>
+
+        <div class="chart">
+            <h3>Ci Keywords Frequency</h3>
+            <img src="ia_usage\ci_keywords_frequency.png" alt="ci_keywords_frequency.png" style="max-width: 100%;">
+        </div>
+
+        <h2>Problèmes CI/CD Détectés</h2>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>test initial 1 s assurer qu on peut installer sans problème le framework</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Inconnu</td>
+                <td>ci_cd</td>
+                <td>ps1:String) [Set-Location], ItemNotFoundException                           + FullyQualifiedErrorId : PathNotFound,Microsoft</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Inconnu</td>
+                <td>ci_cd</td>
+                <td>Erreur lors de la vÃ©rification de Node</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : SecurityException
+
+Exception calling "SetEnvironmentVariable" with "3" argument(s): "Requested registry access is not allowed</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Inconnu</td>
+                <td>ci_cd</td>
+                <td>Se déplacer dans le répertoire du projet
+ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>7 kB)
+Collecting debugpy>=1</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>7 kB)
+Collecting debugpy>=1</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>whl (14 kB)
+Installing collected packages: webencodings, wcwidth, py-cpuinfo, pure-eval, fastjsonschema, widgetsnbextension, websocket-client, webcolors, urllib3, uri-template, typing-extensions, types-python-dateutil, traitlets, tornado, tinycss2, soupsieve, sniffio, setuptools, send2trash, rpds-py, rfc3986-validator, rfc3339-validator, pyzmq, pyyaml, pywinpty, python-json-logger, pyparsing, pygments, pycparser, psutil, prompt-toolkit, prometheus-client, pluggy, platformdirs, pillow, parso, pandocfilters, packaging, overrides, nest-asyncio, narwhals, mistune, markupsafe, kiwisolver, jupyterlab-widgets, jupyterlab-pygments, jsonpointer, json5, iniconfig, idna, h11, fqdn, fonttools, executing, defusedxml, decorator, debugpy, cycler, contourpy, colorama, charset-normalizer, certifi, bleach, babel, attrs, async-lru, asttokens, terminado, stack_data, requests, referencing, pytest, plotly, matplotlib-inline, matplotlib, jupyter-core, jinja2, jedi, ipython-pygments-lexers, httpcore, comm, cffi, beautifulsoup4, arrow, anyio, seaborn, pytest-benchmark, jupyter-server-terminals, jupyter-client, jsonschema-specifications, isoduration, ipython, httpx, argon2-cffi-bindings, jsonschema, ipywidgets, ipykernel, argon2-cffi, nbformat, jupyter-console, nbclient, jupyter-events, nbconvert, jupyter-server, notebook-shim, jupyterlab-server, jupyter-lsp, jupyterlab, notebook, jupyter
+Successfully installed anyio-4</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>whl (14 kB)
+Installing collected packages: webencodings, wcwidth, py-cpuinfo, pure-eval, fastjsonschema, widgetsnbextension, websocket-client, webcolors, urllib3, uri-template, typing-extensions, types-python-dateutil, traitlets, tornado, tinycss2, soupsieve, sniffio, setuptools, send2trash, rpds-py, rfc3986-validator, rfc3339-validator, pyzmq, pyyaml, pywinpty, python-json-logger, pyparsing, pygments, pycparser, psutil, prompt-toolkit, prometheus-client, pluggy, platformdirs, pillow, parso, pandocfilters, packaging, overrides, nest-asyncio, narwhals, mistune, markupsafe, kiwisolver, jupyterlab-widgets, jupyterlab-pygments, jsonpointer, json5, iniconfig, idna, h11, fqdn, fonttools, executing, defusedxml, decorator, debugpy, cycler, contourpy, colorama, charset-normalizer, certifi, bleach, babel, attrs, async-lru, asttokens, terminado, stack_data, requests, referencing, pytest, plotly, matplotlib-inline, matplotlib, jupyter-core, jinja2, jedi, ipython-pygments-lexers, httpcore, comm, cffi, beautifulsoup4, arrow, anyio, seaborn, pytest-benchmark, jupyter-server-terminals, jupyter-client, jsonschema-specifications, isoduration, ipython, httpx, argon2-cffi-bindings, jsonschema, ipywidgets, ipykernel, argon2-cffi, nbformat, jupyter-console, nbclient, jupyter-events, nbconvert, jupyter-server, notebook-shim, jupyterlab-server, jupyter-lsp, jupyterlab, notebook, jupyter
+Successfully installed anyio-4</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>py", line 511
+    global TEST_DIR, SRC_DIR
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: name 'TEST_DIR' is used prior to global declaration
+PS D:\Dev\Apex_VBA_FRAMEWORK></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>py", line 511
+    global TEST_DIR, SRC_DIR
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: name 'TEST_DIR' is used prior to global declaration
+PS D:\Dev\Apex_VBA_FRAMEWORK> py tools/python/analyze_ia_logs</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>SyntaxError: name 'TEST_DIR' is used prior to global declaration
+PS D:\Dev\Apex_VBA_FRAMEWORK> py tools/python/analyze_ia_logs</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>log         ← Traces d’exécution CI, erreurs, plantages
+
+📌 Résumé des rôles de chaque sous-dossier
+Dossier	Rôle
+cursor/	Orchestration et journalisation des prompts IA
+review/	Revue de séquence, analyse réflexive, justification
+changelog/	Historique global + focus IA + tags de version
+validate/	Scripts pour CI manuelle ou automatisée (validation IA)
+logs/	Traces d’exécution, build, tests, bugs CLI, runtime etc</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>log         ← Traces d’exécution CI, erreurs, plantages
+
+📌 Résumé des rôles de chaque sous-dossier
+Dossier	Rôle
+cursor/	Orchestration et journalisation des prompts IA
+review/	Revue de séquence, analyse réflexive, justification
+changelog/	Historique global + focus IA + tags de version
+validate/	Scripts pour CI manuelle ou automatisée (validation IA)
+logs/	Traces d’exécution, build, tests, bugs CLI, runtime etc</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>md            ← Résultats des tests (unitaires / intégrés)
+│   └── runtime_issues</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>= 0:
+        print("[ApexBridge] ERROR:", result</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>0)
+                    except (ValueError, TypeError):
+                        pass # Handle potential invalid timestamp formats
+                elif msg_obj</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>Classification Automatique des Tâches : Utiliser des mots-clés ou des techniques NLP simples (comme TF-IDF) pour catégoriser les prompts utilisateurs (Debug, Generate, Explain</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>error(f"Failed to decode JSON for key {key}: {e}")
+            except Exception as e:
+                logging</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>Analyse de Sentiment (Basique) : Détecter des mots indicateurs de frustration ("ne fonctionne pas", "erreur", "nul") ou de satisfaction ("parfait", "merci", "génial") dans les prompts</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>Fréquence de mentions d'erreurs VBA ou Apex dans les prompts</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>Classification Automatique des Tâches : Utiliser des mots-clés ou des techniques NLP simples (comme TF-IDF) pour catégoriser les prompts utilisateurs (Debug, Generate, Explain</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>Copie Préalable : Pour éviter les problèmes de verrouillage si Cursor écrit dans la base pendant l'analyse, envisagez de copier le fichier state</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>error(f"Database file not found at: {cursor_data_path}")
+        return
+
+    # Consider copying the DB first to avoid locking issues
+    # temp_db_path = cursor_data_path + "</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>Analyser les Prompts Filtrés :
+        Compter la fréquence des mots-clés (VBA, Apex, Error, Test, noms de fonctions</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>ERROR_KEYWORDS = ['error', 'bug', 'fail', 'doesn\'t work', 'ne fonctionne pas', 'erreur', 'debug', 'fix']
+TEST_KEYWORDS = ['test', 'testing', 'unit test', 'validation', 'scenario']
+
+# Combinez tous les mots-clés pertinents pour le filtrage initial
+RELEVANT_KEYWORDS = set(VBA_KEYWORDS + APEX_KEYWORDS)
+
+# Patterns pour le masquage (simple)
+SECRET_PATTERNS = {
+    "API_KEY": r"sk-[a-zA-Z0-9]{20,}",
+    "GENERIC_SECRET": r"[a-zA-Z0-9/+]{32,}" # Pattern générique large (à affiner)
+}
+
+OUTPUT_REPORT_FILE = "apex_framework_cursor_analysis</td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>ERROR_KEYWORDS = ['error', 'bug', 'fail', 'doesn\'t work', 'ne fonctionne pas', 'erreur', 'debug', 'fix']
+TEST_KEYWORDS = ['test', 'testing', 'unit test', 'validation', 'scenario']
+
+# Combinez tous les mots-clés pertinents pour le filtrage initial
+RELEVANT_KEYWORDS = set(VBA_KEYWORDS + APEX_KEYWORDS)
+
+# Patterns pour le masquage (simple)
+SECRET_PATTERNS = {
+    "API_KEY": r"sk-[a-zA-Z0-9]{20,}",
+    "GENERIC_SECRET": r"[a-zA-Z0-9/+]{32,}" # Pattern générique large (à affiner)
+}
+
+OUTPUT_REPORT_FILE = "apex_framework_cursor_analysis</td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>ERROR_KEYWORDS = ['error', 'bug', 'fail', 'doesn\'t work', 'ne fonctionne pas', 'erreur', 'debug', 'fix']
+TEST_KEYWORDS = ['test', 'testing', 'unit test', 'validation', 'scenario']
+
+# Combinez tous les mots-clés pertinents pour le filtrage initial
+RELEVANT_KEYWORDS = set(VBA_KEYWORDS + APEX_KEYWORDS)
+
+# Patterns pour le masquage (simple)
+SECRET_PATTERNS = {
+    "API_KEY": r"sk-[a-zA-Z0-9]{20,}",
+    "GENERIC_SECRET": r"[a-zA-Z0-9/+]{32,}" # Pattern générique large (à affiner)
+}
+
+OUTPUT_REPORT_FILE = "apex_framework_cursor_analysis</td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>new_paragraph("- Tester la gestion des erreurs pour les fonctions fréquemment problématiques</td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>ERROR_KEYWORDS = ['error', 'bug', 'fail', 'doesn\'t work', 'ne fonctionne pas', 'erreur', 'debug', 'fix']
+TEST_KEYWORDS = ['test', 'testing', 'unit test', 'validation', 'scenario']
+
+# Combinez tous les mots-clés pertinents pour le filtrage initial
+RELEVANT_KEYWORDS = set(VBA_KEYWORDS + APEX_KEYWORDS)
+
+# Patterns pour le masquage (simple)
+SECRET_PATTERNS = {
+    "API_KEY": r"sk-[a-zA-Z0-9]{20,}",
+    "GENERIC_SECRET": r"[a-zA-Z0-9/+]{32,}" # Pattern générique large (à affiner)
+}
+
+OUTPUT_REPORT_FILE = "apex_framework_cursor_analysis</td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>ERROR_KEYWORDS = ['error', 'bug', 'fail', 'doesn\'t work', 'ne fonctionne pas', 'erreur', 'debug', 'fix']
+TEST_KEYWORDS = ['test', 'testing', 'unit test', 'validation', 'scenario']
+
+# Combinez tous les mots-clés pertinents pour le filtrage initial
+RELEVANT_KEYWORDS = set(VBA_KEYWORDS + APEX_KEYWORDS)
+
+# Patterns pour le masquage (simple)
+SECRET_PATTERNS = {
+    "API_KEY": r"sk-[a-zA-Z0-9]{20,}",
+    "GENERIC_SECRET": r"[a-zA-Z0-9/+]{32,}" # Pattern générique large (à affiner)
+}
+
+OUTPUT_REPORT_FILE = "apex_framework_cursor_analysis</td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>Inconnu</td>
+                <td>test</td>
+                <td>Analyse des Problèmes Fréquents et des Fonctions VBA Discutées
+
+Identifiez les termes et expressions les plus couramment utilisés pour repérer les problèmes récurrents et les fonctions VBA souvent mentionnées</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

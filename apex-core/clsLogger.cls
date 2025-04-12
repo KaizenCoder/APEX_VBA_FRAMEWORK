@@ -1,6 +1,13 @@
 ' Migrated to apex-core - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsLogger
 ' Version : 1.0
@@ -93,7 +100,11 @@ Private Sub Class_Initialize()
     
     ' Marquer comme initialisé
     m_IsInitialized = True
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub Class_Terminate()
     ' Nettoyage à la destruction
@@ -167,37 +178,65 @@ Public Property Set CustomCallback(ByVal value As Object)
 End Property
 
 ' --- Méthodes publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub LogDebug(ByVal message As String, Optional ByVal source As String = "", Optional ByVal lineNumber As Long = 0)
     ' Journalise un message de débogage
     LogMessage message, lvlDebug, source, lineNumber
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub LogInfo(ByVal message As String, Optional ByVal source As String = "", Optional ByVal lineNumber As Long = 0)
     ' Journalise une information
     LogMessage message, lvlInfo, source, lineNumber
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub LogWarning(ByVal message As String, Optional ByVal source As String = "", Optional ByVal lineNumber As Long = 0)
     ' Journalise un avertissement
     LogMessage message, lvlWarning, source, lineNumber
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub LogError(ByVal message As String, Optional ByVal source As String = "", Optional ByVal lineNumber As Long = 0)
     ' Journalise une erreur
     LogMessage message, lvlError, source, lineNumber
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub LogFatal(ByVal message As String, Optional ByVal source As String = "", Optional ByVal lineNumber As Long = 0)
     ' Journalise une erreur fatale
     LogMessage message, lvlFatal, source, lineNumber
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub LogMessage(ByVal message As String, ByVal level As LogLevel, Optional ByVal source As String = "", Optional ByVal lineNumber As Long = 0)
     ' Journalise un message avec un niveau spécifié
     
     ' Vérifier si la journalisation est activée et si le niveau est suffisant
     If Not m_Config.Enabled Or level < m_Config.MinLevel Then
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Formater le message
@@ -212,7 +251,11 @@ Public Sub LogMessage(ByVal message As String, ByVal level As LogLevel, Optional
     If m_Config.AutoFlush Or m_BufferCount >= m_Config.MaxBufferSize Then
         FlushBuffer
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub FlushBuffer()
     ' Vide le buffer de journalisation vers les destinations configurées
@@ -256,12 +299,20 @@ Public Sub FlushBuffer()
     
     ' Réinitialiser le buffer
     m_BufferCount = 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub ClearBuffer()
     ' Vide le buffer sans écrire
     m_BufferCount = 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Function LoadConfigFromFile(ByVal filePath As String) As Boolean
     ' Charge la configuration depuis un fichier INI
@@ -270,12 +321,20 @@ Public Function LoadConfigFromFile(ByVal filePath As String) As Boolean
     ' TODO: Implémenter le chargement de configuration
     LoadConfigFromFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du chargement de la configuration: " & Err.Description
     LoadConfigFromFile = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SaveConfigToFile(ByVal filePath As String) As Boolean
     ' Sauvegarde la configuration dans un fichier INI
@@ -284,7 +343,11 @@ Public Function SaveConfigToFile(ByVal filePath As String) As Boolean
     ' TODO: Implémenter la sauvegarde de configuration
     SaveConfigToFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la sauvegarde de la configuration: " & Err.Description
@@ -292,6 +355,10 @@ ErrorHandler:
 End Function
 
 ' --- Méthodes privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub InitializeLogLevelNames()
     ' Initialise les noms des niveaux de log
     m_LogLevelNames(lvlDebug) = "DEBUG"
@@ -299,7 +366,11 @@ Private Sub InitializeLogLevelNames()
     m_LogLevelNames(lvlWarning) = "WARNING"
     m_LogLevelNames(lvlError) = "ERROR"
     m_LogLevelNames(lvlFatal) = "FATAL"
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function FormatLogMessage(ByVal message As String, ByVal level As LogLevel, ByVal source As String, ByVal lineNumber As Long) As String
     ' Formate un message de log selon la configuration
@@ -329,13 +400,21 @@ Private Function FormatLogMessage(ByVal message As String, ByVal level As LogLev
     result = result & message
     
     FormatLogMessage = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub LogToConsole(ByVal message As String)
     ' Écrit un message dans la fenêtre immédiate
     On Error Resume Next
     Debug.Print message
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogToFile(ByVal message As String)
     ' Écrit un message dans un fichier
@@ -367,11 +446,19 @@ Private Sub LogToFile(ByVal message As String)
     ' Écrire le message
     Print #m_FileNum, message
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur d'écriture dans le fichier de log: " & Err.Description
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogToSheet(ByVal message As String)
     ' Écrit un message dans une feuille Excel
@@ -379,11 +466,19 @@ Private Sub LogToSheet(ByVal message As String)
     
     ' TODO: Implémenter la journalisation dans une feuille Excel
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur d'écriture dans la feuille de log: " & Err.Description
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogToDatabase(ByVal message As String)
     ' Écrit un message dans une base de données
@@ -391,11 +486,19 @@ Private Sub LogToDatabase(ByVal message As String)
     
     ' TODO: Implémenter la journalisation dans une base de données
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur d'écriture dans la base de données: " & Err.Description
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogToCustom(ByVal message As String)
     ' Envoie le message à un gestionnaire personnalisé
@@ -407,11 +510,19 @@ Private Sub LogToCustom(ByVal message As String)
         ' m_CustomCallback.ProcessLogMessage message
     End If
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'appel du gestionnaire personnalisé: " & Err.Description
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogToEventLog(ByVal message As String)
     ' Écrit un message dans le journal d'événements Windows
@@ -419,11 +530,19 @@ Private Sub LogToEventLog(ByVal message As String)
     
     ' TODO: Implémenter la journalisation dans le journal d'événements Windows
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur d'écriture dans le journal d'événements: " & Err.Description
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub CheckRotation(ByVal filePath As String)
     ' Vérifie s'il faut faire une rotation des logs
@@ -439,11 +558,19 @@ Private Sub CheckRotation(ByVal filePath As String)
         RotateLogFile filePath
     End If
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur lors de la vérification de rotation: " & Err.Description
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub RotateLogFile(ByVal filePath As String)
     ' Effectue la rotation du fichier de log
@@ -462,7 +589,11 @@ Private Sub RotateLogFile(ByVal filePath As String)
     
     Name filePath As newPath
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur lors de la rotation du fichier: " & Err.Description

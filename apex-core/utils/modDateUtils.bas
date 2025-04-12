@@ -1,6 +1,13 @@
 ' Migrated to apex-core/utils - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Module : modDateUtils
 ' Version : 1.0
@@ -19,6 +26,10 @@ Private Const DATE_FORMAT_ISO As String = "yyyy-mm-dd"
 Private Const DATE_FORMAT_SQL As String = "yyyy-mm-dd hh:nn:ss"
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize(Optional ByVal logger As Object = Nothing)
     ' Initialise le module avec un logger optionnel
     Set m_Logger = logger
@@ -31,29 +42,49 @@ Public Sub Initialize(Optional ByVal logger As Object = Nothing)
 End Sub
 
 ' --- Fonctions de formatage de date ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function FormatDate(ByVal dateValue As Date, Optional ByVal format As String = DATE_FORMAT_FR) As String
     ' Formate une date selon un format spécifié
     On Error GoTo ErrorHandler
     
     FormatDate = Format(dateValue, format)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du formatage de la date: " & Err.Description
     LogError m_LastError
     FormatDate = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetISODate(ByVal dateValue As Date) As String
     ' Retourne une date au format ISO (YYYY-MM-DD)
     GetISODate = FormatDate(dateValue, DATE_FORMAT_ISO)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetSQLDate(ByVal dateValue As Date) As String
     ' Retourne une date au format SQL (YYYY-MM-DD HH:NN:SS)
     GetSQLDate = FormatDate(dateValue, DATE_FORMAT_SQL)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetLocalizedDate(ByVal dateValue As Date, Optional ByVal locale As String = "FR") As String
     ' Retourne une date formatée selon la locale spécifiée
@@ -70,7 +101,11 @@ Public Function GetLocalizedDate(ByVal dateValue As Date, Optional ByVal locale 
             GetLocalizedDate = FormatDate(dateValue, DATE_FORMAT_FR)
     End Select
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du formatage de la date localisée: " & Err.Description
@@ -79,6 +114,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions de conversion de date ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function ParseDate(ByVal dateString As String, Optional ByVal format As String = "") As Date
     ' Convertit une chaîne en date selon un format spécifié
     On Error GoTo ErrorHandler
@@ -113,7 +152,11 @@ Public Function ParseDate(ByVal dateString As String, Optional ByVal format As S
         Else
             ' Format inconnu, utiliser la conversion par défaut de VBA
             ParseDate = CDate(dateString)
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     End If
     
@@ -181,14 +224,22 @@ Public Function ParseDate(ByVal dateString As String, Optional ByVal format As S
             ParseDate = CDate(dateString)
     End Select
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la conversion de la chaîne en date: " & Err.Description
     LogError m_LastError
     ' Retourner une date nulle en cas d'erreur
     ParseDate = DateSerial(1900, 1, 1)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function IsValidDate(ByVal dateString As String, Optional ByVal format As String = "") As Boolean
     ' Vérifie si une chaîne représente une date valide
@@ -200,7 +251,11 @@ Public Function IsValidDate(ByVal dateString As String, Optional ByVal format As
     ' Vérifie si la date est dans une plage raisonnable
     IsValidDate = (Year(testDate) >= 1900 And Year(testDate) <= 2100)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la validation de la date: " & Err.Description
@@ -209,6 +264,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions de calcul de date ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function AddWorkDays(ByVal startDate As Date, ByVal workDays As Long) As Date
     ' Ajoute un nombre de jours ouvrés à une date
     Dim currentDate As Date
@@ -222,7 +281,11 @@ Public Function AddWorkDays(ByVal startDate As Date, ByVal workDays As Long) As 
     ' Si on ajoute 0 jours, retourner la date de départ
     If remainingDays = 0 Then
         AddWorkDays = startDate
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Ajouter les jours un par un
@@ -248,13 +311,21 @@ Public Function AddWorkDays(ByVal startDate As Date, ByVal workDays As Long) As 
     
     AddWorkDays = currentDate
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'ajout des jours ouvrés: " & Err.Description
     LogError m_LastError
     AddWorkDays = startDate
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetWorkDaysBetween(ByVal startDate As Date, ByVal endDate As Date) As Long
     ' Calcule le nombre de jours ouvrés entre deux dates
@@ -285,13 +356,21 @@ Public Function GetWorkDaysBetween(ByVal startDate As Date, ByVal endDate As Dat
     
     GetWorkDaysBetween = workDays
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul des jours ouvrés: " & Err.Description
     LogError m_LastError
     GetWorkDaysBetween = 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetQuarter(ByVal dateValue As Date) As Integer
     ' Retourne le trimestre (1-4) pour une date donnée
@@ -299,13 +378,21 @@ Public Function GetQuarter(ByVal dateValue As Date) As Integer
     
     GetQuarter = Int((Month(dateValue) - 1) / 3) + 1
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul du trimestre: " & Err.Description
     LogError m_LastError
     GetQuarter = 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetFirstDayOfMonth(ByVal dateValue As Date) As Date
     ' Retourne le premier jour du mois pour une date donnée
@@ -313,13 +400,21 @@ Public Function GetFirstDayOfMonth(ByVal dateValue As Date) As Date
     
     GetFirstDayOfMonth = DateSerial(Year(dateValue), Month(dateValue), 1)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul du premier jour du mois: " & Err.Description
     LogError m_LastError
     GetFirstDayOfMonth = dateValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetLastDayOfMonth(ByVal dateValue As Date) As Date
     ' Retourne le dernier jour du mois pour une date donnée
@@ -327,13 +422,21 @@ Public Function GetLastDayOfMonth(ByVal dateValue As Date) As Date
     
     GetLastDayOfMonth = DateSerial(Year(dateValue), Month(dateValue) + 1, 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul du dernier jour du mois: " & Err.Description
     LogError m_LastError
     GetLastDayOfMonth = dateValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetFirstDayOfQuarter(ByVal dateValue As Date) As Date
     ' Retourne le premier jour du trimestre pour une date donnée
@@ -344,13 +447,21 @@ Public Function GetFirstDayOfQuarter(ByVal dateValue As Date) As Date
     quarter = GetQuarter(dateValue)
     GetFirstDayOfQuarter = DateSerial(Year(dateValue), (quarter - 1) * 3 + 1, 1)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul du premier jour du trimestre: " & Err.Description
     LogError m_LastError
     GetFirstDayOfQuarter = dateValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetLastDayOfQuarter(ByVal dateValue As Date) As Date
     ' Retourne le dernier jour du trimestre pour une date donnée
@@ -361,13 +472,21 @@ Public Function GetLastDayOfQuarter(ByVal dateValue As Date) As Date
     quarter = GetQuarter(dateValue)
     GetLastDayOfQuarter = DateSerial(Year(dateValue), quarter * 3 + 1, 0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul du dernier jour du trimestre: " & Err.Description
     LogError m_LastError
     GetLastDayOfQuarter = dateValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetFirstDayOfYear(ByVal dateValue As Date) As Date
     ' Retourne le premier jour de l'année pour une date donnée
@@ -375,13 +494,21 @@ Public Function GetFirstDayOfYear(ByVal dateValue As Date) As Date
     
     GetFirstDayOfYear = DateSerial(Year(dateValue), 1, 1)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul du premier jour de l'année: " & Err.Description
     LogError m_LastError
     GetFirstDayOfYear = dateValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetLastDayOfYear(ByVal dateValue As Date) As Date
     ' Retourne le dernier jour de l'année pour une date donnée
@@ -389,13 +516,21 @@ Public Function GetLastDayOfYear(ByVal dateValue As Date) As Date
     
     GetLastDayOfYear = DateSerial(Year(dateValue), 12, 31)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul du dernier jour de l'année: " & Err.Description
     LogError m_LastError
     GetLastDayOfYear = dateValue
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetAge(ByVal birthDate As Date, Optional ByVal referenceDate As Date = 0) As Integer
     ' Calcule l'âge en années à partir d'une date de naissance
@@ -416,7 +551,11 @@ Public Function GetAge(ByVal birthDate As Date, Optional ByVal referenceDate As 
     
     GetAge = age
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors du calcul de l'âge: " & Err.Description
@@ -425,6 +564,10 @@ ErrorHandler:
 End Function
 
 ' --- Fonctions temporelles ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function SecondsToTime(ByVal seconds As Long) As String
     ' Convertit un nombre de secondes en format hh:mm:ss
     On Error GoTo ErrorHandler
@@ -439,13 +582,21 @@ Public Function SecondsToTime(ByVal seconds As Long) As String
     
     SecondsToTime = Format(hours, "00") & ":" & Format(minutes, "00") & ":" & Format(remainingSeconds, "00")
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la conversion des secondes en temps: " & Err.Description
     LogError m_LastError
     SecondsToTime = "00:00:00"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function TimeToSeconds(ByVal timeString As String) As Long
     ' Convertit un format hh:mm:ss en nombre de secondes
@@ -477,7 +628,11 @@ Public Function TimeToSeconds(ByVal timeString As String) As Long
         TimeToSeconds = seconds
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la conversion du temps en secondes: " & Err.Description
@@ -492,6 +647,10 @@ Public Property Get LastError() As String
 End Property
 
 ' --- Fonctions privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub LogError(ByVal errorMessage As String)
     ' Log les erreurs si un logger est disponible
     If Not m_Logger Is Nothing Then

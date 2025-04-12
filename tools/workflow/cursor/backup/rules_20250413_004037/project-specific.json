@@ -1,0 +1,45 @@
+{
+    "description": "Règles spécifiques au projet APEX Framework",
+    "rules": [
+        {
+            "name": "apex-layer-dependencies",
+            "description": "Validation des dépendances entre couches",
+            "enabled": true,
+            "severity": "error",
+            "layers": {
+                "ui": ["apex-ui"],
+                "business": ["apex-metier"],
+                "core": ["apex-core"],
+                "test": ["apex-tests"]
+            },
+            "allowed_dependencies": {
+                "ui": ["business", "core"],
+                "business": ["core"],
+                "core": [],
+                "test": ["ui", "business", "core"]
+            }
+        },
+        {
+            "name": "apex-module-structure",
+            "description": "Structure des modules APEX",
+            "enabled": true,
+            "severity": "warning",
+            "required_sections": {
+                "core": ["interfaces", "implementations", "utils"],
+                "metier": ["database", "xml", "outlook", "recette"],
+                "ui": ["forms", "handlers", "ribbon"]
+            }
+        },
+        {
+            "name": "apex-naming-conventions",
+            "description": "Conventions de nommage APEX",
+            "enabled": true,
+            "severity": "warning",
+            "patterns": {
+                "interface": "^I[A-Z][a-zA-Z]+$",
+                "implementation": "^[A-Z][a-zA-Z]+$",
+                "test": "^Test[A-Z][a-zA-Z]+$"
+            }
+        }
+    ]
+}

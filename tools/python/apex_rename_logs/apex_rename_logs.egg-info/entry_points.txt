@@ -1,0 +1,2 @@
+[console_scripts]
+apex-rename-logs = rename_logs:main

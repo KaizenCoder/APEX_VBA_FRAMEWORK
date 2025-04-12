@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/recette - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsReportGenerator
 ' Version : 1.0
@@ -83,6 +90,10 @@ Public Property Set Logger(ByVal value As Object)
 End Property
 
 ' --- Méthodes publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function GenerateReport(ByVal comparisonResults As Object, Optional ByVal format As Variant, Optional ByVal outputPath As String = "") As Boolean
     ' Génère un rapport basé sur les résultats de comparaison
     Dim success As Boolean
@@ -128,29 +139,49 @@ Public Function GenerateReport(ByVal comparisonResults As Object, Optional ByVal
 End Function
 
 ' --- Méthodes privées pour la génération de rapports ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GenerateExcelReport(ByVal comparisonResults As Object) As Boolean
     ' Génère un rapport Excel
     ' TODO: Implémenter la génération de rapport Excel
     GenerateExcelReport = False ' Placeholder
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GenerateMarkdownReport(ByVal comparisonResults As Object) As Boolean
     ' Génère un rapport Markdown
     ' TODO: Implémenter la génération de rapport Markdown
     GenerateMarkdownReport = False ' Placeholder
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GenerateHTMLReport(ByVal comparisonResults As Object) As Boolean
     ' Génère un rapport HTML
     ' TODO: Implémenter la génération de rapport HTML
     GenerateHTMLReport = False ' Placeholder
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GenerateCSVReport(ByVal comparisonResults As Object) As Boolean
     ' Génère un rapport CSV
     ' TODO: Implémenter la génération de rapport CSV
     GenerateCSVReport = False ' Placeholder
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GenerateJSONReport(ByVal comparisonResults As Object) As Boolean
     ' Génère un rapport JSON
@@ -159,6 +190,10 @@ Private Function GenerateJSONReport(ByVal comparisonResults As Object) As Boolea
 End Function
 
 ' --- Méthodes utilitaires ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function CreateReportFileName(ByVal extension As String) As String
     ' Crée un nom de fichier pour le rapport avec timestamp si nécessaire
     Dim fileName As String
@@ -181,7 +216,11 @@ Private Function CreateReportFileName(ByVal extension As String) As String
     End If
     
     CreateReportFileName = fileName
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GetFormatName(ByVal format As ReportFormatEnum) As String
     ' Retourne le nom du format
@@ -199,7 +238,11 @@ Private Function GetFormatName(ByVal format As ReportFormatEnum) As String
         Case Else
             GetFormatName = "Inconnu"
     End Select
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub LogMessage(ByVal message As String, ByVal level As Integer)
     ' Journalise un message si un logger est disponible

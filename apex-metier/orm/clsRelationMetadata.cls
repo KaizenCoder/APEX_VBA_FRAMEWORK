@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/orm - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsRelationMetadata
 ' Version : 1.0
@@ -43,6 +50,10 @@ Private Sub Class_Initialize()
 End Sub
 
 ' --- Constructeur pour relation 1:1 ou 1:N ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function CreateSimpleRelation(ByVal relationName As String, ByVal relationType As RelationTypeEnum, _
                                   ByVal sourceEntity As String, ByVal targetEntity As String, _
                                   ByVal localKeyColumn As String, ByVal foreignKeyColumn As String) As clsRelationMetadata
@@ -60,6 +71,10 @@ Public Function CreateSimpleRelation(ByVal relationName As String, ByVal relatio
 End Function
 
 ' --- Constructeur pour relation N:M ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function CreateManyToManyRelation(ByVal relationName As String, _
                                       ByVal sourceEntity As String, ByVal targetEntity As String, _
                                       ByVal junctionTable As String, _
@@ -79,15 +94,27 @@ Public Function CreateManyToManyRelation(ByVal relationName As String, _
 End Function
 
 ' --- Configuration avancée ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function WithLazyLoading(ByVal enabled As Boolean) As clsRelationMetadata
     m_LazyLoading = enabled
     Set WithLazyLoading = Me
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function WithCascadeDelete(ByVal enabled As Boolean) As clsRelationMetadata
     m_CascadeDelete = enabled
     Set WithCascadeDelete = Me
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function WithCascadeSave(ByVal enabled As Boolean) As clsRelationMetadata
     m_CascadeSave = enabled

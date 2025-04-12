@@ -1,0 +1,3 @@
+Fichier,Statut,Motif
+D:\Dev\Apex_VBA_FRAMEWORK\apex_addin_generator.log,Erreur: [WinError 183] Impossible de créer un fichier déjà existant: 'D:\\Dev\\Apex_VBA_FRAMEWORK\\apex_addin_generator.log' -> 'D:\\Dev\\Apex_VBA_FRAMEWORK\\apex_addin_generator.log.DEPRECATED',apex_addin_generator.log
+D:\Dev\Apex_VBA_FRAMEWORK\fix_classes_log.txt,Erreur: [WinError 183] Impossible de créer un fichier déjà existant: 'D:\\Dev\\Apex_VBA_FRAMEWORK\\fix_classes_log.txt' -> 'D:\\Dev\\Apex_VBA_FRAMEWORK\\fix_classes_log.txt.DEPRECATED',fix_classes_log.txt

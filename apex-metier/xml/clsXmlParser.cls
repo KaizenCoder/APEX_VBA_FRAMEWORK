@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/xml - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsXmlParser
 ' Version : 1.0
@@ -32,7 +39,11 @@ Private Sub Class_Initialize()
     Set m_xmlNamespaces = CreateObject("Scripting.Dictionary")
     
     InitializeXmlDocument
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub Class_Terminate()
     ' Nettoyage
@@ -82,6 +93,10 @@ Public Property Set Logger(ByVal value As Object)
 End Property
 
 ' --- Méthodes publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function LoadXml(ByVal xmlString As String) As Boolean
     ' Charge du XML à partir d'une chaîne
     On Error GoTo ErrorHandler
@@ -98,13 +113,21 @@ Public Function LoadXml(ByVal xmlString As String) As Boolean
         LogError m_LastError
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur de chargement XML: " & Err.Description
     LogError m_LastError
     LoadXml = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function LoadXmlFromFile(ByVal filePath As String) As Boolean
     ' Charge du XML à partir d'un fichier
@@ -122,13 +145,21 @@ Public Function LoadXmlFromFile(ByVal filePath As String) As Boolean
         LogError m_LastError
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur de chargement XML depuis fichier: " & Err.Description
     LogError m_LastError
     LoadXmlFromFile = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SaveToFile(ByVal filePath As String) As Boolean
     ' Sauvegarde le document XML dans un fichier
@@ -138,19 +169,31 @@ Public Function SaveToFile(ByVal filePath As String) As Boolean
         m_LastError = "Aucun document XML à sauvegarder"
         LogError m_LastError
         SaveToFile = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     m_xmlDocument.Save filePath
     SaveToFile = True
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur de sauvegarde XML: " & Err.Description
     LogError m_LastError
     SaveToFile = False
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetXmlString() As String
     ' Retourne le document XML sous forme de chaîne
@@ -160,18 +203,30 @@ Public Function GetXmlString() As String
         m_LastError = "Aucun document XML à convertir en chaîne"
         LogError m_LastError
         GetXmlString = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     GetXmlString = m_xmlDocument.xml
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la conversion XML en chaîne: " & Err.Description
     LogError m_LastError
     GetXmlString = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SelectSingleNode(ByVal xPath As String) As Object
     ' Sélectionne un nœud XML unique via XPath
@@ -181,7 +236,11 @@ Public Function SelectSingleNode(ByVal xPath As String) As Object
         m_LastError = "Aucun document XML pour sélectionner un nœud"
         LogError m_LastError
         Set SelectSingleNode = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If m_xmlNamespaces.Count > 0 Then
@@ -192,13 +251,21 @@ Public Function SelectSingleNode(ByVal xPath As String) As Object
         Set SelectSingleNode = m_xmlDocument.SelectSingleNode(xPath)
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la sélection d'un nœud: " & Err.Description
     LogError m_LastError
     Set SelectSingleNode = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function SelectNodes(ByVal xPath As String) As Object
     ' Sélectionne plusieurs nœuds XML via XPath
@@ -208,7 +275,11 @@ Public Function SelectNodes(ByVal xPath As String) As Object
         m_LastError = "Aucun document XML pour sélectionner des nœuds"
         LogError m_LastError
         Set SelectNodes = Nothing
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     If m_xmlNamespaces.Count > 0 Then
@@ -219,18 +290,30 @@ Public Function SelectNodes(ByVal xPath As String) As Object
         Set SelectNodes = m_xmlDocument.SelectNodes(xPath)
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la sélection de nœuds: " & Err.Description
     LogError m_LastError
     Set SelectNodes = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Sub AddNamespace(ByVal prefix As String, ByVal uri As String)
     ' Ajoute un namespace pour les requêtes XPath
     m_xmlNamespaces(prefix) = uri
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Function CreateNode(ByVal nodeType As Long, ByVal nodeName As String, Optional ByVal namespaceURI As String = "") As Object
     ' Crée un nouveau nœud
@@ -242,13 +325,21 @@ Public Function CreateNode(ByVal nodeType As Long, ByVal nodeName As String, Opt
     
     Set CreateNode = m_xmlDocument.createNode(nodeType, nodeName, namespaceURI)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la création d'un nœud: " & Err.Description
     LogError m_LastError
     Set CreateNode = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CreateElement(ByVal elementName As String, Optional ByVal namespaceURI As String = "") As Object
     ' Crée un nouvel élément
@@ -264,13 +355,21 @@ Public Function CreateElement(ByVal elementName As String, Optional ByVal namesp
         Set CreateElement = m_xmlDocument.createNode(1, elementName, namespaceURI) ' 1 = NODE_ELEMENT
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de la création d'un élément: " & Err.Description
     LogError m_LastError
     Set CreateElement = Nothing
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetNodeValue(ByVal node As Object) As String
     ' Obtient la valeur d'un nœud
@@ -278,7 +377,11 @@ Public Function GetNodeValue(ByVal node As Object) As String
     
     If node Is Nothing Then
         GetNodeValue = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier le type de nœud
@@ -293,13 +396,21 @@ Public Function GetNodeValue(ByVal node As Object) As String
             GetNodeValue = node.nodeValue
     End Select
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'obtention de la valeur d'un nœud: " & Err.Description
     LogError m_LastError
     GetNodeValue = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetAttribute(ByVal node As Object, ByVal attributeName As String) As String
     ' Obtient la valeur d'un attribut
@@ -307,13 +418,21 @@ Public Function GetAttribute(ByVal node As Object, ByVal attributeName As String
     
     If node Is Nothing Then
         GetAttribute = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Vérifier que c'est un élément
     If node.nodeType <> 1 Then ' NODE_ELEMENT
         GetAttribute = ""
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Obtenir l'attribut
@@ -323,7 +442,11 @@ Public Function GetAttribute(ByVal node As Object, ByVal attributeName As String
         GetAttribute = ""
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ErrorHandler:
     m_LastError = "Erreur lors de l'obtention d'un attribut: " & Err.Description
@@ -332,6 +455,10 @@ ErrorHandler:
 End Function
 
 ' --- Méthodes privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub InitializeXmlDocument()
     ' Initialise ou réinitialise le document XML
     On Error GoTo ErrorHandler
@@ -347,7 +474,11 @@ Private Sub InitializeXmlDocument()
     
     m_IsInitialized = True
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 ErrorHandler:
     m_LastError = "Erreur d'initialisation du document XML: " & Err.Description
@@ -365,7 +496,11 @@ ErrorHandler:
         m_xmlDocument.resolveExternals = m_ResolveExternals
         m_IsInitialized = True
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function SelectSingleNodeWithNamespaces(ByVal xPath As String) As Object
     ' Sélectionne un nœud avec support des namespaces
@@ -382,7 +517,11 @@ Private Function SelectSingleNodeWithNamespaces(ByVal xPath As String) As Object
     
     ' Effectuer la sélection
     Set SelectSingleNodeWithNamespaces = m_xmlDocument.SelectSingleNode(xPath, nsManager)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function SelectNodesWithNamespaces(ByVal xPath As String) As Object
     ' Sélectionne plusieurs nœuds avec support des namespaces
@@ -399,7 +538,11 @@ Private Function SelectNodesWithNamespaces(ByVal xPath As String) As Object
     
     ' Effectuer la sélection
     Set SelectNodesWithNamespaces = m_xmlDocument.SelectNodes(xPath, nsManager)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub LogError(ByVal errorMessage As String)
     ' Log les erreurs si un logger est disponible

@@ -1,0 +1,66 @@
+{
+    "description": "Règles spécifiques aux langages",
+    "rules": {
+        "javascript": [],
+        "typescript": [],
+        "python": [],
+        "powershell": [
+            {
+                "name": "ps-script-documentation",
+                "description": "Documentation des scripts PowerShell",
+                "enabled": true,
+                "severity": "warning",
+                "required_sections": [
+                    ".SYNOPSIS",
+                    ".DESCRIPTION",
+                    ".PARAMETER",
+                    ".EXAMPLE"
+                ]
+            }
+        ],
+        "vb": [
+            {
+                "name": "vba-module-naming",
+                "description": "Convention de nommage des modules VBA",
+                "enabled": true,
+                "severity": "warning",
+                "patterns": {
+                    "class": "^cls[A-Z][a-zA-Z0-9]+$",
+                    "module": "^mod[A-Z][a-zA-Z0-9]+$",
+                    "form": "^frm[A-Z][a-zA-Z0-9]+$"
+                }
+            },
+            {
+                "name": "vba-method-documentation",
+                "description": "Documentation des méthodes VBA",
+                "enabled": true,
+                "severity": "info",
+                "required_tags": [
+                    "@Description",
+                    "@Param",
+                    "@Returns"
+                ]
+            }
+        ],
+        "markdown": [
+            {
+                "name": "md-structure",
+                "description": "Structure des fichiers Markdown",
+                "enabled": true,
+                "severity": "warning",
+                "required_sections": {
+                    "guide": [
+                        "Objectif",
+                        "Prérequis",
+                        "Utilisation"
+                    ],
+                    "api": [
+                        "Description",
+                        "Interface",
+                        "Méthodes"
+                    ]
+                }
+            }
+        ]
+    }
+}

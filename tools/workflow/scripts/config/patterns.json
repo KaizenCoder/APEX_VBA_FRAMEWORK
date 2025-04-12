@@ -1,0 +1,35 @@
+{
+    "simple_chars": {
+        "é|è|ê|ë|Ã©|Ã¨|Ãª|Ã«": "e",
+        "à|â|ä|Ã |Ã¢|Ã¤": "a",
+        "ù|û|ü|Ã¹|Ã»|Ã¼": "u",
+        "î|ï|Ã®|Ã¯": "i",
+        "ô|ö|Ã´|Ã¶": "o",
+        "ç|Ã§": "c"
+    },
+    "complex_sequences": {
+        "a\"\"a\"aa\"a\"[^\"]*\"[^\"]*\"[^\"]*\"": "",
+        "\"\"a\"\"eee...aa\"\"a\"\"a\"\"e\"...eaaa\"\"": "[OK]",
+        "\"\"a\"\"eee...aa\"\"a\"\"a\"\"e\"...eeee\"\"": "[ERROR]",
+        "a\"\\.\\.\\.\\.e\"\"": "e",
+        "a\"\\.\\.\\.\\.e\"\"": "e"
+    },
+    "status_indicators": {
+        "\\[OK\\]": "[✓]",
+        "\\[ERROR\\]": "[✗]"
+    },
+    "french_words": {
+        "probla\"\\.\\.\\.\\.e\"\"me": "probleme",
+        "inta\"\\.\\.\\.\\.e\"\"gration": "integration",
+        "Ra\"\\.\\.\\.\\.e\"\"pertoire": "Repertoire",
+        "ra\"\\.\\.\\.\\.e\"\"fa\"\\.\\.\\.\\.e\"\"rence": "reference",
+        "Va\"\\.\\.\\.\\.e\"\"rification": "Verification",
+        "trouva\"\\.\\.\\.\\.e\"\"": "trouve",
+        "utilisa\"\\.\\.\\.\\.e\"\"": "utilise",
+        "calcula\"\\.\\.\\.\\.e\"\"": "calcule",
+        "charga\"\\.\\.\\.\\.e\"\"": "charge",
+        "exporta\"\\.\\.\\.\\.e\"\"": "exporte",
+        "identifia\"\\.\\.\\.\\.e\"\"": "identifie",
+        "PROPOSa\"\\.\\.\\.\\.e\"\"": "PROPOSE"
+    }
+} 

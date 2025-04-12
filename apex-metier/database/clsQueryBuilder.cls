@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/database - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsQueryBuilder
 ' Version : 5.0 - Phase 3 - Integrated with IDbDriver
@@ -53,11 +60,19 @@ Private Sub Class_Initialize()
 End Sub
 
 ' --- Driver Methods ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub SetDriver(driver As IDbDriver)
     Set m_Driver = driver
 End Sub
 
 ' --- Helper Methods for Aliases ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GetTableAlias(tableName As String) As String
     If m_Aliases.Exists(tableName) Then
         GetTableAlias = m_Aliases(tableName)
@@ -67,6 +82,10 @@ Private Function GetTableAlias(tableName As String) As String
 End Function
 
 ' --- IQueryBuilder Implementation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IQueryBuilder_SelectColumns(ByVal columns As String) As IQueryBuilder
     ' Validate input
     If Len(Trim(columns)) = 0 Then
@@ -82,7 +101,11 @@ Private Function IQueryBuilder_SelectColumns(ByVal columns As String) As IQueryB
     End If
     
     Set IQueryBuilder_SelectColumns = Me
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_FromTable(ByVal tableName As String) As IQueryBuilder
     ' Validate input
@@ -104,6 +127,10 @@ Private Function IQueryBuilder_FromTable(ByVal tableName As String) As IQueryBui
 End Function
 
 ' --- New Pagination Methods ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function SetPagination(ByVal pageSize As Long, ByVal pageNumber As Long) As IQueryBuilder
     If pageSize > 0 And pageNumber > 0 Then
         m_PageSize = pageSize
@@ -118,6 +145,10 @@ End Function
 
 ' --- WHERE Clauses ---
 ' Helper function to add logical operator (AND, OR) when needed
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function AddLogicalOperator(op As String) As IQueryBuilder
     If m_Where.Count > 0 Then
         Dim lastItem As Variant
@@ -136,7 +167,11 @@ GetLastItemResume:
     End If
     
     Set AddLogicalOperator = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 GetLastItemError:
     ' Handle the error - lastItem is not valid
@@ -144,7 +179,11 @@ GetLastItemError:
     m_LastError = Err.Number
     Debug.Print "Error in AddLogicalOperator: " & Err.Description
     Resume GetLastItemResume
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddWhere(ByVal field As String, ByVal operator As String, ByVal value As Variant, Optional ByVal paramType As ADODB.DataTypeEnum = adVariant, Optional ByVal paramSize As Long = 0) As IQueryBuilder
     On Error GoTo AddWhereError
@@ -198,13 +237,21 @@ Private Function IQueryBuilder_AddWhere(ByVal field As String, ByVal operator As
     
 AddWhereExit:
     Set IQueryBuilder_AddWhere = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddWhereError:
     m_LastError = Err.Number
     Debug.Print "Error in AddWhere: " & Err.Description
     Resume AddWhereExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddWhereClause(ByVal whereClause As String) As IQueryBuilder
     On Error GoTo AddWhereClauseError
@@ -231,13 +278,21 @@ Private Function IQueryBuilder_AddWhereClause(ByVal whereClause As String) As IQ
     
 AddWhereClauseExit:
     Set IQueryBuilder_AddWhereClause = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddWhereClauseError:
     m_LastError = Err.Number
     Debug.Print "Error in AddWhereClause: " & Err.Description
     Resume AddWhereClauseExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddWhereIn(ByVal field As String, ByVal values As Variant) As IQueryBuilder
     On Error GoTo AddWhereInError
@@ -301,7 +356,11 @@ Private Function IQueryBuilder_AddWhereIn(ByVal field As String, ByVal values As
     
 AddWhereInExit:
     Set IQueryBuilder_AddWhereIn = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddWhereInError:
     m_LastError = Err.Number
@@ -311,7 +370,11 @@ AddWhereInError:
         ' For unexpected errors
         Resume AddWhereInExit
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddWhereBetween(ByVal field As String, ByVal v1 As Variant, ByVal v2 As Variant, Optional ByVal pType As ADODB.DataTypeEnum = adVariant) As IQueryBuilder
     On Error GoTo AddWhereBetweenError
@@ -368,13 +431,21 @@ Private Function IQueryBuilder_AddWhereBetween(ByVal field As String, ByVal v1 A
     
 AddWhereBetweenExit:
     Set IQueryBuilder_AddWhereBetween = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddWhereBetweenError:
     m_LastError = Err.Number
     Debug.Print "Error in AddWhereBetween: " & Err.Description
     Resume AddWhereBetweenExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddWhereLike(ByVal field As String, ByVal pattern As String, Optional ByVal escapeChar As String = "") As IQueryBuilder
     On Error GoTo AddWhereLikeError
@@ -430,13 +501,21 @@ Private Function IQueryBuilder_AddWhereLike(ByVal field As String, ByVal pattern
     
 AddWhereLikeExit:
     Set IQueryBuilder_AddWhereLike = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddWhereLikeError:
     m_LastError = Err.Number
     Debug.Print "Error in AddWhereLike: " & Err.Description
     Resume AddWhereLikeExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddWhereIsNull(ByVal field As String, Optional ByVal isNotNull As Boolean = False) As IQueryBuilder
     On Error GoTo AddWhereIsNullError
@@ -470,7 +549,11 @@ Private Function IQueryBuilder_AddWhereIsNull(ByVal field As String, Optional By
     
 AddWhereIsNullExit:
     Set IQueryBuilder_AddWhereIsNull = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddWhereIsNullError:
     m_LastError = Err.Number
@@ -479,6 +562,10 @@ AddWhereIsNullError:
 End Function
 
 ' --- Grouping Operations ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IQueryBuilder_OpenGroup() As IQueryBuilder
     On Error GoTo OpenGroupError
     
@@ -490,13 +577,21 @@ Private Function IQueryBuilder_OpenGroup() As IQueryBuilder
     
 OpenGroupExit:
     Set IQueryBuilder_OpenGroup = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 OpenGroupError:
     m_LastError = Err.Number
     Debug.Print "Error in OpenGroup: " & Err.Description
     Resume OpenGroupExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_CloseGroup() As IQueryBuilder
     On Error GoTo CloseGroupError
@@ -520,13 +615,21 @@ Private Function IQueryBuilder_CloseGroup() As IQueryBuilder
     
 CloseGroupExit:
     Set IQueryBuilder_CloseGroup = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 CloseGroupError:
     m_LastError = Err.Number
     Debug.Print "Error in CloseGroup: " & Err.Description
     Resume CloseGroupExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddAnd() As IQueryBuilder
     On Error GoTo AddAndError
@@ -535,13 +638,21 @@ Private Function IQueryBuilder_AddAnd() As IQueryBuilder
     
 AddAndExit:
     Set IQueryBuilder_AddAnd = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddAndError:
     m_LastError = Err.Number
     Debug.Print "Error in AddAnd: " & Err.Description
     Resume AddAndExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddOr() As IQueryBuilder
     On Error GoTo AddOrError
@@ -550,13 +661,21 @@ Private Function IQueryBuilder_AddOr() As IQueryBuilder
     
 AddOrExit:
     Set IQueryBuilder_AddOr = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddOrError:
     m_LastError = Err.Number
     Debug.Print "Error in AddOr: " & Err.Description
     Resume AddOrExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddOrGroup() As IQueryBuilder
     On Error GoTo AddOrGroupError
@@ -566,13 +685,21 @@ Private Function IQueryBuilder_AddOrGroup() As IQueryBuilder
     
 AddOrGroupExit:
     Set IQueryBuilder_AddOrGroup = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddOrGroupError:
     m_LastError = Err.Number
     Debug.Print "Error in AddOrGroup: " & Err.Description
     Resume AddOrGroupExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_AddAndGroup() As IQueryBuilder
     On Error GoTo AddAndGroupError
@@ -582,7 +709,11 @@ Private Function IQueryBuilder_AddAndGroup() As IQueryBuilder
     
 AddAndGroupExit:
     Set IQueryBuilder_AddAndGroup = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddAndGroupError:
     m_LastError = Err.Number
@@ -591,6 +722,10 @@ AddAndGroupError:
 End Function
 
 ' --- Other Clauses ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IQueryBuilder_AddAlias(tableAlias As String) As IQueryBuilder
     On Error GoTo AddAliasError
     
@@ -626,13 +761,21 @@ Private Function IQueryBuilder_AddAlias(tableAlias As String) As IQueryBuilder
     
 AddAliasExit:
     Set IQueryBuilder_AddAlias = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 AddAliasError:
     m_LastError = Err.Number
     Debug.Print "Error in AddAlias: " & Err.Description
     Resume AddAliasExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_UseSafeIdentifiers(Optional ByVal useSafe As Boolean = True) As IQueryBuilder
     On Error GoTo UseSafeIdentifiersError
@@ -649,13 +792,21 @@ Private Function IQueryBuilder_UseSafeIdentifiers(Optional ByVal useSafe As Bool
     
 UseSafeIdentifiersExit:
     Set IQueryBuilder_UseSafeIdentifiers = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 UseSafeIdentifiersError:
     m_LastError = Err.Number
     Debug.Print "Error in UseSafeIdentifiers: " & Err.Description
     Resume UseSafeIdentifiersExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_Join(ByVal joinTable As String, ByVal onClause As String, Optional ByVal joinType As String = "INNER") As IQueryBuilder
     On Error GoTo JoinError
@@ -696,13 +847,21 @@ Private Function IQueryBuilder_Join(ByVal joinTable As String, ByVal onClause As
     
 JoinExit:
     Set IQueryBuilder_Join = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 JoinError:
     m_LastError = Err.Number
     Debug.Print "Error in Join: " & Err.Description
     Resume JoinExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_GroupBy(ByVal columns As String) As IQueryBuilder
     On Error GoTo GroupByError
@@ -723,13 +882,21 @@ Private Function IQueryBuilder_GroupBy(ByVal columns As String) As IQueryBuilder
     
 GroupByExit:
     Set IQueryBuilder_GroupBy = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 GroupByError:
     m_LastError = Err.Number
     Debug.Print "Error in GroupBy: " & Err.Description
     Resume GroupByExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_OrderBy(ByVal columns As String, Optional ByVal descending As Boolean = False) As IQueryBuilder
     On Error GoTo OrderByError
@@ -758,13 +925,21 @@ Private Function IQueryBuilder_OrderBy(ByVal columns As String, Optional ByVal d
     
 OrderByExit:
     Set IQueryBuilder_OrderBy = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 OrderByError:
     m_LastError = Err.Number
     Debug.Print "Error in OrderBy: " & Err.Description
     Resume OrderByExit
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_Top(ByVal n As Long) As IQueryBuilder
     On Error GoTo TopError
@@ -777,7 +952,11 @@ Private Function IQueryBuilder_Top(ByVal n As Long) As IQueryBuilder
     
 TopExit:
     Set IQueryBuilder_Top = Me
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 TopError:
     m_LastError = Err.Number
@@ -786,6 +965,10 @@ TopError:
 End Function
 
 ' --- Build & Debug ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IQueryBuilder_Build() As Variant
     On Error GoTo BuildError
     
@@ -837,14 +1020,22 @@ Private Function IQueryBuilder_Build() As Variant
     ' Return array with SQL and parameters
     IQueryBuilder_Build = Array(Trim$(sqlString), finalParams)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 BuildError:
     m_LastError = Err.Number
     Debug.Print "Error in Build: " & Err.Description
     ' Return an empty, but valid result
     IQueryBuilder_Build = Array("SELECT 1 WHERE 1=0", Empty)
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_ToSqlString() As String
     On Error GoTo ToSqlStringError
@@ -854,13 +1045,21 @@ Private Function IQueryBuilder_ToSqlString() As String
     result = IQueryBuilder_Build()
     IQueryBuilder_ToSqlString = result(0)
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 ToSqlStringError:
     m_LastError = Err.Number
     Debug.Print "Error in ToSqlString: " & Err.Description
     IQueryBuilder_ToSqlString = ""
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IQueryBuilder_ToDebugString() As String
     On Error GoTo DebugStringError
@@ -912,7 +1111,11 @@ Private Function IQueryBuilder_ToDebugString() As String
     End If
     
     IQueryBuilder_ToDebugString = "-- Generated SQL --" & vbCrLf & sql & paramInfo & vbCrLf & "-------------------"
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 DebugStringError:
     m_LastError = Err.Number
@@ -920,6 +1123,10 @@ DebugStringError:
 End Function
 
 ' --- Private Build Helpers ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function SafeId(identifier As String) As String
     ' Use driver if available
     If Not m_Driver Is Nothing Then
@@ -936,7 +1143,11 @@ Private Function SafeId(identifier As String) As String
             SafeId = identifier
         End If
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub BuildSelectClause(sqlParts As Object, instance As clsQueryBuilder)
     Dim sql As String
@@ -953,7 +1164,11 @@ Private Sub BuildSelectClause(sqlParts As Object, instance As clsQueryBuilder)
     
     sql = sql & instance.m_Select
     sqlParts("SELECT") = sql
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub BuildFromClause(sqlParts As Object, instance As clsQueryBuilder)
     On Error GoTo BuildFromClauseError
@@ -961,12 +1176,20 @@ Private Sub BuildFromClause(sqlParts As Object, instance As clsQueryBuilder)
     sqlParts("FROM") = " FROM " & SafeId(instance.m_From)
     
     ' TODO: Handle table alias
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 BuildFromClauseError:
     Debug.Print "Error in BuildFromClause: " & Err.Description
     sqlParts("FROM") = " FROM DUAL" ' Generic fallback
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub BuildJoinClause(sqlParts As Object, instance As clsQueryBuilder)
     On Error GoTo BuildJoinClauseError
@@ -983,12 +1206,20 @@ Private Sub BuildJoinClause(sqlParts As Object, instance As clsQueryBuilder)
     End If
     
     sqlParts("JOIN") = sql
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 BuildJoinClauseError:
     Debug.Print "Error in BuildJoinClause: " & Err.Description
     sqlParts("JOIN") = ""
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub BuildWhereClause(sqlParts As Object, instance As clsQueryBuilder)
     On Error GoTo BuildWhereClauseError
@@ -1039,12 +1270,20 @@ Private Sub BuildWhereClause(sqlParts As Object, instance As clsQueryBuilder)
         sqlParts("WHERE") = ""
     End If
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 BuildWhereClauseError:
     Debug.Print "Error in BuildWhereClause: " & Err.Description
     sqlParts("WHERE") = ""
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function BuildWherePart(clauseParts As Variant, instance As clsQueryBuilder) As String
     On Error GoTo BuildWherePartError
@@ -1081,12 +1320,20 @@ Private Function BuildWherePart(clauseParts As Variant, instance As clsQueryBuil
         BuildWherePart = "1=1" ' Default to always true if not an array
     End If
     
-    Exit Function
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     
 BuildWherePartError:
     Debug.Print "Error in BuildWherePart: " & Err.Description
     BuildWherePart = "1=1" ' Default to always true on error
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub BuildGroupByClause(sqlParts As Object, instance As clsQueryBuilder)
     On Error GoTo BuildGroupByClauseError
@@ -1097,12 +1344,20 @@ Private Sub BuildGroupByClause(sqlParts As Object, instance As clsQueryBuilder)
         sqlParts("GROUPBY") = ""
     End If
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 BuildGroupByClauseError:
     Debug.Print "Error in BuildGroupByClause: " & Err.Description
     sqlParts("GROUPBY") = ""
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub BuildOrderByClause(sqlParts As Object, instance As clsQueryBuilder)
     On Error GoTo BuildOrderByClauseError
@@ -1132,12 +1387,20 @@ Private Sub BuildOrderByClause(sqlParts As Object, instance As clsQueryBuilder)
         sqlParts("ORDERBY") = ""
     End If
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 BuildOrderByClauseError:
     Debug.Print "Error in BuildOrderByClause: " & Err.Description
     sqlParts("ORDERBY") = ""
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function GenerateParamName() As String
     ' Use driver if available
@@ -1151,7 +1414,11 @@ Private Function GenerateParamName() As String
         GenerateParamName = "@p" & m_ParamIndex
         m_ParamIndex = m_ParamIndex + 1
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub AddOperator(op As String)
     On Error GoTo AddOperatorError
@@ -1172,7 +1439,11 @@ Private Sub AddOperator(op As String)
         End If
     End If
     
-    Exit Sub
+    Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     
 AddOperatorError:
     m_LastError = Err.Number
@@ -1182,6 +1453,10 @@ End Sub
 ' --- Security and Validation Helpers ---
 
 ' Check if a string might contain SQL injection attempts
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function ContainsSqlInjection(input As String) As Boolean
     Dim i As Integer
     
@@ -1205,12 +1480,20 @@ Private Function ContainsSqlInjection(input As String) As Boolean
     For i = 1 To Len(INVALID_SQL_CHARS)
         If InStr(1, input, Mid$(INVALID_SQL_CHARS, i, 1)) > 0 Then
             ContainsSqlInjection = True
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
     Next i
 End Function
 
 ' Basic sanitization of input for SQL
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function SafeguardSqlInput(input As String) As String
     Dim result As String
     
@@ -1230,6 +1513,10 @@ Private Function SafeguardSqlInput(input As String) As String
 End Function
 
 ' Check if operator is valid
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IsValidOperator(op As String) As Boolean
     ' List of allowed operators
     Select Case op
@@ -1241,6 +1528,10 @@ Private Function IsValidOperator(op As String) As Boolean
 End Function
 
 ' Check if join type is valid
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function IsValidJoinType(joinType As String) As Boolean
     ' List of allowed join types
     Select Case joinType
@@ -1252,6 +1543,10 @@ Private Function IsValidJoinType(joinType As String) As Boolean
 End Function
 
 ' Safely get item from an array, with error handling
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function SafeGetArrayItem(arr As Variant, index As Long) As Variant
     On Error Resume Next
     
@@ -1274,6 +1569,10 @@ Private Function SafeGetArrayItem(arr As Variant, index As Long) As Variant
 End Function
 
 ' Format a value safely for display in debug output
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function Format_Value(value As Variant) As String
     On Error Resume Next
     
@@ -1314,13 +1613,21 @@ Private Sub Class_Terminate()
 End Sub
 
 ' --- New Batch Processing Support ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function SupportsBatchOperations() As Boolean
     If Not m_Driver Is Nothing Then
         SupportsBatchOperations = m_Driver.SupportsBatchOperations()
     Else
         SupportsBatchOperations = False
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetBatchInsertSql(tableName As String, columnNames() As String, rowCount As Long) As String
     If Not m_Driver Is Nothing Then

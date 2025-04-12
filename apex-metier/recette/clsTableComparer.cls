@@ -1,6 +1,13 @@
 ' Migrated to apex-metier/recette - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Option Explicit
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 ' ==========================================================================
 ' Class : clsTableComparer
 ' Version : 1.0
@@ -83,22 +90,38 @@ Public Property Set Logger(ByVal value As Object)
 End Property
 
 ' --- Méthodes publiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function CompareRanges(ByVal sourceRange As Object, ByVal targetRange As Object) As Collection
     ' Comparer deux plages Excel
     ' TODO: Implémenter la comparaison de plages
     Set CompareRanges = m_Results
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function CompareArrays(ByVal sourceArray As Variant, ByVal targetArray As Variant) As Collection
     ' Comparer deux tableaux
     ' TODO: Implémenter la comparaison de tableaux
     Set CompareArrays = m_Results
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetResultsAsArray() As Variant
     ' Convertir les résultats en tableau
     ' TODO: Implémenter la conversion des résultats
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Function GetSummary() As Object
     ' Retourne un résumé des résultats
@@ -106,15 +129,27 @@ Public Function GetSummary() As Object
 End Function
 
 ' --- Méthodes privées ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GenerateKey(ByVal row As Variant, ByVal keyIndices As Variant) As String
     ' Génère une clé unique à partir des colonnes clés
     ' TODO: Implémenter la génération de clé
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function CompareValues(ByVal value1 As Variant, ByVal value2 As Variant) As ComparisonResultType
     ' Compare deux valeurs selon leur type
     ' TODO: Implémenter la comparaison de valeurs
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub LogMessage(ByVal message As String, ByVal level As Integer)
     ' Journalise un message si un logger est disponible

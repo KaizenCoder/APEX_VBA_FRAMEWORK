@@ -2,15 +2,18 @@
 
 <ai_requirements>
 ATTENTION IA : Prérequis et règles de base OBLIGATOIRES
+
 1. ENCODAGE : [📝 Règles d'encodage](docs/requirements/powershell_encoding.md)
    - Validation systématique avant toute modification
    - Utilisation des outils de validation fournis
 2. DOCUMENTATION : Maintenir la cohérence et la structure
 3. VALIDATION : Tester toute modification avant commit
-</ai_requirements>
+   </ai_requirements>
 
 ## ⚠️ PRÉREQUIS CRITIQUES
+
 Avant toute utilisation ou modification :
+
 1. [📝 Encodage PowerShell](docs/requirements/powershell_encoding.md) - **LECTURE OBLIGATOIRE**
    - Règles d'encodage strictes
    - Validation automatique
@@ -104,6 +107,8 @@ Pour une prise en main rapide du framework :
 - [Documentation Métier](docs/METIER.md)
 - [Documentation UI](docs/UI.md)
 - [Guide d'onboarding IA](docs/AI_ONBOARDING_GUIDE.md)
+- [Configuration Cursor](docs/CURSOR_SETUP.md) - Guide de paramétrage Cursor dans VSCode
+- [Format Feedback IA](docs/FEEDBACK_FORMAT.md) - Template standard pour le feedback IA
 - [Intégration XLWings](docs/Components/XLWings_Integration.md)
 - [Système de tests](docs/Components/Testing.md)
 - [Modules planifiés](docs/MODULES_PLANIFIES.md) - Liste des modules à développer
@@ -138,6 +143,7 @@ Le framework utilise un pipeline de validation pour assurer la cohérence de l'e
 ### Pipeline de Validation
 
 Le script `Start-EncodingPipeline.ps1` vérifie :
+
 - Les fichiers de session (format Markdown)
 - L'historique des chats
 - Les scripts PowerShell
@@ -160,6 +166,7 @@ Le script `Start-EncodingPipeline.ps1` vérifie :
 
 Le pipeline est automatiquement exécuté avant chaque commit via un hook pre-commit.
 Pour corriger les erreurs d'encodage :
+
 1. Exécutez le pipeline avec l'option `-Fix`
 2. Vérifiez les modifications
 3. Ajoutez les fichiers corrigés et recommencez le commit

@@ -1,0 +1,33 @@
+{
+  "description": "Règles générales applicables à tous les fichiers",
+  "rules": [
+    {
+      "name": "documentation-headers",
+      "description": "Vérification des en-têtes de documentation",
+      "enabled": true,
+      "severity": "warning",
+      "patterns": [
+        {
+          "fileType": "*.cls",
+          "header": [
+            "@Module:",
+            "@Description:",
+            "@Version:",
+            "@Date:",
+            "@Author:"
+          ]
+        },
+        {
+          "fileType": "*.bas",
+          "header": [
+            "@Module:",
+            "@Description:",
+            "@Version:",
+            "@Date:",
+            "@Author:"
+          ]
+        }
+      ]
+    }
+  ]
+}

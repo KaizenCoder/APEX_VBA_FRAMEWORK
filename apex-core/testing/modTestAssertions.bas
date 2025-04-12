@@ -1,6 +1,13 @@
 ' Migrated to apex-core/testing - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Attribute VB_Name = "modTestAssertions"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 Option Explicit
 ' ==========================================================================
 ' Module : modTestAssertions
@@ -21,6 +28,10 @@ Private m_configManager As Object
 Private m_traceAssertions As Boolean
 
 ' --- Initialisation ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub Initialize()
     m_successCount = 0
     m_failureCount = 0
@@ -44,6 +55,10 @@ Public Sub Initialize()
 End Sub
 
 ' --- Assertions de base ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub AssertTrue(ByVal condition As Boolean, Optional ByVal message As String = "La condition devrait être True")
     If condition Then
         OnSuccess "AssertTrue", message
@@ -51,7 +66,11 @@ Public Sub AssertTrue(ByVal condition As Boolean, Optional ByVal message As Stri
         OnFailure "AssertTrue", message
         Err.Raise 9999, "AssertTrue", message
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertFalse(ByVal condition As Boolean, Optional ByVal message As String = "La condition devrait être False")
     If Not condition Then
@@ -60,7 +79,11 @@ Public Sub AssertFalse(ByVal condition As Boolean, Optional ByVal message As Str
         OnFailure "AssertFalse", message
         Err.Raise 9999, "AssertFalse", message
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertEqual(ByVal expected As Variant, ByVal actual As Variant, Optional ByVal message As String = "")
     Dim isEqual As Boolean
@@ -76,7 +99,11 @@ Public Sub AssertEqual(ByVal expected As Variant, ByVal actual As Variant, Optio
         ' Utiliser AssertAlmostEqual pour les doubles
         If actualType = vbDouble Or expectedType = vbDouble Then
             AssertAlmostEqual CDbl(expected), CDbl(actual), PRECISION_DOUBLE, IIf(message = "", "Les valeurs devraient être égales", message)
-            Exit Sub
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
         Else
             isEqual = (CDbl(expected) = CDbl(actual))
         End If
@@ -106,7 +133,11 @@ Public Sub AssertEqual(ByVal expected As Variant, ByVal actual As Variant, Optio
         OnFailure "AssertEqual", errorMsg
         Err.Raise 9999, "AssertEqual", errorMsg
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertNotEqual(ByVal expected As Variant, ByVal actual As Variant, Optional ByVal message As String = "")
     Dim isEqual As Boolean
@@ -146,7 +177,11 @@ Public Sub AssertNotEqual(ByVal expected As Variant, ByVal actual As Variant, Op
         OnFailure "AssertNotEqual", errorMsg
         Err.Raise 9999, "AssertNotEqual", errorMsg
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertIsNothing(ByVal obj As Object, Optional ByVal message As String = "L'objet devrait être Nothing")
     If obj Is Nothing Then
@@ -155,7 +190,11 @@ Public Sub AssertIsNothing(ByVal obj As Object, Optional ByVal message As String
         OnFailure "AssertIsNothing", message
         Err.Raise 9999, "AssertIsNothing", message
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertIsNotNothing(ByVal obj As Object, Optional ByVal message As String = "L'objet ne devrait pas être Nothing")
     If Not obj Is Nothing Then
@@ -164,7 +203,11 @@ Public Sub AssertIsNotNothing(ByVal obj As Object, Optional ByVal message As Str
         OnFailure "AssertIsNotNothing", message
         Err.Raise 9999, "AssertIsNotNothing", message
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertGreaterThan(ByVal value1 As Variant, ByVal value2 As Variant, Optional ByVal message As String = "")
     If IsNumeric(value1) And IsNumeric(value2) Then
@@ -182,7 +225,11 @@ Public Sub AssertGreaterThan(ByVal value1 As Variant, ByVal value2 As Variant, O
         OnFailure "AssertGreaterThan", "Les valeurs comparées doivent être numériques"
         Err.Raise 9999, "AssertGreaterThan", "Les valeurs comparées doivent être numériques"
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertLessThan(ByVal value1 As Variant, ByVal value2 As Variant, Optional ByVal message As String = "")
     If IsNumeric(value1) And IsNumeric(value2) Then
@@ -200,7 +247,11 @@ Public Sub AssertLessThan(ByVal value1 As Variant, ByVal value2 As Variant, Opti
         OnFailure "AssertLessThan", "Les valeurs comparées doivent être numériques"
         Err.Raise 9999, "AssertLessThan", "Les valeurs comparées doivent être numériques"
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertAlmostEqual(ByVal expected As Double, ByVal actual As Double, _
                             Optional ByVal tolerance As Double = 0.0001, _
@@ -218,6 +269,10 @@ Public Sub AssertAlmostEqual(ByVal expected As Double, ByVal actual As Double, _
 End Sub
 
 ' --- Assertions de chaînes ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub AssertStringContains(ByVal str As String, ByVal subStr As String, Optional ByVal caseSensitive As Boolean = True, Optional ByVal message As String = "")
     Dim result As Boolean
     
@@ -237,7 +292,11 @@ Public Sub AssertStringContains(ByVal str As String, ByVal subStr As String, Opt
         OnFailure "AssertStringContains", errorMsg
         Err.Raise 9999, "AssertStringContains", errorMsg
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertStringStartsWith(ByVal str As String, ByVal prefix As String, Optional ByVal caseSensitive As Boolean = True, Optional ByVal message As String = "")
     Dim result As Boolean
@@ -262,7 +321,11 @@ Public Sub AssertStringStartsWith(ByVal str As String, ByVal prefix As String, O
         OnFailure "AssertStringStartsWith", errorMsg
         Err.Raise 9999, "AssertStringStartsWith", errorMsg
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertStringEndsWith(ByVal str As String, ByVal suffix As String, Optional ByVal caseSensitive As Boolean = True, Optional ByVal message As String = "")
     Dim result As Boolean
@@ -287,7 +350,11 @@ Public Sub AssertStringEndsWith(ByVal str As String, ByVal suffix As String, Opt
         OnFailure "AssertStringEndsWith", errorMsg
         Err.Raise 9999, "AssertStringEndsWith", errorMsg
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertStringMatches(ByVal str As String, ByVal pattern As String, Optional ByVal message As String = "")
     Dim regex As Object
@@ -299,7 +366,11 @@ Public Sub AssertStringMatches(ByVal str As String, ByVal pattern As String, Opt
     If Err.Number <> 0 Then
         OnFailure "AssertStringMatches", "Impossible de créer l'objet RegExp. Vérifiez que Microsoft VBScript Regular Expressions est référencé."
         Err.Raise 9999, "AssertStringMatches", "Impossible de créer l'objet RegExp"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     With regex
@@ -325,6 +396,10 @@ Public Sub AssertStringMatches(ByVal str As String, ByVal pattern As String, Opt
 End Sub
 
 ' --- Assertions de collections ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub AssertCollectionContains(ByVal coll As Collection, ByVal item As Variant, Optional ByVal message As String = "")
     Dim found As Boolean
     Dim i As Long
@@ -351,7 +426,11 @@ Public Sub AssertCollectionContains(ByVal coll As Collection, ByVal item As Vari
         OnFailure "AssertCollectionContains", errorMsg
         Err.Raise 9999, "AssertCollectionContains", errorMsg
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertCollectionNotEmpty(ByVal coll As Collection, Optional ByVal message As String = "La collection ne devrait pas être vide")
     If coll.Count > 0 Then
@@ -360,7 +439,11 @@ Public Sub AssertCollectionNotEmpty(ByVal coll As Collection, Optional ByVal mes
         OnFailure "AssertCollectionNotEmpty", message
         Err.Raise 9999, "AssertCollectionNotEmpty", message
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertCollectionEmpty(ByVal coll As Collection, Optional ByVal message As String = "La collection devrait être vide")
     If coll.Count = 0 Then
@@ -373,7 +456,11 @@ Public Sub AssertCollectionEmpty(ByVal coll As Collection, Optional ByVal messag
         OnFailure "AssertCollectionEmpty", errorMsg
         Err.Raise 9999, "AssertCollectionEmpty", errorMsg
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Public Sub AssertCollectionCount(ByVal coll As Collection, ByVal expectedCount As Long, Optional ByVal message As String = "")
     If coll.Count = expectedCount Then
@@ -389,6 +476,10 @@ Public Sub AssertCollectionCount(ByVal coll As Collection, ByVal expectedCount A
 End Sub
 
 ' --- Assertions d'exception ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function AssertRaises(ByVal expectedErrNumber As Long) As Boolean
     ' Cette fonction doit être utilisée avec On Error Resume Next
     ' Exemple:
@@ -417,6 +508,10 @@ Public Function AssertRaises(ByVal expectedErrNumber As Long) As Boolean
 End Function
 
 ' --- Assertions d'exécution ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub AssertExecutionTime(ByVal procedure As String, Optional ByVal maxTimeMs As Long = 1000, Optional ByVal params As Variant = Null)
     Dim startTime As Double
     Dim endTime As Double
@@ -434,7 +529,11 @@ Public Sub AssertExecutionTime(ByVal procedure As String, Optional ByVal maxTime
     If Err.Number <> 0 Then
         OnFailure "AssertExecutionTime", "Erreur lors de l'exécution de " & procedure & ": " & Err.Description
         Err.Raise 9999, "AssertExecutionTime", "Erreur lors de l'exécution: " & Err.Description
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     On Error GoTo 0
     
@@ -450,10 +549,18 @@ Public Sub AssertExecutionTime(ByVal procedure As String, Optional ByVal maxTime
 End Sub
 
 ' --- Statistiques ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function GetAssertionCounts() As String
     GetAssertionCounts = "Assertions: " & (m_successCount + m_failureCount) & _
                         " (Réussies: " & m_successCount & ", Échouées: " & m_failureCount & ")"
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Public Sub ResetAssertionCounts()
     m_successCount = 0
@@ -461,6 +568,10 @@ Public Sub ResetAssertionCounts()
 End Sub
 
 ' --- Fonctions utilitaires ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function ToString(ByVal value As Variant) As String
     Dim result As String
     
@@ -494,7 +605,11 @@ Private Function ToString(ByVal value As Variant) As String
     
     On Error GoTo 0
     ToString = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub OnSuccess(ByVal assertion As String, ByVal message As String)
     m_successCount = m_successCount + 1
@@ -503,14 +618,22 @@ Private Sub OnSuccess(ByVal assertion As String, ByVal message As String)
     If m_traceAssertions Then
         LogMessage assertion & ": RÉUSSI - " & message, "debug"
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub OnFailure(ByVal assertion As String, ByVal message As String)
     m_failureCount = m_failureCount + 1
     
     ' Toujours tracer les échecs
     LogMessage assertion & ": ÉCHEC - " & message, "error"
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub LogMessage(ByVal message As String, ByVal logLevel As String)
     ' Écrire dans le journal si disponible

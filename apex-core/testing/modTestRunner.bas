@@ -1,6 +1,13 @@
 ' Migrated to apex-core/testing - 2025-04-09
 ' Part of the APEX Framework v1.1 architecture refactoring
 Attribute VB_Name = "modTestRunner"
+
+'@Module: [NomDuModule]
+'@Description: 
+'@Version: 1.0
+'@Date: 13/04/2025
+'@Author: APEX Framework Team
+
 Option Explicit
 ' ==========================================================================
 ' Module : modTestRunner
@@ -25,6 +32,10 @@ Private m_configManager As Object
 Private m_logger As Object
 
 ' --- Enregistrement des suites de test ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub RegisterTestSuite(suite As clsTestSuite)
     If m_suites Is Nothing Then Set m_suites = New Collection
     On Error Resume Next
@@ -37,10 +48,18 @@ Public Sub RegisterTestSuite(suite As clsTestSuite)
 End Sub
 
 ' --- Exécution des tests ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub RunAllTests(Optional ByVal outputReport As Boolean = True, Optional ByVal stopOnFailure As Boolean = False)
     If m_runningTest Then
         MsgBox "Des tests sont déjà en cours d'exécution.", vbExclamation, "Tests en cours"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     m_runningTest = True
@@ -53,7 +72,11 @@ Public Sub RunAllTests(Optional ByVal outputReport As Boolean = True, Optional B
     If Not GetConfigBool("General", "EnableTests", True) Then
         LogMessage "Les tests sont désactivés dans la configuration. Modifiez le fichier " & CONFIG_FILE & " pour les activer.", "warning"
         m_runningTest = False
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Initialiser la collection des résultats de performance
@@ -85,7 +108,11 @@ Public Sub RunAllTests(Optional ByVal outputReport As Boolean = True, Optional B
             WriteReportFile "AUCUNE SUITE DE TEST ENREGISTRÉE", "AllTests"
         End If
         m_runningTest = False
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Filtrer les suites à exécuter si nécessaire
@@ -155,6 +182,10 @@ Public Sub RunAllTests(Optional ByVal outputReport As Boolean = True, Optional B
 End Sub
 
 ' --- Exécution d'une suite de tests ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function RunSuite(suite As clsTestSuite, Optional ByVal stopOnFailure As Boolean = False) As String
     Dim result As String
     Dim startTime As Double
@@ -195,6 +226,10 @@ Public Function RunSuite(suite As clsTestSuite, Optional ByVal stopOnFailure As 
 End Function
 
 ' --- Exécution d'un test unitaire ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Function RunTest(testName As String, testProc As String, _
                         Optional callingModule As String = "", _
                         Optional timeout As Long = 0, _
@@ -303,6 +338,10 @@ Public Function RunTest(testName As String, testProc As String, _
 End Function
 
 ' --- Gestionnaire de timeout ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Public Sub TestTimeoutHandler()
     If m_currentTestName <> "" Then
         LogMessage "TIMEOUT: Le test '" & m_currentTestName & "' a dépassé le temps maximum d'exécution", "error"
@@ -310,6 +349,10 @@ Public Sub TestTimeoutHandler()
 End Sub
 
 ' --- Initialisation de la configuration ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub InitializeConfig()
     On Error Resume Next
     
@@ -331,6 +374,10 @@ Private Sub InitializeConfig()
 End Sub
 
 ' --- Lecture de la configuration ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GetConfigString(section As String, key As String, defaultValue As String) As String
     On Error Resume Next
     Dim result As String
@@ -349,7 +396,11 @@ Private Function GetConfigString(section As String, key As String, defaultValue 
     
     GetConfigString = result
     On Error GoTo 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GetConfigInt(section As String, key As String, defaultValue As Long) As Long
     On Error Resume Next
@@ -369,7 +420,11 @@ Private Function GetConfigInt(section As String, key As String, defaultValue As 
     
     GetConfigInt = result
     On Error GoTo 0
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function GetConfigBool(section As String, key As String, defaultValue As Boolean) As Boolean
     On Error Resume Next
@@ -385,7 +440,11 @@ Private Function GetConfigBool(section As String, key As String, defaultValue As
     If Err.Number <> 0 Then
         GetConfigBool = defaultValue
         Err.Clear
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Conversion en booléen
@@ -396,6 +455,10 @@ Private Function GetConfigBool(section As String, key As String, defaultValue As
 End Function
 
 ' --- Utilitaires ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub LogMessage(message As String, logLevel As String)
     ' Écrire dans le journal si disponible
     On Error Resume Next
@@ -417,7 +480,11 @@ Private Sub LogMessage(message As String, logLevel As String)
         Debug.Print message
     End If
     On Error GoTo 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub EnsureReportFolder()
     Dim fso As Object
@@ -435,7 +502,11 @@ Private Sub EnsureReportFolder()
         End If
         On Error GoTo 0
     End If
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub WriteReportFile(content As String, reportName As String)
     Dim fso As Object
@@ -456,7 +527,11 @@ Private Sub WriteReportFile(content As String, reportName As String)
     If Err.Number <> 0 Then
         LogMessage "ERREUR: Impossible de créer le fichier de rapport: " & Err.Description, "error"
         Err.Clear
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Écrire l'en-tête
@@ -472,7 +547,11 @@ Private Sub WriteReportFile(content As String, reportName As String)
     ts.Close
     LogMessage "Rapport de test enregistré: " & fileName, "info"
     On Error GoTo 0
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function GetSuitesToRun(allSuites As Collection) As Collection
     Dim result As New Collection
@@ -480,7 +559,11 @@ Private Function GetSuitesToRun(allSuites As Collection) As Collection
     ' Vérifier si on doit exécuter toutes les suites
     If GetConfigBool("TestSelection", "RunAllTests", True) Then
         Set GetSuitesToRun = allSuites
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Sinon, filtrer en fonction des suites sélectionnées
@@ -490,7 +573,11 @@ Private Function GetSuitesToRun(allSuites As Collection) As Collection
     If Trim(selectedSuites) = "" Then
         ' Si aucune suite n'est spécifiée, exécuter toutes les suites quand même
         Set GetSuitesToRun = allSuites
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     ' Parcourir les suites sélectionnées
@@ -521,12 +608,20 @@ Private Function GetSuitesToRun(allSuites As Collection) As Collection
     Else
         Set GetSuitesToRun = result
     End If
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Function IsErrorExpected(errNumber As Long, expectedExceptions As String) As Boolean
     If Trim(expectedExceptions) = "" Then
         IsErrorExpected = False
-        Exit Function
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
     End If
     
     Dim expArray() As String
@@ -541,7 +636,11 @@ Private Function IsErrorExpected(errNumber As Long, expectedExceptions As String
         expErr = CLng(Trim(expArray(i)))
         If Err.Number = 0 And expErr = errNumber Then
             IsErrorExpected = True
-            Exit Function
+            Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
         End If
         Err.Clear
         On Error GoTo 0
@@ -551,6 +650,10 @@ Private Function IsErrorExpected(errNumber As Long, expectedExceptions As String
 End Function
 
 ' --- Fonctions d'analyse de performance ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Sub OutputTopSlowTests(ByVal topCount As Long)
     Dim i As Long
     Dim perfArray() As String
@@ -588,7 +691,11 @@ Private Sub OutputTopSlowTests(ByVal topCount As Long)
         parts = Split(perfArray(i), "|")
         LogMessage "  " & i & ". " & parts(0) & " - " & parts(1) & " sec (" & parts(2) & ")", "info"
     Next i
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Function GetTopSlowTestsText(ByVal topCount As Long) As String
     Dim i As Long
@@ -630,7 +737,11 @@ Private Function GetTopSlowTestsText(ByVal topCount As Long) As String
     Next i
     
     GetTopSlowTestsText = result
-End Function
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function
 
 Private Sub SendReportByEmail(ByVal reportContent As String)
     On Error Resume Next
@@ -645,7 +756,11 @@ Private Sub SendReportByEmail(ByVal reportContent As String)
     
     If Trim(recipients) = "" Then
         LogMessage "Pas de destinataires configurés pour l'envoi du rapport par email", "warning"
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Créer l'objet Outlook
@@ -653,7 +768,11 @@ Private Sub SendReportByEmail(ByVal reportContent As String)
     If Err.Number <> 0 Then
         LogMessage "Impossible de démarrer Outlook pour l'envoi du rapport: " & Err.Description, "error"
         Err.Clear
-        Exit Sub
+        Exit'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
     End If
     
     ' Créer le message
@@ -680,6 +799,10 @@ Private Sub SendReportByEmail(ByVal reportContent As String)
 End Sub
 
 ' --- Lecture directe des fichiers INI ---
+'@Description: 
+'@Param: 
+'@Returns: 
+
 Private Function GetINISetting(ByVal filePath As String, ByVal section As String, ByVal key As String, ByVal defaultValue As String) As String
     Dim result As String
     result = Space(255)
@@ -696,7 +819,11 @@ Private Function GetINISetting(ByVal filePath As String, ByVal section As String
 End Function
 
 ' --- Déclarations API ---
-Private Declare PtrSafe Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _
+Private Declare PtrSafe'@Description: 
+'@Param: 
+'@Returns: 
+
+ Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _
     (ByVal lpApplicationName As String, ByVal lpKeyName As Any, ByVal lpDefault As String, _
     ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
 
@@ -706,7 +833,11 @@ Private Sub Class_Initialize()
     m_runningTest = False
     m_stopTests = False
     InitializeConfig
-End Sub
+End'@Description: 
+'@Param: 
+'@Returns: 
+
+ Sub
 
 Private Sub Class_Terminate()
     Set m_suites = Nothing
