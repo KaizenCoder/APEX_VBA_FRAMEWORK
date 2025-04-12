@@ -1,3 +1,23 @@
+# Architecture APEX Framework
+
+<ai_requirements>
+ATTENTION IA : Directives architecturales OBLIGATOIRES
+1. STRUCTURE
+   - Respecter strictement l'architecture en trois couches
+   - Maintenir la séparation des responsabilités
+   - Suivre les patterns de conception établis
+
+2. VALIDATION TECHNIQUE
+   - Vérifier [📝 l'encodage](../requirements/powershell_encoding.md) avant modification
+   - Valider la compatibilité des modifications
+   - Tester l'impact sur les dépendances
+
+3. DOCUMENTATION
+   - Mettre à jour les diagrammes si nécessaire
+   - Maintenir la cohérence de la documentation
+   - Documenter tout changement architectural
+</ai_requirements>
+
 # Architecture Apex Framework v1.1
 
 ## Vue d'ensemble
@@ -154,6 +174,38 @@ Pour une description détaillée de cette intégration, consultez :
 - [Script de test](../tools/python/test_xlwings.py)
 - [Script d'installation](../tools/python/install_xlwings.ps1)
 
+### Workflow des Sessions de Développement
+
+Le Workflow des Sessions est un composant transversal qui assure la traçabilité et la qualité du développement à travers une structure organisée de documentation et de suivi des sessions de travail.
+
+**Structure**:
+
+- **Core** : 
+  - Scripts de validation et de migration (PowerShell, Python)
+  - Hooks Git pour la validation automatique
+  - Gestion de l'encodage et du formatage
+
+- **Métier** : 
+  - Organisation chronologique des sessions
+  - Validation des formats et structures
+  - Génération de statistiques et rapports
+
+- **UI** : 
+  - Templates de documentation
+  - Rapports de migration et validation
+  - Structure visuelle des sessions
+
+Cette intégration s'inscrit dans l'architecture en assurant :
+- La traçabilité du développement
+- La cohérence de la documentation
+- L'automatisation des validations
+- L'organisation structurée des sessions
+
+Pour une description détaillée de ce composant, consultez :
+- [Documentation principale](../tools/workflow/README.md)
+- [Guide de migration](../tools/workflow/docs/GUIDE_MIGRATION.md)
+- [Documentation des outils](../tools/workflow/docs/WORKFLOW_TOOLS.md)
+
 ## Avantages de cette architecture
 
 1. **Maintenabilité améliorée**
@@ -205,13 +257,14 @@ Pour une description détaillée de cette intégration, consultez :
 4. **UI**: L'interface web Flask présente les visualisations et statistiques
 5. **UI**: L'utilisateur peut filtrer et explorer les conversations
 
-### Exemple 4: Automatisation via XLWings
+### Exemple 4: Gestion des Sessions de Développement
 
-1. **UI**: L'utilisateur lance un traitement par lots via l'interface
-2. **Métier**: Le module métier appelle un script Python via xlwings
-3. **Python**: Le script traite les données et utilise pandas pour l'analyse
-4. **Python**: Les résultats sont renvoyés à Excel via xlwings
-5. **UI**: Les données traitées sont présentées à l'utilisateur
+1. **Core**: Les hooks Git valident automatiquement le format des fichiers de session
+2. **Métier**: Le script de migration organise les sessions par date
+3. **UI**: Les templates assurent une structure cohérente des documents
+4. **Core**: La validation d'encodage UTF-8 est effectuée
+5. **Métier**: Les statistiques de migration sont générées
+6. **UI**: Les rapports de validation sont présentés au développeur
 
 ## Documentation détaillée
 

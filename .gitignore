@@ -3,6 +3,17 @@ temp_files/
 *.tmp
 *.temp
 *.bak
+.atmp/
+
+# Fichiers de configuration IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Fichiers temporaires de session Cursor
+.cursor-session-*
+.cursor-cache/
+.cursor-rules
 
 # Fichiers de build/distribution
 dist/
@@ -11,7 +22,7 @@ build/
 *.xlam
 *.accdb
 
-# Fichiers de logs
+# Fichiers de logs généraux
 logs/
 *.log
 
@@ -21,6 +32,7 @@ Thumbs.db
 
 # Fichiers d'environnement
 .env
+*.env.*
 
 # Fichiers liés à l'historique ou aux outils
 CHANGELOG.md
@@ -29,7 +41,14 @@ clean_framework_doc.py
 generate_doc.py
 LICENSE.md
 
-# Anciennes versions et copies
+# Fichiers markdown (avec exceptions)
+*.md
+!README.md
+!APEX_FRAMEWORK_OVERVIEW.md
+!tools/workflow/**/*.md
+!docs/**/*.md
+
+# Dossiers de développement
 Excel_VBA/
 samples/
 templates/
@@ -37,10 +56,10 @@ docs/
 tests/
 src/
 
-# Fichiers markdown autres que le principal
-*.md
-!README.md
-!APEX_VBA_FRAMEWORK_COMPLET.md
+# Fichiers de test
+Test-*.ps1
+*-test.*
+*.test.*
 
-# Fichiers obsolètes marqués pour suppression
+# Fichiers obsolètes
 *.DEPRECATED

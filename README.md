@@ -1,5 +1,21 @@
 # APEX VBA FRAMEWORK
 
+<ai_requirements>
+ATTENTION IA : Prérequis et règles de base OBLIGATOIRES
+1. ENCODAGE : [📝 Règles d'encodage](docs/requirements/powershell_encoding.md)
+   - Validation systématique avant toute modification
+   - Utilisation des outils de validation fournis
+2. DOCUMENTATION : Maintenir la cohérence et la structure
+3. VALIDATION : Tester toute modification avant commit
+</ai_requirements>
+
+## ⚠️ PRÉREQUIS CRITIQUES
+Avant toute utilisation ou modification :
+1. [📝 Encodage PowerShell](docs/requirements/powershell_encoding.md) - **LECTURE OBLIGATOIRE**
+   - Règles d'encodage strictes
+   - Validation automatique
+   - Correction des erreurs
+
 ![Version](https://img.shields.io/badge/Version-1.1.0-blue)
 ![VBA](https://img.shields.io/badge/Language-VBA-brightgreen)
 ![Excel](https://img.shields.io/badge/Platform-Excel-green)
@@ -114,3 +130,36 @@ Pour une prise en main rapide du framework :
 ## Licence
 
 Ce projet est sous licence. Voir le fichier [LICENSE](LICENSE) pour plus d'informations.
+
+## 🔍 Validation d'Encodage
+
+Le framework utilise un pipeline de validation pour assurer la cohérence de l'encodage et du format des fichiers :
+
+### Pipeline de Validation
+
+Le script `Start-EncodingPipeline.ps1` vérifie :
+- Les fichiers de session (format Markdown)
+- L'historique des chats
+- Les scripts PowerShell
+- La documentation
+
+### Utilisation
+
+```powershell
+# Validation simple
+.\tools\workflow\scripts\Start-EncodingPipeline.ps1
+
+# Validation avec détails
+.\tools\workflow\scripts\Start-EncodingPipeline.ps1 -Verbose
+
+# Correction automatique
+.\tools\workflow\scripts\Start-EncodingPipeline.ps1 -Fix
+```
+
+### Intégration Git
+
+Le pipeline est automatiquement exécuté avant chaque commit via un hook pre-commit.
+Pour corriger les erreurs d'encodage :
+1. Exécutez le pipeline avec l'option `-Fix`
+2. Vérifiez les modifications
+3. Ajoutez les fichiers corrigés et recommencez le commit
