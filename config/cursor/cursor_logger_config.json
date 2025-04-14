@@ -1,0 +1,11 @@
+{
+    "log_format": "markdown",
+    "max_prompt_length": 300,
+    "max_response_length": 500,
+    "include_timestamps": true,
+    "include_session_id": true,
+    "session_id_format": "%Y%m%d-%H%M",
+    "journal_file": "D:/Dev/Apex_VBA_FRAMEWORK/logs/apex-cursor-journal.md",
+    "history_enabled": true,
+    "history_directory": "D:/Dev/Apex_VBA_FRAMEWORK/logs/history/cursor_sessions"
+}

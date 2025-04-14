@@ -1,0 +1,12 @@
+{
+  "root_dir": "apex_cursor_logger",
+  "tools_subdir": "tools/cursor",
+  "logs_subdir": "logs",
+  "prompts_subdir": "prompts",
+  "default_agent": "GPT-4",
+  "default_note": "+",
+  "max_prompt_length": 160,
+  "max_response_length": 300,
+  "encoding": "utf-8",
+  "backup_existing": true
+}

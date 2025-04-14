@@ -1,0 +1,6 @@
+{
+    "startup_script": "D:/Dev/Apex_VBA_FRAMEWORK/tools/startup/cursor_startup.ps1",
+    "version": "1.0",
+    "description": "Configuration Cursor pour APEX Framework",
+    "workspace": "D:/Dev/Apex_VBA_FRAMEWORK"
+}

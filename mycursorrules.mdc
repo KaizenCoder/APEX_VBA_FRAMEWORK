@@ -1,0 +1,134 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Configuration APEX Framework pour Cursor
+Version: 2.1  
+Dernière mise à jour : 2024-04-13
+
+<ai_requirements>
+### ⚠️ INITIALISATION OBLIGATOIRE
+AVANT toute réponse, l'IA DOIT :
+1. Lire ce fichier (.cursor-rules) en ENTIER
+2. Confirmer la lecture par : "✅ Règles APEX Framework lues"
+
+3. Consulter l'historique des sessions :
+   a. Session du jour : `/tools/workflow/sessions/YYYY_MM_DD_*.md`
+   b. Sessions clés : `_workflow_rules.md`, `_architecture.md`, `_refactoring.md`
+   c. Dernière session de chaque type (développement, revue, architecture)
+4. Confirmer par : "✅ Sessions prioritaires consultées"
+
+5. Consulter les documents essentiels :
+   - [📝 Guide d'Encodage](mdc:docs/requirements/powershell_encoding.md)
+   - [🧾 Documentation Globale](mdc:docs/implementation/GLOBAL_DOCUMENTATION.md)
+   - [🤖 Guide d'Onboarding IA](mdc:docs/AI_ONBOARDING_GUIDE.md)
+   - [🏗️ Architecture Core](mdc:docs/Components/CoreArchitecture.md)
+   - [🧪 Framework de Tests](mdc:docs/Components/Testing.md)
+   - [👨‍💻 Guide Développeur](mdc:docs/DEVELOPPER_GUIDE.md)
+   - [📜 Conventions Git](mdc:docs/GIT_COMMIT_CONVENTION.md)
+6. Confirmer par : "✅ Documentation de référence consultée"
+
+7. Consulter les documents de collaboration :
+   - [📊 Tableau de Bord](mdc:shared/logs/dashboard.md)
+   - [📋 Compte Rendu d'Activité](mdc:shared/logs/activity_report.md)
+   - [📝 Tickets de Travail](mdc:shared/logs/symbiosis-tasks.md)
+   - [🔄 Systèmes de Journalisation](mdc:docs/collaboration/DUAL_LOGGING_SYSTEMS.md)
+8. Confirmer par : "✅ Documents de collaboration consultés"
+
+9. Demander le contexte si non fourni : "⚠️ Contexte requis"
+</ai_requirements>
+
+# 📋 STANDARDS ET PRÉCONISATIONS
+
+## 1. Architecture et Développement
+### Architecture en Couches
+```
+                      ┌───────────────────┐
+                      │  ApplicationCode  │
+                      └───────────┬───────┘
+                                  │
+                        ┌─────────▼────────┐
+                        │  ModDbConnFactory│
+                        └─────────┬────────┘
+                                  │
+┌───────────────┐    ┌────────────▼────────────┐    ┌──────────────┐
+│  ConfigLoader │◄───┤     IDbAccessorBase     │────►  ILoggerBase  │
+└───────────────┘    └────────────┬────────────┘    └──────────────┘
+                                  │
+                                  │
+         ┌────────────────────────┼───────────────────────┐
+         │                        │                       │
+┌────────▼───────┐       ┌────────▼──────┐        ┌──────▼────────┐
+│  IDbDriver     │       │ IQueryBuilder │        │  ClsOrmBase   │
+└────────────────┘       └───────────────┘        └───────────────┘
+```
+
+### Principes Fondamentaux
+1. **Injection de Dépendances**
+   - Via factories uniquement
+   - Pas de création directe d'instances
+   → [Détails](mdc:docs/patterns/dependency_injection.md)
+
+2. **Architecture en Couches**
+   - Core : Interfaces et contrats
+   - Métier : Logique business
+   - UI : Présentation et interactions
+   → [Implémentation](mdc:docs/architecture/layers.md)
+
+3. **Configuration**
+   - Externalisée dans Excel
+   - Pas de valeurs en dur
+   → [Guide](mdc:docs/config/external_config.md)
+
+## 2. Validation Systématique
+- ✅ Encodage UTF-8 sans BOM
+- ✅ Tests unitaires et intégration
+- ✅ Documentation Markdown
+- ✅ Conventions Git
+→ [Scripts](mdc:tools/workflow/validation)
+
+## 3. Système de Collaboration
+- ✅ Compte Rendu d'Activité asynchrone
+- ✅ Documentation centralisée
+- ✅ Revue de code croisée
+- ✅ Mise à jour fréquente (30 min)
+→ [Plan d'Action](mdc:shared/knowledge/best-practices/PLAN_ACTION_COLLABORATIF.md)
+
+## 4. Format de Feedback IA
+```markdown
+2024-04-13 14:30
+Chat : 001
+
+### 📋 Contexte & Analyse
+- 🔴 Critique : Point majeur
+- 🟡 Important : Point significatif
+- 🟢 Standard : Point contextuel
+
+### ⚡ Action & Impact
+- 🎯 Action : {action} [REF:{ID}]
+- 📊 Résultat : {statut} [⏱️ {temps}]
+- 📈 Impact : {métrique}
+
+### 💭 Synthèse & Réflexion
+Analyse libre
+```
+
+## 5. Points de Vigilance
+- Architecture en couches stricte
+- Tests pour chaque fonctionnalité
+- Documentation systématique
+- Validation pré-commit
+- Standards des composants
+- Communication asynchrone régulière
+
+## 6. Documentation Détaillée
+- [📚 Guide Complet](mdc:docs/DOCUMENTATION_GUIDELINES.md)
+- [🔧 Guide Développeur](mdc:docs/DEVELOPPER_GUIDE.md)
+- [🧪 Framework de Tests](mdc:docs/Components/Testing.md)
+- [📝 Templates](mdc:docs/templates)
+- [🔍 Exemples](mdc:docs/examples)
+
+---
+Version: 2.1
+Dernière mise à jour : 2024-04-13

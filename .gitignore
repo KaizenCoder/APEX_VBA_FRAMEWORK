@@ -48,6 +48,9 @@ LICENSE.md
 !tools/workflow/**/*.md
 !docs/**/*.md
 
+# Dossier sessions à ignorer
+tools/workflow/sessions/
+
 # Dossiers de développement
 Excel_VBA/
 samples/
@@ -63,3 +66,5 @@ Test-*.ps1
 
 # Fichiers obsolètes
 *.DEPRECATED
+# Tous les fichiers contenant DEPRECATED dans leur nom
+*DEPRECATED*

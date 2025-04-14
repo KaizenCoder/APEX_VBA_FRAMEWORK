@@ -1,14 +1,14 @@
 ---
-description: 
+description: APEX Framework Full Configuration for Cursor
 globs: 
 alwaysApply: true
 ---
 
-# Your rule content
-
-- You can @ files here
-- You can use markdown but dont have to
 # Configuration APEX Framework pour Cursor
+Version: 2.1  
+Dernière mise à jour : 2025-04-13  
+
+---
 
 <ai_requirements>
 ### ⚠️ INITIALISATION OBLIGATOIRE
@@ -23,125 +23,96 @@ AVANT toute réponse, l'IA DOIT :
 4. Confirmer par : "✅ Sessions prioritaires consultées"
 
 5. Consulter les documents essentiels :
-   - ](docsll_encStandards de Documentation](docs/DOCUMENTATION_GUIDELINES.md)
-   - [🤖 Guide d'Onboarding IA](mdc:docs/AI_ONBOARDING_GUIDE.md)
-   - [🏗️ Architecture Core](mdc:docs/Components/CoreArchitecture.md)
-   - [🧪 Framework de Tests](mdc:docs/Components/Testing.md)
-   - [👨‍💻 Guide Développeur](mdc:docs/DEVELOPPER_GUIDE.md)
-   - [📜 Conventions Git](mdc:docs/GIT_COMMIT_CONVENTION.md)
-   - [🚀 Guide de Démarrage](mdc:docs/QuickStartGuide.md)
-   
+   - [🧾 Standards de Documentation](docs/DOCUMENTATION_GUIDELINES.md)
+   - [🤖 Guide d'Onboarding IA](docs/AI_ONBOARDING_GUIDE.md)
+   - [🏗️ Architecture Core](docs/Components/CoreArchitecture.md)
+   - [🧪 Framework de Tests](docs/Components/Testing.md)
+   - [👨‍💻 Guide Développeur](docs/DEVELOPPER_GUIDE.md)
+   - [📜 Conventions Git](docs/GIT_COMMIT_CONVENTION.md)
+   - [🚀 Guide de Démarrage](docs/QuickStartGuide.md)
+
 6. Confirmer par : "✅ Documentation de référence consultée"
 
 7. Demander le contexte si non fourni : "⚠️ Contexte requis"
 </ai_requirements>
 
+---
+
 # 📋 STANDARDS ET PRÉCONISATIONS
 
 ## 1. Architecture et Développement
-### Architecture en Couches
-```
-                      ┌───────────────────┐
-                      │  ApplicationCode  │
-                      └───────────┬───────┘
-                                  │
-                        ┌─────────▼────────┐
-                        │  ModDbConnFactory│
-                        └─────────┬────────┘
-                                  │
-┌───────────────┐    ┌────────────▼────────────┐    ┌──────────────┐
-│  ConfigLoader │◄───┤     IDbAccessorBase     │────►  ILoggerBase  │
-└───────────────┘    └────────────┬────────────┘    └──────────────┘
-                                  │
-                                  │
-         ┌────────────────────────┼───────────────────────┐
-         │                        │                       │
-┌────────▼───────┐       ┌────────▼──────┐        ┌──────▼────────┐
-│  IDbDriver     │       │ IQueryBuilder │        │  ClsOrmBase   │
-└────────────────┘       └───────────────┘        └───────────────┘
-```
 
-Principes Fondamentaux
-Injection de Dépendances
+### Architecture en Couches (Core / Métier / UI)
+- Injection de dépendances via factories uniquement
+- Aucune instanciation directe
+- Configuration externalisée
+- Modules autonomes, testables, documentés
+- Log obligatoire, format JSON si script CLI
 
-Via factories uniquement
-Pas de création directe d'instances
-→ @Détails
-Architecture en Couches
+## 2. Validation Systématique
+- ✅ Encodage UTF-8 sans BOM
+- ✅ Tests unitaires et intégration
+- ✅ Documentation Markdown
+- ✅ Conventions Git strictes
 
-Core : Interfaces et contrats
-Métier : Logique business
-UI : Présentation et interactions
-→ @Implémentation
-Configuration
-
-Externalisée dans Excel
-Pas de valeurs en dur
-→ @Guide
-2. Validation Systématique
-✅ Encodage UTF-8 sans BOM
-✅ Tests unitaires et intégration
-✅ Documentation Markdown
-✅ Conventions Git
-→ @Scripts
-
-3. FORMAT DE FEEDBACK IA
-Template Format Feedback IA (Mise à jour)
-Apply to modErrorHand...
-YYYY-MM-DD HH:MM
-Chat : NNN
-
+## 3. Format de Feedback IA (template obligatoire)
 ### 📋 Contexte & Analyse
-- 🔴 Critique : [Point majeur impactant directement les fonctionnalités ou l'architecture]
-- 🟡 Important : [Point significatif à considérer pour l'amélioration]
-- 🟢 Standard : [Point contextuel ou informatif]
+- 🔴 Critique : ...
+- 🟡 Important : ...
+- 🟢 Standard : ...
 
 ### ⚡ Action & Impact
-- 🎯 Action : [Action spécifique entreprise] [REF:XXX-NNN]
-- 📊 Résultat : [Résultat quantifiable] [⏱️ Temps]
-- 📈 Impact : [Impact mesurable ou estimé]
+- 🎯 Action : ...
+- 📊 Résultat : ...
+- 📈 Impact : ...
 
 ### 💭 Synthèse & Réflexion
-[Analyse approfondie avec réflexions détaillées sur les implications, connections entre différents aspects, et perspectives stratégiques. Cette section peut être plus développée et narrative.]
-Règle d'application (Mise à jour)
+Développement analytique, implications, recommandations stratégiques.
 
-Quand appliquer :
-Systématiquement au début de chaque nouvelle réponse substantielle
-Après les confirmations obligatoires (✅ Règles lues, etc.)
-
-Avant tout contenu technique ou explicatif
-
-Comment remplir :
-Entête : Date actuelle et numéro séquentiel du chat
-Contexte & Analyse :
-🔴 Critique : Un point fondamental nécessitant attention immédiate
-🟡 Important : Un aspect significatif mais non bloquant
-🟢 Standard : Un élément contextuel ou informatif
-Action & Impact :
-Action : Verbe précis + objet + référence [FORMAT: XXX-NNN]
-Résultat : Livrable concret avec métrique et timing
-
-Impact : Effet mesurable ou estimation qualitative
-Synthèse & Réflexion :
-Développement approfondi des idées, implications et perspectives
-Section plus narrative et analytique, sans restriction de longueur
-Opportunité d'explorer des connexions entre différents aspects du sujet
-
-Espace pour des considérations stratégiques et réflexions de fond
-Important : Remplir toutes les sections même si certaines paraissent moins pertinentes dans le contexte. Adapter le contenu plutôt qu'omettre une section.
-
-4. Points de Vigilance
-Architecture en couches stricte
-Tests pour chaque fonctionnalité
-Documentation systématique
-Validation pré-commit
-Standards des composants
-5. Documentation Détaillée
-@📚 Guide Complet
-@🔧 Guide Développeur
-@🧪 Framework de Tests
-@📝 Templates
+## 4. Documentation Détaillée
+@📚 Guide Complet  
+@🔧 Guide Développeur  
+@🧪 Framework de Tests  
+@📝 Templates  
 @🔍 Exemples
 
-Version: 2.0
-Dernière mise à jour : 2024-04-11 
+---
+
+# 🧠 VISION & CONSEIL IA (EXIGÉ POUR LES ASSISTANTS STRATÉGIQUES)
+
+<vision_ia>
+Avant toute solution proposée, l'IA doit :
+
+1. Évaluer la **nature du besoin** (tactique, stratégique, exploratoire)
+2. Identifier les **risques systémiques** (complexité, dette, rigidité, décalage MVP/long-terme)
+3. Formuler un **axe de décision clair** (conserver / isoler / refactoriser / différer)
+4. Vérifier la compatibilité avec :
+   - l’architecture modulaire
+   - la roadmap de production
+   - les exigences de log / test / config
+
+Réponses attendues dans une section dédiée :
+
+### 🧭 Vision & Décision
+- Nature du besoin
+- Risques potentiels
+- Décision justifiée
+- Alignement avec APEX Framework
+
+⚠️ Une réponse est incomplète sans cette section pour toute question stratégique, architecturale ou d’intégration majeure.
+</vision_ia>
+
+---
+
+# ✅ TEST PROMPT (à coller dans Cursor)
+
+```markdown
+# Test d'alignement IA – APEX Framework
+
+Je veux créer une surcouche de gestion de projet dans mon écosystème APEX.  
+Dois-je créer un fichier central `apex-projects.json` ou des fichiers `project.json` distribués dans chaque module ?  
+
+Merci de répondre :
+- En respectant les règles `ai_requirements`
+- En appliquant le format de feedback structuré
+- En incluant obligatoirement la section 🧭 Vision & Décision

@@ -73,22 +73,14 @@ Public Function Initialize(ByVal sheetAccessor As Object, ByVal pivotTableName A
             Set mobjNativePivot = pvt
             mstrPivotTableName = pivotTableName
             Initialize = True
-            Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+            Exit Function
         End If
     Next pvt
     
     ' Tableau croisé non trouvé
     Err.Raise ERR_INVALID_PIVOT, "clsExcelPivotTableAccessor", "Le tableau croisé '" & pivotTableName & "' n'existe pas dans la feuille"
     
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
 ErrorHandler:
     Initialize = False
     If Err.Number <> ERR_INVALID_PIVOT Then
@@ -161,11 +153,7 @@ Public Function CreatePivotTableFromData(ByVal sheetAccessor As Object, ByVal da
     pivotAccessor.Initialize sheetAccessor, pivotName
     
     Set CreatePivotTableFromData = pivotAccessor
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     Err.Raise Err.Number, "clsExcelPivotTableAccessor.CreatePivotTableFromData", Err.Description
@@ -244,19 +232,11 @@ Private Function IPivotTableAccessor_AddRowField(ByVal fieldName As String, Opti
     End If
     
     IPivotTableAccessor_AddRowField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_AddRowField = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_AddColumnField(ByVal fieldName As String, Optional ByVal position As Long = -1) As Boolean
     On Error GoTo ErrorHandler
@@ -278,19 +258,11 @@ Private Function IPivotTableAccessor_AddColumnField(ByVal fieldName As String, O
     End If
     
     IPivotTableAccessor_AddColumnField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_AddColumnField = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_AddPageField(ByVal fieldName As String, Optional ByVal position As Long = -1) As Boolean
     On Error GoTo ErrorHandler
@@ -312,19 +284,11 @@ Private Function IPivotTableAccessor_AddPageField(ByVal fieldName As String, Opt
     End If
     
     IPivotTableAccessor_AddPageField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_AddPageField = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_AddDataField(ByVal fieldName As String, Optional ByVal caption As String = "", _
                                                Optional ByVal function As Long = -1) As Boolean
@@ -353,19 +317,11 @@ Private Function IPivotTableAccessor_AddDataField(ByVal fieldName As String, Opt
     End If
     
     IPivotTableAccessor_AddDataField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_AddDataField = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_RemoveField(ByVal fieldName As String) As Boolean
     On Error GoTo ErrorHandler
@@ -382,19 +338,11 @@ Private Function IPivotTableAccessor_RemoveField(ByVal fieldName As String) As B
     field.Orientation = xlHidden
     
     IPivotTableAccessor_RemoveField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_RemoveField = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_MoveField(ByVal fieldName As String, ByVal targetArea As Long, _
                                             Optional ByVal position As Long = -1) As Boolean
@@ -433,11 +381,7 @@ Private Function IPivotTableAccessor_MoveField(ByVal fieldName As String, ByVal 
     End If
     
     IPivotTableAccessor_MoveField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_MoveField = False
@@ -498,19 +442,11 @@ Private Function IPivotTableAccessor_ApplyFilter(ByVal fieldName As String, ByVa
     End If
     
     IPivotTableAccessor_ApplyFilter = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_ApplyFilter = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_ClearFilters(ByVal fieldName As String) As Boolean
     On Error GoTo ErrorHandler
@@ -527,19 +463,11 @@ Private Function IPivotTableAccessor_ClearFilters(ByVal fieldName As String) As 
     field.ClearAllFilters
     
     IPivotTableAccessor_ClearFilters = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_ClearFilters = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_ClearAllFilters() As Boolean
     On Error GoTo ErrorHandler
@@ -551,19 +479,11 @@ Private Function IPivotTableAccessor_ClearAllFilters() As Boolean
     Next field
     
     IPivotTableAccessor_ClearAllFilters = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_ClearAllFilters = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_FormatDataField(ByVal dataFieldName As String, ByVal numberFormat As String) As Boolean
     On Error GoTo ErrorHandler
@@ -590,19 +510,11 @@ Private Function IPivotTableAccessor_FormatDataField(ByVal dataFieldName As Stri
     dataField.NumberFormat = numberFormat
     
     IPivotTableAccessor_FormatDataField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_FormatDataField = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_SetSubtotal(ByVal fieldName As String, ByVal showSubtotal As Boolean, _
                                               Optional ByVal function As Long = -1) As Boolean
@@ -635,11 +547,7 @@ Private Function IPivotTableAccessor_SetSubtotal(ByVal fieldName As String, ByVa
     End If
     
     IPivotTableAccessor_SetSubtotal = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_SetSubtotal = False
@@ -656,19 +564,11 @@ Private Function IPivotTableAccessor_Refresh() As Boolean
     
     mobjNativePivot.RefreshTable
     IPivotTableAccessor_Refresh = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_Refresh = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_ExpandItem(ByVal fieldName As String, ByVal itemName As String, _
                                              ByVal expand As Boolean) As Boolean
@@ -700,19 +600,11 @@ Private Function IPivotTableAccessor_ExpandItem(ByVal fieldName As String, ByVal
     End If
     
     IPivotTableAccessor_ExpandItem = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_ExpandItem = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_ExpandField(ByVal fieldName As String, ByVal expand As Boolean) As Boolean
     On Error GoTo ErrorHandler
@@ -734,19 +626,11 @@ Private Function IPivotTableAccessor_ExpandField(ByVal fieldName As String, ByVa
     Next item
     
     IPivotTableAccessor_ExpandField = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_ExpandField = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_ExpandAll(ByVal expand As Boolean) As Boolean
     On Error GoTo ErrorHandler
@@ -768,11 +652,7 @@ Private Function IPivotTableAccessor_ExpandAll(ByVal expand As Boolean) As Boole
     Next field
     
     IPivotTableAccessor_ExpandAll = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IPivotTableAccessor_ExpandAll = False
@@ -807,42 +687,26 @@ Private Function IPivotTableAccessor_GetDataFieldValues(ByVal dataFieldName As S
     
     ' Récupérer la plage de données
     IPivotTableAccessor_GetDataFieldValues = dataField.DataRange.Value
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     Dim emptyArray() As Variant
     ReDim emptyArray(0, 0)
     IPivotTableAccessor_GetDataFieldValues = emptyArray
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_GetAllValues() As Variant
     On Error GoTo ErrorHandler
     
     ' Récupérer tout le contenu du tableau croisé
     IPivotTableAccessor_GetAllValues = mobjNativePivot.TableRange2.Value
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     Dim emptyArray() As Variant
     ReDim emptyArray(0, 0)
     IPivotTableAccessor_GetAllValues = emptyArray
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+End Function
 
 Private Function IPivotTableAccessor_GetFieldItems(ByVal fieldName As String) As Variant
     On Error GoTo ErrorHandler
@@ -865,11 +729,7 @@ Private Function IPivotTableAccessor_GetFieldItems(ByVal fieldName As String) As
     Next i
     
     IPivotTableAccessor_GetFieldItems = items
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     Dim emptyArray() As String
@@ -900,11 +760,7 @@ Private Function GetPivotFieldByName(ByVal fieldName As String) As Object
         For i = 1 To mobjNativePivot.PivotFields.Count
             If mobjNativePivot.PivotFields(i).Name = fieldName Then
                 Set GetPivotFieldByName = mobjNativePivot.PivotFields(i)
-                Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+                Exit Function
             End If
         Next i
     End If

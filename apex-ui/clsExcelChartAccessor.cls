@@ -4,8 +4,8 @@ BEGIN
 END
 Attribute VB_Name = "clsExcelChartAccessor"
 
-'@Module: [NomDuModule]
-'@Description: 
+'@Module: clsExcelChartAccessor
+'@Description: Implémentation de l'interface IChartAccessor pour manipuler les graphiques Excel
 '@Version: 1.0
 '@Date: 13/04/2025
 '@Author: APEX Framework Team
@@ -15,13 +15,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 '@Folder("APEX.UI.Excel")
-'@ModuleDescription("ImplÃ©mentation de l'interface IChartAccessor pour manipuler les graphiques Excel")
+'@ModuleDescription("Implémentation de l'interface IChartAccessor pour manipuler les graphiques Excel")
 '@Implements IChartAccessor
 Option Explicit
 
 Implements IChartAccessor
 
-' Variables privÃ©es
+' Variables privées
 Private mobjSheet As Object ' ISheetAccessor
 Private mobjNativeChart As Object ' Chart
 Private mstrChartName As String
@@ -41,29 +41,25 @@ Private Const FORMAT_LINE As Long = 4
 
 '*******************************************************************************
 ' Module : clsExcelChartAccessor
-' Author : [Votre nom]
+' Author : APEX Framework Team
 ' Date   : 12/04/2025
-' Purpose: ImplÃ©mentation de l'interface IChartAccessor pour manipuler les
-'          graphiques Excel avec opÃ©rations complÃ¨tes de personnalisation
+' Purpose: Implémentation de l'interface IChartAccessor pour manipuler les
+'          graphiques Excel avec opérations complètes de personnalisation
 '*******************************************************************************
 
 ''
 ' Initialise un nouvel accesseur de graphique Excel
 ' @param sheetAccessor L'accesseur de feuille qui contient le graphique
-' @param chartName Le nom du graphique Ã  manipuler
-' @return Boolean True si l'initialisation a rÃ©ussi
+' @param chartName Le nom du graphique à manipuler
+' @return Boolean True si l'initialisation a réussi
 ''
-'@Description: 
-'@Param: 
-'@Returns: 
-
 Public Function Initialize(ByVal sheetAccessor As Object, ByVal chartName As String) As Boolean
     On Error GoTo ErrorHandler
     
-    ' VÃ©rifier et stocker l'accesseur de feuille
+    ' Vérifier et stocker l'accesseur de feuille
     Set mobjSheet = sheetAccessor
     
-    ' RÃ©cupÃ©rer la feuille native
+    ' Récupérer la feuille native
     Dim nativeSheet As Object
     Set nativeSheet = mobjSheet.GetNativeSheet
     
@@ -74,22 +70,14 @@ Public Function Initialize(ByVal sheetAccessor As Object, ByVal chartName As Str
             Set mobjNativeChart = cht.Chart
             mstrChartName = chartName
             Initialize = True
-            Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+            Exit Function
         End If
     Next cht
     
-    ' Graphique non trouvÃ©
+    ' Graphique non trouvé
     Err.Raise ERR_INVALID_CHART, "clsExcelChartAccessor", "Le graphique '" & chartName & "' n'existe pas dans la feuille"
     
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
 ErrorHandler:
     Initialize = False
     If Err.Number <> ERR_INVALID_CHART Then
@@ -98,20 +86,16 @@ ErrorHandler:
 End Function
 
 ''
-' CrÃ©e un nouveau graphique Excel dans la feuille spÃ©cifiÃ©e
+' Crée un nouveau graphique Excel dans la feuille spécifiée
 ' @param sheetAccessor L'accesseur de la feuille cible
 ' @param left Position horizontale (points)
 ' @param top Position verticale (points)
 ' @param width Largeur (points)
 ' @param height Hauteur (points)
-' @param chartName Nom Ã  donner au nouveau graphique (optionnel)
+' @param chartName Nom à donner au nouveau graphique (optionnel)
 ' @param chartType Type de graphique (constante XlChartType, optionnel)
-' @return clsExcelChartAccessor L'accesseur pour le graphique nouvellement crÃ©Ã©
+' @return clsExcelChartAccessor L'accesseur pour le graphique nouvellement créé
 ''
-'@Description: 
-'@Param: 
-'@Returns: 
-
 Public Function CreateChart(ByVal sheetAccessor As Object, ByVal left As Single, ByVal top As Single, _
                           ByVal width As Single, ByVal height As Single, _
                           Optional ByVal chartName As String = "", _
@@ -122,36 +106,32 @@ Public Function CreateChart(ByVal sheetAccessor As Object, ByVal left As Single,
     Dim nativeSheet As Object
     Set nativeSheet = sheetAccessor.GetNativeSheet
     
-    ' CrÃ©er un nouvel objet graphique
+    ' Créer un nouvel objet graphique
     Dim newChartObject As Object
     Set newChartObject = nativeSheet.ChartObjects.Add(left, top, width, height)
     
-    ' DÃ©finir le type de graphique
+    ' Définir le type de graphique
     newChartObject.Chart.ChartType = chartType
     
-    ' DÃ©finir le nom du graphique si fourni
+    ' Définir le nom du graphique si fourni
     If chartName <> "" Then
         newChartObject.Name = chartName
     End If
     
-    ' CrÃ©er et initialiser un nouvel accesseur pour ce graphique
+    ' Créer et initialiser un nouvel accesseur pour ce graphique
     Dim chartAccessor As New clsExcelChartAccessor
     chartAccessor.Initialize sheetAccessor, newChartObject.Name
     
     Set CreateChart = chartAccessor
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     Err.Raise Err.Number, "clsExcelChartAccessor.CreateChart", Err.Description
 End Function
 
-' ==================== ImplÃ©mentation de IChartAccessor ====================
+' ==================== Implémentation de IChartAccessor ====================
 
-' ----- PropriÃ©tÃ©s -----
+' ----- Propriétés -----
 
 Private Property Get IChartAccessor_ChartName() As String
     IChartAccessor_ChartName = mstrChartName
@@ -208,11 +188,7 @@ Private Property Let IChartAccessor_LegendPosition(ByVal value As Long)
     mobjNativeChart.Legend.Position = value
 End Property
 
-' ----- MÃ©thodes de crÃ©ation et manipulation -----
-
-'@Description: 
-'@Param: 
-'@Returns: 
+' ----- Méthodes de création et manipulation -----
 
 Private Function IChartAccessor_SetSourceData(ByVal sourceRange As String, Optional ByVal seriesInRows As Boolean = False) As Boolean
     On Error GoTo ErrorHandler
@@ -225,23 +201,16 @@ Private Function IChartAccessor_SetSourceData(ByVal sourceRange As String, Optio
     Dim srcRange As Object
     Set srcRange = nativeSheet.Range(sourceRange)
     
-    ' DÃ©finir la source de donnÃ©es du graphique
+    ' Définir la source de données du graphique
     mobjNativeChart.SetSourceData Source:=srcRange, PlotBy:=IIf(seriesInRows, xlRows, xlColumns)
     
     IChartAccessor_SetSourceData = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_SetSourceData = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_SetSourceData", Err.Description
+End Function
 
 Private Function IChartAccessor_AddSeries(ByVal name As String, ByVal values As String, Optional ByVal xValues As String = "") As Boolean
     On Error GoTo ErrorHandler
@@ -250,30 +219,30 @@ Private Function IChartAccessor_AddSeries(ByVal name As String, ByVal values As 
     Dim nativeSheet As Object
     Set nativeSheet = mobjSheet.GetNativeSheet
     
-    ' Ajouter une nouvelle sÃ©rie
+    ' Ajouter une nouvelle série
     mobjNativeChart.SeriesCollection.NewSeries
     
-    ' Obtenir l'index de la derniÃ¨re sÃ©rie ajoutÃ©e
+    ' Obtenir l'index de la dernière série ajoutée
     Dim seriesIndex As Long
     seriesIndex = mobjNativeChart.SeriesCollection.Count
     
-    ' DÃ©finir les propriÃ©tÃ©s de la sÃ©rie
+    ' Définir les propriétés de la série
     With mobjNativeChart.SeriesCollection(seriesIndex)
-        ' DÃ©finir le nom de la sÃ©rie (peut Ãªtre une rÃ©fÃ©rence de cellule)
+        ' Définir le nom de la série (peut être une référence de cellule)
         If Left(name, 1) = "=" Then
             .Name = name
         Else
             .Name = name
         End If
         
-        ' DÃ©finir les valeurs Y
+        ' Définir les valeurs Y
         If Left(values, 1) = "=" Then
             .Values = values
         Else
             .Values = nativeSheet.Range(values).Value
         End If
         
-        ' DÃ©finir les valeurs X si fournies
+        ' Définir les valeurs X si fournies
         If xValues <> "" Then
             If Left(xValues, 1) = "=" Then
                 .XValues = xValues
@@ -284,74 +253,53 @@ Private Function IChartAccessor_AddSeries(ByVal name As String, ByVal values As 
     End With
     
     IChartAccessor_AddSeries = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_AddSeries = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_AddSeries", Err.Description
+End Function
 
 Private Function IChartAccessor_RemoveSeries(ByVal seriesIndex As Long) As Boolean
     On Error GoTo ErrorHandler
     
-    ' VÃ©rifier que l'index est valide
+    ' Vérifier que l'index est valide
     If seriesIndex < 1 Or seriesIndex > mobjNativeChart.SeriesCollection.Count Then
         Err.Raise ERR_INVALID_SERIES, "clsExcelChartAccessor.RemoveSeries", _
-                "Index de sÃ©rie invalide : " & seriesIndex
+                "Index de série invalide : " & seriesIndex
     End If
     
-    ' Supprimer la sÃ©rie
+    ' Supprimer la série
     mobjNativeChart.SeriesCollection(seriesIndex).Delete
     
     IChartAccessor_RemoveSeries = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_RemoveSeries = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_RemoveSeries", Err.Description
+End Function
 
 Private Function IChartAccessor_ClearSeries() As Boolean
     On Error GoTo ErrorHandler
     
-    ' Supprimer toutes les sÃ©ries une par une (de la derniÃ¨re Ã  la premiÃ¨re)
+    ' Supprimer toutes les séries une par une (de la dernière à la première)
     Do While mobjNativeChart.SeriesCollection.Count > 0
         mobjNativeChart.SeriesCollection(mobjNativeChart.SeriesCollection.Count).Delete
     Loop
     
     IChartAccessor_ClearSeries = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_ClearSeries = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_ClearSeries", Err.Description
+End Function
 
 Private Function IChartAccessor_SetXAxisTitle(ByVal title As String) As Boolean
     On Error GoTo ErrorHandler
     
-    ' Mettre Ã  jour le titre de l'axe X
+    ' Mettre à jour le titre de l'axe X
     With mobjNativeChart.Axes(xlCategory, xlPrimary)
         .HasTitle = (title <> "")
         If title <> "" Then
@@ -360,24 +308,17 @@ Private Function IChartAccessor_SetXAxisTitle(ByVal title As String) As Boolean
     End With
     
     IChartAccessor_SetXAxisTitle = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_SetXAxisTitle = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_SetXAxisTitle", Err.Description
+End Function
 
 Private Function IChartAccessor_SetYAxisTitle(ByVal title As String) As Boolean
     On Error GoTo ErrorHandler
     
-    ' Mettre Ã  jour le titre de l'axe Y
+    ' Mettre à jour le titre de l'axe Y
     With mobjNativeChart.Axes(xlValue, xlPrimary)
         .HasTitle = (title <> "")
         If title <> "" Then
@@ -386,19 +327,12 @@ Private Function IChartAccessor_SetYAxisTitle(ByVal title As String) As Boolean
     End With
     
     IChartAccessor_SetYAxisTitle = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_SetYAxisTitle = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_SetYAxisTitle", Err.Description
+End Function
 
 Private Function IChartAccessor_FormatXAxis(Optional ByVal min As Variant, Optional ByVal max As Variant, _
                                          Optional ByVal majorUnit As Variant, Optional ByVal minorUnit As Variant, _
@@ -407,7 +341,7 @@ Private Function IChartAccessor_FormatXAxis(Optional ByVal min As Variant, Optio
     
     ' Formater l'axe X
     With mobjNativeChart.Axes(xlCategory, xlPrimary)
-        ' DÃ©finir les limites si spÃ©cifiÃ©es
+        ' Définir les limites si spécifiées
         If Not IsMissing(min) Then
             .MinimumScale = min
         End If
@@ -416,7 +350,7 @@ Private Function IChartAccessor_FormatXAxis(Optional ByVal min As Variant, Optio
             .MaximumScale = max
         End If
         
-        ' DÃ©finir les intervalles si spÃ©cifiÃ©s
+        ' Définir les intervalles si spécifiés
         If Not IsMissing(majorUnit) Then
             .MajorUnit = majorUnit
         End If
@@ -425,26 +359,19 @@ Private Function IChartAccessor_FormatXAxis(Optional ByVal min As Variant, Optio
             .MinorUnit = minorUnit
         End If
         
-        ' DÃ©finir le format numÃ©rique si spÃ©cifiÃ©
+        ' Définir le format numérique si spécifié
         If numberFormat <> "" Then
             .TickLabels.NumberFormat = numberFormat
         End If
     End With
     
     IChartAccessor_FormatXAxis = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_FormatXAxis = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_FormatXAxis", Err.Description
+End Function
 
 Private Function IChartAccessor_FormatYAxis(Optional ByVal min As Variant, Optional ByVal max As Variant, _
                                          Optional ByVal majorUnit As Variant, Optional ByVal minorUnit As Variant, _
@@ -453,7 +380,7 @@ Private Function IChartAccessor_FormatYAxis(Optional ByVal min As Variant, Optio
     
     ' Formater l'axe Y
     With mobjNativeChart.Axes(xlValue, xlPrimary)
-        ' DÃ©finir les limites si spÃ©cifiÃ©es
+        ' Définir les limites si spécifiées
         If Not IsMissing(min) Then
             .MinimumScale = min
         End If
@@ -462,7 +389,7 @@ Private Function IChartAccessor_FormatYAxis(Optional ByVal min As Variant, Optio
             .MaximumScale = max
         End If
         
-        ' DÃ©finir les intervalles si spÃ©cifiÃ©s
+        ' Définir les intervalles si spécifiés
         If Not IsMissing(majorUnit) Then
             .MajorUnit = majorUnit
         End If
@@ -471,124 +398,103 @@ Private Function IChartAccessor_FormatYAxis(Optional ByVal min As Variant, Optio
             .MinorUnit = minorUnit
         End If
         
-        ' DÃ©finir le format numÃ©rique si spÃ©cifiÃ©
+        ' Définir le format numérique si spécifié
         If numberFormat <> "" Then
             .TickLabels.NumberFormat = numberFormat
         End If
     End With
     
     IChartAccessor_FormatYAxis = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_FormatYAxis = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_FormatYAxis", Err.Description
+End Function
 
 Private Function IChartAccessor_ApplyChartStyle(ByVal styleIndex As Long) As Boolean
     On Error GoTo ErrorHandler
     
-    ' Appliquer un style prÃ©dÃ©fini
+    ' Appliquer un style prédéfini
     mobjNativeChart.ApplyChartTemplate ("Chart Style " & styleIndex)
     
     IChartAccessor_ApplyChartStyle = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_ApplyChartStyle = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_ApplyChartStyle", Err.Description
+End Function
 
 Private Function IChartAccessor_FormatSeries(ByVal seriesIndex As Long, ByVal formatType As Long, ByVal formatValue As Variant) As Boolean
     On Error GoTo ErrorHandler
     
-    ' VÃ©rifier que l'index est valide
+    ' Vérifier que l'index est valide
     If seriesIndex < 1 Or seriesIndex > mobjNativeChart.SeriesCollection.Count Then
         Err.Raise ERR_INVALID_SERIES, "clsExcelChartAccessor.FormatSeries", _
-                "Index de sÃ©rie invalide : " & seriesIndex
+                "Index de série invalide : " & seriesIndex
     End If
     
     ' Appliquer le format selon le type
     Select Case formatType
         Case FORMAT_COLOR
-            ' formatValue doit Ãªtre une couleur (valeur RGB ou nom)
+            ' formatValue doit être une couleur (valeur RGB ou nom)
             mobjNativeChart.SeriesCollection(seriesIndex).Format.Fill.ForeColor.RGB = formatValue
             
         Case FORMAT_PATTERN
-            ' formatValue doit Ãªtre un index de motif
+            ' formatValue doit être un index de motif
             mobjNativeChart.SeriesCollection(seriesIndex).Interior.Pattern = formatValue
             
         Case FORMAT_MARKER
-            ' formatValue doit Ãªtre un style de marqueur (ex: xlMarkerStyleDiamond)
+            ' formatValue doit être un style de marqueur (ex: xlMarkerStyleDiamond)
             With mobjNativeChart.SeriesCollection(seriesIndex)
                 .MarkerStyle = formatValue
-                .MarkerSize = 6  ' Taille par dÃ©faut
+                .MarkerSize = 6  ' Taille par défaut
             End With
             
         Case FORMAT_LINE
-            ' formatValue doit Ãªtre un style de ligne (ex: xlContinuous)
+            ' formatValue doit être un style de ligne (ex: xlContinuous)
             With mobjNativeChart.SeriesCollection(seriesIndex).Format.Line
                 .DashStyle = formatValue
-                .Weight = 2  ' Ã‰paisseur par dÃ©faut
+                .Weight = 2  ' Épaisseur par défaut
             End With
             
         Case Else
             Err.Raise ERR_INVALID_FORMAT, "clsExcelChartAccessor.FormatSeries", _
-                    "Type de format non supportÃ© : " & formatType
+                    "Type de format non supporté : " & formatType
     End Select
     
     IChartAccessor_FormatSeries = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_FormatSeries = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_FormatSeries", Err.Description
+End Function
 
 Private Function IChartAccessor_SetDataLabels(ByVal seriesIndex As Long, ByVal showLabels As Boolean, _
                                            Optional ByVal labelContent As Long = 0) As Boolean
     On Error GoTo ErrorHandler
     
-    ' VÃ©rifier que l'index est valide
+    ' Vérifier que l'index est valide
     If seriesIndex < 1 Or seriesIndex > mobjNativeChart.SeriesCollection.Count Then
         Err.Raise ERR_INVALID_SERIES, "clsExcelChartAccessor.SetDataLabels", _
-                "Index de sÃ©rie invalide : " & seriesIndex
+                "Index de série invalide : " & seriesIndex
     End If
     
-    ' Activer/dÃ©sactiver les Ã©tiquettes de donnÃ©es
+    ' Activer/désactiver les étiquettes de données
     With mobjNativeChart.SeriesCollection(seriesIndex)
         .HasDataLabels = showLabels
         
-        ' Si les Ã©tiquettes sont activÃ©es, dÃ©finir leur contenu
+        ' Si les étiquettes sont activées, définir leur contenu
         If showLabels And labelContent > 0 Then
             With .DataLabels
-                ' Valeur par dÃ©faut = Valeur uniquement
+                ' Valeur par défaut = Valeur uniquement
                 If labelContent = 0 Then
                     labelContent = xlDataLabelShowValue
                 End If
                 
-                ' Configurer le contenu des Ã©tiquettes
+                ' Configurer le contenu des étiquettes
                 .ShowSeriesName = (labelContent And xlDataLabelShowSeriesName) > 0
                 .ShowCategoryName = (labelContent And xlDataLabelShowCategoryName) > 0
                 .ShowValue = (labelContent And xlDataLabelShowValue) > 0
@@ -600,19 +506,12 @@ Private Function IChartAccessor_SetDataLabels(ByVal seriesIndex As Long, ByVal s
     End With
     
     IChartAccessor_SetDataLabels = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_SetDataLabels = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_SetDataLabels", Err.Description
+End Function
 
 Private Function IChartAccessor_SetPosition(ByVal left As Single, ByVal top As Single, _
                                          ByVal width As Single, ByVal height As Single) As Boolean
@@ -622,32 +521,25 @@ Private Function IChartAccessor_SetPosition(ByVal left As Single, ByVal top As S
     Dim chartObj As Object
     Set chartObj = mobjNativeChart.Parent
     
-    ' DÃ©finir la position et la taille
+    ' Définir la position et la taille
     chartObj.left = left
     chartObj.top = top
     chartObj.width = width
     chartObj.height = height
     
     IChartAccessor_SetPosition = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_SetPosition = False
-End'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Err.Raise Err.Number, "IChartAccessor_SetPosition", Err.Description
+End Function
 
 Private Function IChartAccessor_ExportAsImage(ByVal filePath As String, ByVal formatType As String, _
                                            Optional ByVal resolution As Long = 96) As Boolean
     On Error GoTo ErrorHandler
     
-    ' DÃ©terminer le type de fichier Ã  partir de formatType
+    ' Déterminer le type de fichier à partir de formatType
     Dim fileFormat As Long
     
     Select Case LCase(formatType)
@@ -660,33 +552,26 @@ Private Function IChartAccessor_ExportAsImage(ByVal filePath As String, ByVal fo
         Case "bmp"
             fileFormat = xlPicture
         Case Else
-            fileFormat = xlPicture ' Par dÃ©faut
+            fileFormat = xlPicture ' Par défaut
     End Select
     
     ' Exporter le graphique comme image
     mobjNativeChart.Export Filename:=filePath, Filtername:=formatType, Interactive:=False
     
     IChartAccessor_ExportAsImage = True
-    Exit'@Description: 
-'@Param: 
-'@Returns: 
-
- Function
+    Exit Function
     
 ErrorHandler:
     IChartAccessor_ExportAsImage = False
+    Err.Raise Err.Number, "IChartAccessor_ExportAsImage", Err.Description
 End Function
 
-' ==================== MÃ©thodes publiques additionnelles ====================
+' ==================== Méthodes publiques additionnelles ====================
 
 ''
-' Retourne l'objet Chart sous-jacent pour un accÃ¨s direct par d'autres composants
+' Retourne l'objet Chart sous-jacent pour un accès direct par d'autres composants
 ' @return Object L'objet Chart natif d'Excel
 ''
-'@Description: 
-'@Param: 
-'@Returns: 
-
 Public Function GetNativeChart() As Object
     Set GetNativeChart = mobjNativeChart
 End Function

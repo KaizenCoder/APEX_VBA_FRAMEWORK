@@ -1,0 +1,59 @@
+{
+    "naming": {
+        "module_prefix": {
+            "standard": "mod",
+            "class": "cls",
+            "form": "frm"
+        },
+        "variable_prefixes": {
+            "Boolean": "b",
+            "Integer": "i",
+            "Long": "l",
+            "String": "s",
+            "Double": "d",
+            "Object": "obj",
+            "Variant": "v",
+            "Dictionary": "dict",
+            "Collection": "col",
+            "Range": "rng",
+            "Worksheet": "ws",
+            "Workbook": "wb"
+        },
+        "case": {
+            "functions": "PascalCase",
+            "variables": "camelCase",
+            "constants": "ALL_CAPS"
+        }
+    },
+    "complexity": {
+        "max_function_length": 100,
+        "max_sub_length": 100,
+        "max_line_length": 120,
+        "max_params": 7,
+        "max_nesting": 5
+    },
+    "style": {
+        "indentation": 4,
+        "require_option_explicit": true,
+        "require_comments": {
+            "functions": true,
+            "complex_logic": true
+        }
+    },
+    "rules_enabled": {
+        "naming": true,
+        "complexity": true,
+        "style": true,
+        "best_practices": true,
+        "performance": true
+    },
+    "apex_specific": {
+        "required_headers": [
+            "' ----------------------------------------------------------------------",
+            "' APEX Framework",
+            "' (c) [YEAR] APEX Framework Team"
+        ],
+        "interface_prefix": "I",
+        "implementation_suffix": "Impl"
+    }
+}
