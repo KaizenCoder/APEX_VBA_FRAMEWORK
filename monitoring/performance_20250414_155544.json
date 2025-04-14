@@ -1,0 +1,18 @@
+{
+  "Cursor": {
+    "CPU": 16031.96875,
+    "Memory": 3138.7578125,
+    "Handles": 6805.0,
+    "Threads": null,
+    "Count": 15
+  },
+  "Excel": null,
+  "Timestamp": "2025-04-14 15:55:44",
+  "VSCode": {
+    "CPU": 7547.59375,
+    "Memory": 1979.12890625,
+    "Handles": 5430.0,
+    "Threads": null,
+    "Count": 12
+  }
+}

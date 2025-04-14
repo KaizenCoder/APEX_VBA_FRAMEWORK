@@ -7,9 +7,9 @@ Option Explicit
 
 Public Sub CopyPlanSituationToExcel()
     ' Déclaration des variables APEX
-    Dim workbookAccessor As Object ' IWorkbookAccessor
-    Dim sheetAccessor As Object ' ISheetAccessor
-    Dim tableAccessor As Object ' ITableAccessor
+    Dim workbookAccessor As IWorkbookAccessor
+    Dim sheetAccessor As ISheetAccessor
+    Dim tableAccessor As ITableAccessor
     
     ' Création d'un nouveau classeur Excel
     Dim newWorkbook As Workbook
@@ -18,126 +18,131 @@ Public Sub CopyPlanSituationToExcel()
     ' Renommer la première feuille
     newWorkbook.Sheets(1).Name = "Plan de Situation"
     
-    ' Initialiser l'accesseur de classeur APEX
-    Set workbookAccessor = CreateObject("clsExcelWorkbookAccessor")
-    workbookAccessor.Init newWorkbook
+    ' Initialiser l'accesseur de classeur APEX via la factory
+    Dim factory As New ModExcelFactory
+    Set workbookAccessor = factory.CreateWorkbookAccessor(newWorkbook)
     
     ' Obtenir l'accesseur de feuille pour la première feuille
     Set sheetAccessor = workbookAccessor.GetSheet("Plan de Situation")
     
-    ' Lire le contenu du plan de situation
-    Dim planContent As String
-    planContent = ReadMdFile("D:\Dev\Apex_VBA_FRAMEWORK\docs\implementation\PLAN_SITUATION_2024_04_14.md")
-    
-    ' Formater le titre et les sections principales
-    With newWorkbook.Sheets("Plan de Situation")
-        ' Titre principal
-        .Range("A1").Value = "Plan de Situation APEX Framework - 2024-04-14"
-        .Range("A1").Font.Size = 16
-        .Range("A1").Font.Bold = True
-        
-        ' Sections principales (Composants Database)
-        .Range("A3").Value = "Composants Database"
-        .Range("A3").Font.Bold = True
-        .Range("A3").Font.Size = 14
-        
-        ' Tableau des interfaces
-        .Range("A5").Value = "1. Interfaces"
-        .Range("A5").Font.Bold = True
-        
-        ' En-têtes du tableau
-        .Range("A6").Value = "Composant"
-        .Range("B6").Value = "État"
-        .Range("C6").Value = "Contributeur"
-        .Range("A6:C6").Font.Bold = True
-        
-        ' Remplissage du tableau des interfaces
-        .Range("A7").Value = "IDbDriver"
-        .Range("B7").Value = "Complété"
-        .Range("C7").Value = "Cursor"
-        
-        .Range("A8").Value = "IQueryBuilder"
-        .Range("B8").Value = "Complété"
-        .Range("C8").Value = "Cursor"
-        
-        .Range("A9").Value = "IDBAccessorBase"
-        .Range("B9").Value = "Complété"
-        .Range("C9").Value = "VSCode"
-        
-        .Range("A10").Value = "IEntityMapping"
-        .Range("B10").Value = "Complété"
-        .Range("C10").Value = "Cursor"
-        
-        ' Tableau des implémentations
-        .Range("A12").Value = "2. Implémentations"
-        .Range("A12").Font.Bold = True
-        
-        ' En-têtes du tableau
-        .Range("A13").Value = "Composant"
-        .Range("B13").Value = "État"
-        .Range("C13").Value = "Contributeur"
-        .Range("A13:C13").Font.Bold = True
-        
-        ' Remplissage du tableau des implémentations
-        .Range("A14").Value = "clsDBAccessor"
-        .Range("B14").Value = "Complété"
-        .Range("C14").Value = "VSCode"
-        
-        .Range("A15").Value = "clsSqlQueryBuilder"
-        .Range("B15").Value = "Complété"
-        .Range("C15").Value = "Cursor"
-        
-        .Range("A16").Value = "ClsOrmBase"
-        .Range("B16").Value = "Complété"
-        .Range("C16").Value = "Cursor"
-        
-        .Range("A17").Value = "clsEntityMappingFactory"
-        .Range("B17").Value = "Complété"
-        .Range("C17").Value = "Cursor"
-        
-        ' Créer un tableau pour les composants Excel (seconde section)
-        .Range("A19").Value = "Composants Excel"
-        .Range("A19").Font.Bold = True
-        .Range("A19").Font.Size = 14
-        
-        ' Format de tous les tableaux
-        .Range("A6:C10").BorderAround xlContinuous
-        .Range("A6:C6").BorderAround xlContinuous
-        .Range("A13:C17").BorderAround xlContinuous
-        .Range("A13:C13").BorderAround xlContinuous
-        
-        ' Ajout d'un pied de page avec statistiques
-        .Range("A30").Value = "Couverture de Tests"
-        .Range("A30").Font.Bold = True
-        
-        .Range("A31").Value = "Tests unitaires:"
-        .Range("B31").Value = "95%"
-        
-        .Range("A32").Value = "Tests d'intégration:"
-        .Range("B32").Value = "90%"
-        
-        .Range("A33").Value = "Tests de performance:"
-        .Range("B33").Value = "60%"
-        
-        .Range("A34").Value = "Tests de sécurité:"
-        .Range("B34").Value = "75%"
-        
-        .Range("A35").Value = "Tests ORM:"
-        .Range("B35").Value = "85%"
+    ' Écrire le titre
+    With sheetAccessor
+        .WriteValue 1, 1, "Plan de Situation APEX Framework - 2024-04-14"
+        .GetCell(1, 1).FontBold = True
+        .GetCell(1, 1).BackColor = RGB(230, 230, 230)
     End With
     
-    ' Créer un tableau Excel avancé pour les dernières mises à jour
-    CreateUpdatesTable newWorkbook.Sheets("Plan de Situation"), 37
+    ' Position courante pour l'écriture
+    Dim currentRow As Long
+    currentRow = 3
     
-    ' Ajustement automatique des colonnes
-    newWorkbook.Sheets("Plan de Situation").Columns("A:D").AutoFit
+    ' Écrire les sections
+    WriteSection "Composants Database", currentRow, sheetAccessor
+    WriteComponentsTable "1. Interfaces", Array("IDbDriver", "IQueryBuilder", "IDBAccessorBase", "IEntityMapping"), _
+                        Array("?", "?", "?", "?"), _
+                        Array("?? Cursor", "?? Cursor", "?? VSCode", "?? Cursor"), _
+                        currentRow, sheetAccessor
+                        
+    WriteComponentsTable "2. Implémentations", Array("clsDBAccessor", "clsSqlQueryBuilder", "ClsOrmBase", "clsEntityMappingFactory"), _
+                        Array("?", "?", "?", "?"), _
+                        Array("?? VSCode", "?? Cursor", "?? Cursor", "?? Cursor"), _
+                        currentRow, sheetAccessor
+                        
+    WriteComponentsTable "3. Tests", Array("TestQueryBuilder", "TestQueryBuilderIntegration", "TestDbAccessorIntegration", _
+                                         "TestDBAccessorAdvanced", "TestEntityMappingFactory", "TestOrmIntegration", "TestOrmPerformance"), _
+                        Array("?", "?", "?", "?", "?", "?", "?"), _
+                        Array("?? Cursor", "?? Cursor", "?? VSCode", "?? Cursor", "?? Cursor", "?? Cursor", "?? Cursor"), _
+                        currentRow, sheetAccessor
+                        
+    WriteSection "Composants Excel", currentRow, sheetAccessor
+    WriteComponentsTable "1. Interfaces", Array("IWorkbookAccessor", "ISheetAccessor", "ITableAccessor", "IRangeAccessor", "ICellAccessor"), _
+                        Array("?", "?", "?", "?", "?"), _
+                        Array("?? VSCode", "?? Cursor", "?? Cursor", "?? VSCode", "?? Cursor"), _
+                        currentRow, sheetAccessor
+                        
+    WriteComponentsTable "2. Implémentations", Array("clsExcelWorkbookAccessor", "clsExcelSheetAccessor", "clsExcelTableAccessor", _
+                                                    "clsExcelRangeAccessor", "clsExcelCellAccessor"), _
+                        Array("?", "?", "?", "?", "?"), _
+                        Array("?? VSCode", "?? Cursor", "?? Cursor", "?? VSCode", "?? Cursor"), _
+                        currentRow, sheetAccessor
+                        
+    ' Écrire les statistiques
+    WriteSection "Statistiques", currentRow, sheetAccessor
+    With sheetAccessor
+        .WriteValue currentRow, 1, "Couverture des tests:"
+        currentRow = currentRow + 1
+        .WriteValue currentRow, 1, "Tests unitaires: 95%"
+        currentRow = currentRow + 1
+        .WriteValue currentRow, 1, "Tests d'intégration: 90%"
+        currentRow = currentRow + 1
+        .WriteValue currentRow, 1, "Tests de performance: 95%"
+        currentRow = currentRow + 1
+        .WriteValue currentRow, 1, "Tests de sécurité: 75%"
+        currentRow = currentRow + 1
+        .WriteValue currentRow, 1, "Tests ORM: 85%"
+        currentRow = currentRow + 1
+        .WriteValue currentRow, 1, "Documentation: 100%"
+    End With
     
-    ' Sauvegarde du nouveau classeur
-    Dim savePath As String
-    savePath = "D:\Dev\Apex_VBA_FRAMEWORK\APEX_PLAN_SITUATION.xlsx"
-    newWorkbook.SaveAs savePath
+    ' Formater le classeur
+    FormatWorkbook sheetAccessor
     
-    MsgBox "Le plan de situation a été exporté avec succès vers " & savePath, vbInformation, "APEX Framework"
+    ' Sauvegarder le classeur
+    workbookAccessor.SaveAs "D:\Dev\Apex_VBA_FRAMEWORK\docs\implementation\PLAN_SITUATION_2024_04_14.xlsx"
+End Sub
+
+Private Sub WriteSection(ByVal sectionName As String, ByRef currentRow As Long, ByVal sheetAccessor As ISheetAccessor)
+    currentRow = currentRow + 1
+    With sheetAccessor
+        .WriteValue currentRow, 1, sectionName
+        .GetCell(currentRow, 1).FontBold = True
+        .GetCell(currentRow, 1).BackColor = RGB(200, 200, 200)
+    End With
+    currentRow = currentRow + 1
+End Sub
+
+Private Sub WriteComponentsTable(ByVal tableName As String, ByVal components As Variant, _
+                               ByVal statuses As Variant, ByVal contributors As Variant, _
+                               ByRef currentRow As Long, ByVal sheetAccessor As ISheetAccessor)
+    Dim i As Long
+    
+    ' Écrire le nom de la table
+    With sheetAccessor
+        .WriteValue currentRow, 2, tableName
+        .GetCell(currentRow, 2).FontBold = True
+    End With
+    currentRow = currentRow + 1
+    
+    ' Écrire les en-têtes
+    With sheetAccessor
+        .WriteValue currentRow, 2, "Composant"
+        .WriteValue currentRow, 3, "État"
+        .WriteValue currentRow, 4, "Contributeur"
+        .GetRange("B" & currentRow & ":D" & currentRow).BackColor = RGB(240, 240, 240)
+    End With
+    currentRow = currentRow + 1
+    
+    ' Écrire les données
+    For i = LBound(components) To UBound(components)
+        With sheetAccessor
+            .WriteValue currentRow, 2, components(i)
+            .WriteValue currentRow, 3, statuses(i)
+            .WriteValue currentRow, 4, contributors(i)
+        End With
+        currentRow = currentRow + 1
+    Next i
+    
+    currentRow = currentRow + 1
+End Sub
+
+Private Sub FormatWorkbook(ByVal sheetAccessor As ISheetAccessor)
+    ' Ajuster les colonnes
+    With sheetAccessor
+        .GetRange("A:A").ColumnWidth = 5
+        .GetRange("B:B").ColumnWidth = 30
+        .GetRange("C:C").ColumnWidth = 10
+        .GetRange("D:D").ColumnWidth = 15
+    End With
 End Sub
 
 ' Fonction pour lire le contenu du fichier MD

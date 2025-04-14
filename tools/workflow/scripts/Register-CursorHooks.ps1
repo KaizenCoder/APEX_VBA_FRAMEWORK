@@ -1,69 +1,71 @@
-# Script d'enregistrement des hooks Cursor
-function Register-CursorHooks {
-    [CmdletBinding()]
-    param()
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
 
-    # Chemin du profil PowerShell
-    $profilePath = $PROFILE.CurrentUserAllHosts
+<#
+.SYNOPSIS
     
-    # Création du profil si n'existe pas
-    if (-not (Test-Path $profilePath)) {
-        New-Item -Path $profilePath -ItemType File -Force
-    }
 
-    # Hook à ajouter
-    $hookContent = @'
-# Hook Cursor Rules
-function Global:Initialize-CursorEnvironment {
-    $cursorRulesPath = ".cursor-rules"
-    if (Test-Path $cursorRulesPath) {
-        $workspace = (Get-Location).Path
-        $env:CURSOR_WORKSPACE = $workspace
-        $env:CURSOR_RULES_LOADED = $false
-        
-        # Création du fichier de session
-        $sessionFile = ".cursor-session-$(Get-Date -Format 'yyyyMMdd_HHmmss').json"
-        @{
-            workspace = $workspace
-            timestamp = (Get-Date).ToString('o')
-            rules_version = (Get-Content $cursorRulesPath | Select-String "Version: ").ToString()
-        } | ConvertTo-Json > $sessionFile
+.DESCRIPTION
+    
 
-        # Chargement des règles
-        Write-Host "🔄 Chargement des règles Cursor..." -ForegroundColor Cyan
-        Get-Content $cursorRulesPath | Out-Null
-        $env:CURSOR_RULES_LOADED = $true
-        
-        # Validation de l'environnement
-        & "$workspace\tools\workflow\scripts\Test-CursorRules.ps1" -Quiet
-    }
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
+
+#Requires -Version 5.1
+
+[CmdletBinding()]
+param (
+    # Paramètres du script
+)
+
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
+
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
+try {
+    # Code principal
+}
+catch {
+    Write-Error "❌ Erreur : $_"
+    exit 1
 }
 
-# Auto-initialisation au changement de répertoire
-$Global:PWD_Previous = $PWD
-function Global:Watch-Location {
-    if ($PWD.Path -ne $Global:PWD_Previous) {
-        $Global:PWD_Previous = $PWD.Path
-        Initialize-CursorEnvironment
-    }
-}
-
-# Hook de prompt PowerShell
-function Global:prompt {
-    Watch-Location
-    "PS $($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) "
-}
-'@
-
-    # Ajout du hook au profil
-    if (-not (Get-Content $profilePath | Select-String "Hook Cursor Rules")) {
-        Add-Content -Path $profilePath -Value "`n$hookContent"
-        Write-Host "✅ Hooks Cursor installés dans le profil PowerShell" -ForegroundColor Green
-    }
-    else {
-        Write-Host "ℹ️ Hooks Cursor déjà installés" -ForegroundColor Yellow
-    }
-}
-
-# Installation des hooks
-Register-CursorHooks 
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 

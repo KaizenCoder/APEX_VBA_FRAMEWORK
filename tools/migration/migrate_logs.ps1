@@ -1,41 +1,71 @@
-# Script de migration des logs
-$ErrorActionPreference = "Stop"
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
 
-# Chemins source et destination
-$oldPath = "D:\Dev\Apex_VBA_FRAMEWORK\src\Tools\Logger\reports\sessions"
-$newPath = "D:\Dev\Apex_VBA_FRAMEWORK\tools\workflow\sessions"
+<#
+.SYNOPSIS
+    
 
-# Création du dossier destination si nécessaire
-if (-not (Test-Path $newPath)) {
-    New-Item -Path $newPath -ItemType Directory -Force
-}
+.DESCRIPTION
+    
 
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
+
+#Requires -Version 5.1
+
+[CmdletBinding()]
+param (
+    # Paramètres du script
+)
+
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
+
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
 try {
-    # Copie des fichiers
-    if (Test-Path $oldPath) {
-        Get-ChildItem -Path $oldPath -Filter "*.md" | ForEach-Object {
-            $destFile = Join-Path $newPath $_.Name
-            if (Test-Path $destFile) {
-                # Si le fichier existe, on fusionne le contenu
-                $oldContent = Get-Content $_.FullName -Raw
-                $newContent = Get-Content $destFile -Raw
-                $mergedContent = "$oldContent`n`n$newContent"
-                Set-Content -Path $destFile -Value $mergedContent -Encoding UTF8
-                Write-Host "Fusion du fichier : $($_.Name)"
-            }
-            else {
-                # Sinon, on copie simplement le fichier
-                Copy-Item $_.FullName -Destination $destFile
-                Write-Host "Copie du fichier : $($_.Name)"
-            }
-        }
-        Write-Host "Migration terminée avec succès"
-    }
-    else {
-        Write-Host "Aucun ancien log à migrer"
-    }
+    # Code principal
 }
 catch {
-    Write-Error "Erreur lors de la migration : $_"
+    Write-Error "❌ Erreur : $_"
     exit 1
-} 
+}
+
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 

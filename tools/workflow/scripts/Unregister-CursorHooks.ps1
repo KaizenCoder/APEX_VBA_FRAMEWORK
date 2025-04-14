@@ -1,64 +1,71 @@
-function Unregister-CursorHooks {
-    [CmdletBinding()]
-    param (
-        [switch]$RemoveSessionFiles,
-        [switch]$Force
-    )
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
 
-    Write-Host "🔄 Désinstallation des hooks Cursor..." -ForegroundColor Cyan
+<#
+.SYNOPSIS
+    
 
-    # 1. Nettoyage du profil PowerShell
-    $profilePath = $PROFILE.CurrentUserAllHosts
-    if (Test-Path $profilePath) {
-        $content = Get-Content $profilePath -Raw
-        if ($content -match "(?ms)# Hook Cursor Rules.*?'@") {
-            $newContent = $content -replace "(?ms)# Hook Cursor Rules.*?'@\r?\n", ""
-            Set-Content -Path $profilePath -Value $newContent
-            Write-Host "✅ Hooks supprimés du profil PowerShell" -ForegroundColor Green
-        }
-    }
+.DESCRIPTION
+    
 
-    # 2. Suppression des variables d'environnement
-    $envVars = @(
-        'CURSOR_WORKSPACE',
-        'CURSOR_RULES_LOADED'
-    )
-    foreach ($var in $envVars) {
-        if (Test-Path "env:$var") {
-            Remove-Item "env:$var"
-            Write-Host "✅ Variable d'environnement $var supprimée" -ForegroundColor Green
-        }
-    }
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
 
-    # 3. Nettoyage des fichiers de session
-    if ($RemoveSessionFiles) {
-        $sessionFiles = Get-ChildItem -Path (Get-Location) -Filter ".cursor-session-*.json"
-        if ($sessionFiles) {
-            $sessionFiles | Remove-Item -Force:$Force
-            Write-Host "✅ Fichiers de session supprimés" -ForegroundColor Green
-        }
-    }
+#Requires -Version 5.1
 
-    # 4. Restauration des paramètres VS Code
-    $vscodePath = ".vscode/settings.json"
-    if (Test-Path $vscodePath) {
-        $settings = Get-Content $vscodePath -Raw | ConvertFrom-Json
-        
-        # Suppression des configurations Cursor
-        if ($settings.PSObject.Properties.Name -contains "workspaceInit.tasks") {
-            $settings.PSObject.Properties.Remove("workspaceInit.tasks")
-        }
-        
-        # Mise à jour du fichier
-        $settings | ConvertTo-Json -Depth 10 | Set-Content $vscodePath
-        Write-Host "✅ Configuration VS Code restaurée" -ForegroundColor Green
-    }
+[CmdletBinding()]
+param (
+    # Paramètres du script
+)
 
-    Write-Host "`n✨ Désinstallation terminée" -ForegroundColor Green
-    Write-Host "Note: Redémarrez votre terminal pour appliquer tous les changements" -ForegroundColor Yellow
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
+
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
+try {
+    # Code principal
+}
+catch {
+    Write-Error "❌ Erreur : $_"
+    exit 1
 }
 
-# Exécution avec confirmation
-if ($Force -or (Read-Host "Voulez-vous désinstaller les hooks Cursor ? (O/N)") -eq 'O') {
-    Unregister-CursorHooks -RemoveSessionFiles
-} 
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 

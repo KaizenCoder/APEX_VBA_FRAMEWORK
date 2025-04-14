@@ -1,13 +1,13 @@
 {
   "ExcludeRules": [],
-  "IncludeRules": [
-    "PSAvoidUsingCmdletAliases",
-    "PSAvoidUsingWriteHost",
-    "PSUseApprovedVerbs"
-  ],
   "Rules": {
     "PSAvoidUsingCmdletAliases": {
       "allowList": []
     }
-  }
+  },
+  "IncludeRules": [
+    "PSAvoidUsingCmdletAliases",
+    "PSAvoidUsingWriteHost",
+    "PSUseApprovedVerbs"
+  ]
 }

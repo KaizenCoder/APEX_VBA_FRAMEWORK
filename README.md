@@ -107,8 +107,11 @@ Pour une prise en main rapide du framework :
 - [Documentation Métier](docs/METIER.md)
 - [Documentation UI](docs/UI.md)
 - [Guide d'onboarding IA](docs/AI_ONBOARDING_GUIDE.md)
+- [Bonnes Pratiques de Performance Excel](docs/performance/EXCEL_PERFORMANCE_BEST_PRACTICES.md)
 - [Configuration Cursor](docs/CURSOR_SETUP.md) - Guide de paramétrage Cursor dans VSCode
 - [Format Feedback IA](docs/FEEDBACK_FORMAT.md) - Template standard pour le feedback IA
+- [Système de journalisation](docs/LOGGER_SYSTEM.md) - Documentation du système de journalisation avec interface graphique
+- [Bonnes Pratiques de Performance Excel](docs/performance/EXCEL_PERFORMANCE_BEST_PRACTICES.md) - Recommandations pour optimiser les performances Excel
 - [Intégration XLWings](docs/Components/XLWings_Integration.md)
 - [Système de tests](docs/Components/Testing.md)
 - [Modules planifiés](docs/MODULES_PLANIFIES.md) - Liste des modules à développer
@@ -124,6 +127,7 @@ Pour une prise en main rapide du framework :
 - Interface utilisateur personnalisable via ruban
 - Accès aux données et ORM
 - Automatisation via Python (xlwings)
+- **Nouveau**: Système de journalisation avec interface graphique (exécuter `launch_logger_gui.bat`)
 
 ## Prérequis
 

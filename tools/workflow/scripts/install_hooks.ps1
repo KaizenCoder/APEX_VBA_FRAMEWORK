@@ -1,39 +1,71 @@
-# Installation des hooks Git pour le projet APEX Framework
-# Référence: chat_038 (2024-04-11 16:30) - Correction encodage des scripts
-# Source: chat_037 (2024-04-11 16:15) - Installation des hooks Git
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
 
-# Vérifier que le dossier des hooks existe
-$hooksTarget = ".git/hooks"
-$hooksSource = "tools/workflow/scripts/hooks"
+<#
+.SYNOPSIS
+    
 
-if (-not (Test-Path $hooksTarget)) {
-    New-Item -ItemType Directory -Path $hooksTarget | Out-Null
+.DESCRIPTION
+    
+
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
+
+#Requires -Version 5.1
+
+[CmdletBinding()]
+param (
+    # Paramètres du script
+)
+
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
+
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
+try {
+    # Code principal
+}
+catch {
+    Write-Error "❌ Erreur : $_"
+    exit 1
 }
 
-# Copier les hooks
-$hooks = @("pre-commit")
-foreach ($hook in $hooks) {
-    $sourceHook = Join-Path $hooksSource $hook
-    $targetHook = Join-Path $hooksTarget $hook
-
-    if (Test-Path $sourceHook) {
-        Copy-Item $sourceHook $targetHook -Force
-
-        # Sous Windows, on ne peut pas rendre les fichiers exécutables
-        if ($IsLinux -or $IsMacOS) {
-            chmod +x $targetHook
-        }
-        Write-Host "✅ Hook $hook installé" -ForegroundColor Green
-    } else {
-        Write-Host "⚠️ Hook $hook introuvable dans $hooksSource" -ForegroundColor Yellow
-    }
-}
-
-# Créer le modèle de message de commit
-git config commit.template ".gitmessage"
-
-Write-Host "`nConfiguration de Git terminée:" -ForegroundColor Cyan
-Write-Host "- Hooks Git installés dans $hooksTarget" -ForegroundColor White
-Write-Host "- Template de commit configuré" -ForegroundColor White
-
-Write-Host "`n🎉 Installation terminée avec succès!" -ForegroundColor Green
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 

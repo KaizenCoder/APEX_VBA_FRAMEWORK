@@ -1,0 +1,97 @@
+{
+    "general": {
+        "workspace_path": "D:/Dev/Apex_VBA_FRAMEWORK",
+        "environment": "development",
+        "debug_mode": true
+    },
+    "logging": {
+        "logs_path": "logs/",
+        "activity_log": "vscode_activity.log",
+        "alert_log": "anomaly_alerts.log",
+        "log_level": "INFO",
+        "max_log_size_mb": 10,
+        "backup_count": 5,
+        "monitor_keywords": [
+            "ERROR",
+            "EXCEPTION",
+            "CRASH",
+            "FAILED",
+            "TIMEOUT"
+        ]
+    },
+    "dashboard": {
+        "update_interval_sec": 1800,
+        "path": "docs/implementation/VSCODE_TRACKING_DASHBOARD.md",
+        "metrics": {
+            "performance_thresholds": {
+                "cells_100": 1,
+                "cells_1000": 5,
+                "cells_10000": 30
+            },
+            "memory_thresholds": {
+                "max_usage_mb": 100,
+                "leak_threshold_mb": 5
+            }
+        }
+    },
+    "ui": {
+        "web": {
+            "host": "localhost",
+            "port": 5000,
+            "enable_ssl": false
+        },
+        "gui": {
+            "theme": "light",
+            "refresh_interval_sec": 5,
+            "window_size": {
+                "width": 800,
+                "height": 600
+            }
+        }
+    },
+    "scripts": {
+        "powershell": {
+            "execution_policy": "Bypass",
+            "no_profile": true
+        },
+        "paths": {
+            "update_dashboard": "tools/update_dashboard.ps1",
+            "log_monitor": "tools/log_monitor.ps1",
+            "init_workspace": "tools/init_vscode_logs.ps1"
+        }
+    },
+    "monitoring": {
+        "performance": {
+            "enabled": true,
+            "check_interval_sec": 300,
+            "alert_threshold_sec": {
+                "critical": 30,
+                "warning": 15
+            }
+        },
+        "memory": {
+            "enabled": true,
+            "check_interval_sec": 600,
+            "max_usage_mb": 512,
+            "alert_threshold_percent": 80
+        }
+    },
+    "notifications": {
+        "desktop": {
+            "enabled": true,
+            "duration_sec": 5
+        },
+        "log": {
+            "enabled": true,
+            "format": "[{timestamp}][{level}] {message}"
+        }
+    },
+    "security": {
+        "require_admin": false,
+        "allowed_commands": [
+            "powershell",
+            "python",
+            "git"
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "apex_vba_framework",
+  "version": "1.0.0",
+  "description": "APEX VBA Framework avec validation automatisée",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "pre-commit": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./tools/workflow/cursor/Pre-Commit.ps1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.0"
+  }
+}

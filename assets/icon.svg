@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fond -->
+    <rect width="256" height="256" rx="32" fill="#2B2D42"/>
+    
+    <!-- Logo APEX stylisé -->
+    <g transform="translate(32, 32)">
+        <!-- A -->
+        <path d="M48 160L88 32L128 160" stroke="#8D99AE" stroke-width="16" fill="none"/>
+        <line x1="64" y1="120" x2="112" y2="120" stroke="#8D99AE" stroke-width="16"/>
+        
+        <!-- P -->
+        <path d="M144 32V160M144 32H176C194 32 208 46 208 64V80C208 98 194 112 176 112H144" 
+              stroke="#EF233C" stroke-width="16" fill="none"/>
+    </g>
+    
+    <!-- Cercle d'orchestration -->
+    <circle cx="128" cy="128" r="112" stroke="#EDF2F4" stroke-width="8" fill="none" 
+            stroke-dasharray="24,8"/>
+    
+    <!-- Points de connexion -->
+    <circle cx="48" cy="128" r="8" fill="#EF233C"/>
+    <circle cx="208" cy="128" r="8" fill="#EF233C"/>
+    <circle cx="128" cy="48" r="8" fill="#EF233C"/>
+    <circle cx="128" cy="208" r="8" fill="#EF233C"/>
+</svg> 

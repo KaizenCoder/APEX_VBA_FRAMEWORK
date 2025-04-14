@@ -1,32 +1,71 @@
-# Add-TaskToSession.ps1
-# Script pour ajouter une tache a une session de developpement APEX VBA Framework
-# Interface simplifiee pour New-SessionLog.ps1
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
 
+<#
+.SYNOPSIS
+    
+
+.DESCRIPTION
+    
+
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
+
+#Requires -Version 5.1
+
+[CmdletBinding()]
 param (
-    [Parameter(Mandatory=$true)]
-    [string]$Name,
-    
-    [Parameter(Mandatory=$true)]
-    [string]$Module,
-    
-    [Parameter(Mandatory=$false)]
-    [ValidateSet("aÃƒâ€šÃ‚ÂÃƒâ€šÃ‚Â³ En cours", "aÃƒâ€¦"... Termine", "aÃƒâ€šÃ‚ÂÃƒâ€¦"â„¢ Abandonne", "aÃƒâ€¦Ã‚Â¡Ãƒâ€šÃ‚Â iÃƒâ€šÃ‚Â¸Ãƒâ€šÃ‚Â Bloque")]
-    [string]$Status = "aÃƒâ€šÃ‚ÂÃƒâ€šÃ‚Â³ En cours",
-    
-    [Parameter(Mandatory=$false)]
-    [string]$Comment = ""
+    # Paramètres du script
 )
 
-# Importer le module principal
-$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "New-SessionLog.ps1"
-Import-Module $scriptPath -Force
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
 
-# Ajouter la tache
-$task = @{
-    Name = $Name
-    Module = $Module
-    Status = $Status
-    Comment = $Comment
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
+try {
+    # Code principal
+}
+catch {
+    Write-Error "❌ Erreur : $_"
+    exit 1
 }
 
-Add-TaskToSession -Task $task 
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 

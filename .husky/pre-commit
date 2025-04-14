@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Exécution du script PowerShell de validation
+pwsh -NoProfile -ExecutionPolicy Bypass -File "./tools/workflow/cursor/Pre-Commit.ps1"
+exit_code=$?
+
+if [ $exit_code -ne 0 ]; then
+    echo "❌ La validation pre-commit a échoué"
+    exit 1
+fi
+
+exit 0 

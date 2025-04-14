@@ -1,1 +1,72 @@
-{"editor.formatOnSave": true, "python.linting.enabled": true}
+{
+    "editor.formatOnSave": true,
+    "python.linting.enabled": true
+}
+
+{
+    "version": "2.2",
+    "lastUpdate": "2024-04-14",
+    "validations": {
+        "required": {
+            "documentation": [
+                "powershell_encoding.md",
+                "CoreArchitecture.md",
+                "GIT_COMMIT_CONVENTION.md"
+            ],
+            "sessions": [
+                "workflow_rules.md",
+                "architecture.md",
+                "refactoring.md"
+            ]
+        },
+        "attachments": {
+            "required": true,
+            "validations": [
+                "read_content",
+                "analyze_relevance",
+                "confirm_reception"
+            ],
+            "actions": [
+                "system_integration",
+                "reference_update",
+                "process_notification"
+            ],
+            "tracking": [
+                "change_logging",
+                "dependency_update",
+                "impact_validation"
+            ]
+        },
+        "systemActions": {
+            "powershell": {
+                "required": [
+                    "module_creation",
+                    "functionality_testing",
+                    "documentation_update"
+                ]
+            },
+            "configuration": {
+                "required": [
+                    "system_parameters",
+                    "scheduled_tasks",
+                    "system_logs"
+                ]
+            },
+            "integration": {
+                "required": [
+                    "integration_testing",
+                    "dependency_validation",
+                    "performance_check"
+                ]
+            }
+        }
+    },
+    "confirmations": {
+        "rules": "✅ Règles APEX Framework lues",
+        "sessions": "✅ Sessions prioritaires consultées",
+        "documentation": "✅ Documentation de référence consultée",
+        "attachments": "✅ Pièces jointes analysées : [liste]",
+        "systemActions": "✅ Actions système validées : [liste]",
+        "context": "⚠️ Contexte requis"
+    }
+}

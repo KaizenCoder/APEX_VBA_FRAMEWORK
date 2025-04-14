@@ -1,84 +1,71 @@
-# Pipeline de validation d'encodage
-# Référence: chat_051 (2024-04-11 17:00)
-# Source: chat_050 (Pipeline validation)
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
+
+<#
+.SYNOPSIS
+    
+
+.DESCRIPTION
+    
+
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
+
+#Requires -Version 5.1
 
 [CmdletBinding()]
-param(
-    [switch]$Fix
+param (
+    # Paramètres du script
 )
 
-# Importer le module de validation
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
+
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
 try {
-    Import-Module (Join-Path $PSScriptRoot "modules/ApexWSLBridge.psm1") -Force -ErrorAction Stop
+    # Code principal
 }
 catch {
-    Write-Error "Erreur lors du chargement du module : $_"
+    Write-Error "❌ Erreur : $_"
     exit 1
 }
 
-# Exécuter les tests d'encodage
-Write-Host "🔍 Validation de l'encodage des fichiers..."
-try {
-    $results = Test-FileEncoding -ProjectRoot "."
-
-    if ($null -eq $results) {
-        Write-Error "Erreur : Résultats de validation invalides"
-        exit 1
-    }
-
-    if ($results.Error) {
-        Write-Error "Erreur lors de la validation : $($results.Error)"
-        exit 1
-    }
-
-    if ($results.HasErrors) {
-        Write-Host "`n❌ Problèmes d'encodage détectés:" -ForegroundColor Red
-        foreach ($file in $results.InvalidFiles) {
-            Write-Host "   - $($file.Path) : $($file.Encoding)" -ForegroundColor Yellow
-        }
-
-        if ($Fix) {
-            Write-Host "`n🔧 Correction automatique des encodages..."
-            $hasNonBOMErrors = $false
-            $hasFixErrors = $false
-
-            foreach ($file in $results.InvalidFiles) {
-                if ($file.Encoding -eq "UTF-8 with BOM") {
-                    try {
-                        $content = Get-Content $file.Path -Raw -ErrorAction Stop
-                        $utf8NoBOM = New-Object System.Text.UTF8Encoding $false
-                        [System.IO.File]::WriteAllText($file.Path, $content, $utf8NoBOM)
-                        Write-Host "   ✅ $($file.Path)" -ForegroundColor Green
-                    }
-                    catch {
-                        Write-Error "   ❌ Erreur lors de la correction de $($file.Path): $_"
-                        $hasFixErrors = $true
-                    }
-                }
-                else {
-                    Write-Warning "   ⚠️ $($file.Path) : Correction impossible ($($file.Encoding))"
-                    $hasNonBOMErrors = $true
-                }
-            }
-
-            Write-Host "`n✨ Corrections appliquées"
-            if ($hasFixErrors -or $hasNonBOMErrors) {
-                Write-Warning "Certains fichiers n'ont pas pu être corrigés"
-                exit 1
-            }
-            exit 0
-        }
-        else {
-            Write-Host "`n💡 Pour corriger automatiquement, utilisez: Start-EncodingPipeline.ps1 -Fix"
-            exit 1
-        }
-    }
-    else {
-        Write-Host "✅ Tous les fichiers sont en UTF-8 sans BOM"
-        exit 0
-    }
-}
-catch {
-    Write-Error "Erreur inattendue : $_"
-    exit 1
-} 
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 

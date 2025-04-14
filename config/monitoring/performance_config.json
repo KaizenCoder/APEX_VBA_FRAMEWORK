@@ -1,0 +1,8 @@
+{
+    "MaxLogSizeMB":  10,
+    "KeepLogDays":  7,
+    "RefreshRateMs":  5000,
+    "MonitoringEnabled":  true,
+    "LogLevel":  "INFO",
+    "EnableRotation":  true
+}

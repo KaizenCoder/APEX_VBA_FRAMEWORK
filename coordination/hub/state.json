@@ -1,0 +1,19 @@
+{
+    "hub_status": "active",
+    "last_sync": "2024-04-14T18:45:00Z",
+    "active_agents": {
+        "cursor": {
+            "status": "ready",
+            "last_seen": "2024-04-14T18:45:00Z"
+        },
+        "vscode": {
+            "status": "ready",
+            "last_seen": "2024-04-14T18:45:00Z"
+        }
+    },
+    "settings": {
+        "sync_interval": 300,
+        "max_retry": 3,
+        "timeout": 30
+    }
+}

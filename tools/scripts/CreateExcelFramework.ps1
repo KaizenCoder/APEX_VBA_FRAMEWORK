@@ -1,47 +1,71 @@
-# Script de création du classeur Excel avec macros
-$excel = New-Object -ComObject Excel.Application
-$excel.Visible = $false
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
 
-# Créer un nouveau classeur
-$workbook = $excel.Workbooks.Add()
+<#
+.SYNOPSIS
+    
 
-# Activer les macros
-$excel.EnableEvents = $true
+.DESCRIPTION
+    
 
-# Chemin du projet
-$projectPath = "D:\Dev\Apex_VBA_FRAMEWORK"
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
 
-# Importer les modules VBA
-$vbaProject = $workbook.VBProject
-$moduleFiles = @(
-    "$projectPath\src\APEX_FRAMEWORK.bas",
-    "$projectPath\src\Scripts\GeneratePlanSituationRunner.bas",
-    "$projectPath\src\Scripts\GeneratePlanSituation.cls",
-    "$projectPath\src\Interfaces\IExcelHandlerBase.cls",
-    "$projectPath\src\Implementations\clsExcelHandler.cls"
+#Requires -Version 5.1
+
+[CmdletBinding()]
+param (
+    # Paramètres du script
 )
 
-foreach ($moduleFile in $moduleFiles) {
-    if (Test-Path $moduleFile) {
-        $vbaProject.VBComponents.Import($moduleFile)
-        Write-Host "Module importé: $moduleFile"
-    }
-    else {
-        Write-Host "Module non trouvé: $moduleFile"
-    }
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
+
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
+try {
+    # Code principal
+}
+catch {
+    Write-Error "❌ Erreur : $_"
+    exit 1
 }
 
-# Sauvegarder le classeur avec macros
-$workbook.SaveAs("$projectPath\src\APEX_FRAMEWORK.xlsm", 52) # 52 = xlOpenXMLWorkbookMacroEnabled
-
-# Fermer Excel
-$workbook.Close($false)
-$excel.Quit()
-
-# Libérer les ressources COM
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($workbook) | Out-Null
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($excel) | Out-Null
-[System.GC]::Collect()
-[System.GC]::WaitForPendingFinalizers()
-
-Write-Host "Création du classeur APEX_FRAMEWORK.xlsm terminée" 
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 

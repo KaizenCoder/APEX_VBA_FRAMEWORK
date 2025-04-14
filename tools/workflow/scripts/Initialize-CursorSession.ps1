@@ -1,73 +1,71 @@
-function Initialize-CursorSession {
-    [CmdletBinding()]
-    param (
-        [Parameter()]
-        [string]$WorkspacePath = (Get-Location).Path
-    )
+# =============================================================================
+# 🧭 Session de travail – 2025-04-14
+# =============================================================================
 
-    Write-Host "==================================================="
-    Write-Host "     INITIALISATION AUTOMATIQUE CURSOR RULES        "
-    Write-Host "==================================================="
-
-    # 1. Lecture et validation du fichier .cursor-rules
-    Write-Host "`n1. Lecture des règles Cursor..."
-    $cursorRules = Get-Content -Path (Join-Path $WorkspacePath ".cursor-rules") -Raw
-    if (-not $cursorRules) {
-        throw "Erreur: Impossible de lire .cursor-rules"
-    }
-    Write-Host "✅ Règles APEX Framework lues"
-
-    # 2. Vérification et correction de l'encodage
-    Write-Host "`n2. Validation de l'encodage..."
-    & "$WorkspacePath\tools\Fix-Encoding.ps1"
-
-    # 3. Consultation des sessions
-    Write-Host "`n3. Consultation des sessions..."
-    $today = Get-Date -Format "yyyy_MM_dd"
-    $sessionsPath = Join-Path $WorkspacePath "tools\workflow\sessions"
-    $todaySessions = Get-ChildItem -Path $sessionsPath -Recurse -File | 
-                    Where-Object { $_.Name -match $today }
+<#
+.SYNOPSIS
     
-    if ($todaySessions) {
-        foreach ($session in $todaySessions) {
-            Write-Host "   - Lecture: $($session.Name)"
-            Get-Content $session.FullName | Out-Null
-        }
-    }
-    Write-Host "✅ Sessions prioritaires consultées"
 
-    # 4. Vérification des documents essentiels
-    Write-Host "`n4. Vérification documentation essentielle..."
-    $essentialDocs = @(
-        "docs/requirements/powershell_encoding.md",
-        "docs/Components/CoreArchitecture.md",
-        "docs/GIT_COMMIT_CONVENTION.md"
-    )
+.DESCRIPTION
+    
 
-    foreach ($doc in $essentialDocs) {
-        $docPath = Join-Path $WorkspacePath $doc
-        if (-not (Test-Path $docPath)) {
-            Write-Warning "Document manquant: $doc"
-        }
-        else {
-            Get-Content $docPath | Out-Null
-        }
-    }
-    Write-Host "✅ Documentation de référence consultée"
+.NOTES
+    Version     : 1.0
+    Author      : APEX Framework
+    Created     : 2025-04-14
+    Updated     : 2025-04-14
+#>
 
-    # 5. Validation de la session
-    Write-Host "`n5. Validation de la session..."
-    $sessionFiles = Get-ChildItem -Path $sessionsPath -Recurse -File | 
-                   Where-Object { $_.Name -match $today }
-    foreach ($file in $sessionFiles) {
-        & "$WorkspacePath\tools\workflow\scripts\Test-SessionMarkdownFormat.ps1" -Path $file.FullName
-    }
+#Requires -Version 5.1
 
-    Write-Host "`n==================================================="
-    Write-Host "     INITIALISATION TERMINÉE AVEC SUCCÈS            "
-    Write-Host "==================================================="
-    Write-Host "⚠️ Contexte requis pour continuer"
+[CmdletBinding()]
+param (
+    # Paramètres du script
+)
+
+# ==============================================================================
+# 🎯 Objectif(s)
+# ==============================================================================
+# - {OBJECTIF_1}
+# - {OBJECTIF_2}
+# - {OBJECTIF_3}
+
+# ==============================================================================
+# 📌 Suivi des tâches
+# ==============================================================================
+<#
+| Tâche | Module | Statut | Commentaire |
+|-------|--------|--------|-------------|
+| {TACHE_1} | {MODULE_1} | ⏳ | {COMMENTAIRE_1} |
+| {TACHE_2} | {MODULE_2} | ⏳ | {COMMENTAIRE_2} |
+#>
+
+# ==============================================================================
+# 🔄 Initialisation
+# ==============================================================================
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+# Importation des modules requis
+# Import-Module ...
+
+# ==============================================================================
+# 📋 Fonctions
+# ==============================================================================
+
+# ==============================================================================
+# 🚀 Exécution principale
+# ==============================================================================
+try {
+    # Code principal
+}
+catch {
+    Write-Error "❌ Erreur : $_"
+    exit 1
 }
 
-# Exécution de la fonction
-Initialize-CursorSession 
+# ==============================================================================
+# ✅ Clôture de session
+# ==============================================================================
+Write-Verbose "✨ Script terminé avec succès"
+exit 0 
