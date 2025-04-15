@@ -7,13 +7,14 @@ Ce répertoire contient tous les éléments nécessaires à la migration du fram
 - `/audit` - Analyse des modules existants et recommandations
 - `/backups` - Sauvegarde des fichiers v1.6 avant modification
 - `/tests` - Tests de référence et validation comparative
+- `/migration` - Nouvelles interfaces et implémentations pour v1.7
 
 ## Plan d'action
 
 La migration suit le plan défini dans le document `docs/migration/APEX_v1.6_to_v1.7_ACTION_PLAN.md` et se déroule en 4 phases :
 
-1. **Préparation** (actuelle) - Audit, sauvegarde, tests de référence
-2. **Migration Core** - Interfaces, factories, logging
+1. **Préparation** (terminée) - Audit, sauvegarde, tests de référence
+2. **Migration Core** (en cours) - Interfaces, factories, logging
 3. **Migration Métier** - Adaptation des modules métier
 4. **Validation** - Tests d'intégration et documentation
 
@@ -25,8 +26,20 @@ La migration suit le plan défini dans le document `docs/migration/APEX_v1.6_to_
 - [x] Audit des modules UI
 - [x] Sauvegarde des fichiers existants
 - [ ] Exécution des tests de référence
-- [ ] Définition des nouvelles interfaces
-- [ ] Refactorisation des composants core
+- [x] Définition des nouvelles interfaces Core
+  - [x] IConfigManagerBase
+  - [x] ILoggerBase
+  - [x] ILoggerFactoryBase
+  - [x] IErrorHandlerBase
+- [x] Implémentation initiale des factories
+  - [x] LoggerFactory
+  - [ ] ConfigFactory
+- [ ] Implémentation des composants Core
+  - [ ] Logger
+  - [ ] FileLogger
+  - [ ] ExcelLogger
+  - [ ] ConfigManager
+  - [ ] ErrorHandler
 
 ## Utilisation
 
