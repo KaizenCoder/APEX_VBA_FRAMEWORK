@@ -35,16 +35,17 @@ La migration suit le plan défini dans le document `docs/migration/APEX_v1.6_to_
   - [x] IErrorHandlerBase
 - [x] Implémentation initiale des factories
   - [x] LoggerFactory
-  - [ ] ConfigFactory
+  - [x] ConfigFactory
 - [x] Implémentation des loggers
   - [x] Logger (standard)
   - [x] FileLogger
   - [x] ExcelLogger
+- [x] Implémentation du système de configuration
+  - [x] ConfigManager
 - [ ] Implémentation d'autres composants Core
-  - [ ] ConfigManager
   - [ ] ErrorHandler
 - [x] Documentation du système de logging
-- [ ] Documentation du système de configuration
+- [x] Documentation du système de configuration
 
 ## Utilisation
 
