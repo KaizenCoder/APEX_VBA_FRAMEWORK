@@ -1,0 +1,39 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui">
+  <ribbon>
+    <tabs>
+      <tab id="tabApex" label="Apex Tools">
+        <group id="grpCore" label="Core">
+          <button id="btnRunTests" 
+                  label="Run Tests" 
+                  imageMso="DesignCheckerMenu" 
+                  size="large" 
+                  onAction="OnAction_RunAllTests"/>
+          <button id="btnViewLogs" 
+                  label="View Logs" 
+                  imageMso="DiaryInsert" 
+                  size="large" 
+                  onAction="OnAction_ViewLogs"/>
+        </group>
+        <group id="grpSecurity" label="Sécurité">
+          <button id="btnEncrypt" 
+                  label="Encrypt String" 
+                  imageMso="ClassicViewFileMenu" 
+                  size="large" 
+                  onAction="OnAction_EncryptString"/>
+        </group>
+        <group id="grpMetier" label="Métier">
+          <button id="btnRecipe" 
+                  label="Run Recipe" 
+                  imageMso="CompareAndMerge" 
+                  size="large" 
+                  onAction="OnAction_RunRecipe"/>
+          <button id="btnXmlParse" 
+                  label="Parse XML" 
+                  imageMso="XmlTransform" 
+                  size="large" 
+                  onAction="OnAction_ParseXml"/>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI> 
