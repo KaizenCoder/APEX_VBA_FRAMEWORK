@@ -1,8 +1,28 @@
 {
-    "MaxLogSizeMB":  10,
-    "KeepLogDays":  7,
-    "RefreshRateMs":  5000,
-    "MonitoringEnabled":  true,
-    "LogLevel":  "INFO",
-    "EnableRotation":  true
+  "Thresholds": {
+    "MemoryUsageMB": 100,
+    "CpuUsagePercent": 2,
+    "ResponseTimeMS": 300
+  },
+  "Monitoring": {
+    "Enabled": true,
+    "RefreshRateMs": 30000,
+    "LogRotation": {
+      "KeepDays": 7,
+      "Enabled": true,
+      "MaxSizeMB": 10
+    }
+  },
+  "Pooling": {
+    "TaskTimeout": 30000,
+    "MaxWorkers": 2,
+    "QueueSize": 50,
+    "ThrottleIntervalMs": 5000,
+    "MaxRetries": 3
+  },
+  "Logging": {
+    "Format": "[{timestamp}][{level}][{module}] {message}",
+    "Path": "logs/performance",
+    "Level": "INFO"
+  }
 }

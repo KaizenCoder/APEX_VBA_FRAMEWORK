@@ -1,5 +1,5 @@
 # =============================================================================
-# 🧭 Session de travail – 2024-04-14
+# Monitoring des processus parallèles optimisé
 # =============================================================================
 
 <#
@@ -12,10 +12,10 @@
     Génère des alertes si les seuils sont dépassés et sauvegarde les rapports.
 
 .NOTES
-    Version     : 1.2
+    Version     : 1.4
     Author      : APEX Framework
     Created     : 2024-04-14
-    Updated     : 2024-04-14
+    Updated     : 2024-04-15
 #>
 
 #Requires -Version 5.1
@@ -24,173 +24,94 @@
 [CmdletBinding()]
 param (
     [int]$IntervalSeconds = 30,
-    [int]$CpuThreshold = 80,
-    [int]$MemoryThreshold = 2048,
     [string]$MonitoringPath = (Join-Path $PSScriptRoot "../../../monitoring")
 )
 
-# ==============================================================================
-# 🎯 Objectif(s)
-# ==============================================================================
-# - Monitorer les performances des processus parallèles
-# - Générer des alertes en cas de dépassement de seuils
-# - Sauvegarder les métriques pour analyse
-
-# ==============================================================================
-# 📌 Suivi des tâches
-# ==============================================================================
-<#
-| Tâche | Module | Statut | Commentaire |
-|-------|--------|--------|-------------|
-| Monitoring CPU/RAM | Performance | ✅ | Implémenté |
-| Métriques VBA | Excel | ✅ | Ajouté |
-| Alertes | Monitoring | ✅ | Configuré |
-#>
-
-# ==============================================================================
-# 🔄 Initialisation
-# ==============================================================================
 $ErrorActionPreference = 'Stop'
-$VerbosePreference = 'Continue'
+Set-StrictMode -Version Latest
 
-# Vérification et création du dossier de monitoring
-try {
-    if (-not (Test-Path $MonitoringPath)) {
-        Write-Verbose "📁 Création du dossier de monitoring : $MonitoringPath"
-        New-Item -ItemType Directory -Path $MonitoringPath -Force -ErrorAction Stop | Out-Null
-        Write-Verbose "✅ Dossier de monitoring créé avec succès"
-    }
-    
-    # Test des permissions d'écriture
-    $testFile = Join-Path $MonitoringPath "test.tmp"
-    try {
-        [System.IO.File]::WriteAllText($testFile, "Test")
-        Remove-Item $testFile -Force
-        Write-Verbose "✅ Permissions d'écriture vérifiées"
-    }
-    catch {
-        throw "❌ Permissions insuffisantes sur le dossier de monitoring : $_"
-    }
-}
-catch {
-    Write-Error "❌ Erreur lors de l'initialisation du dossier de monitoring : $_"
-    exit 1
-}
+# Import configuration
+$configPath = Join-Path $PSScriptRoot "../../../config/monitoring/performance_config.json"
+$config = Get-Content $configPath -Raw | ConvertFrom-Json
 
-$alertLogPath = Join-Path $MonitoringPath "performance_alerts.log"
+# Initialize logging
+$logDir = Join-Path $PSScriptRoot "../../../logs/performance"
+$logFile = Join-Path $logDir "watch_parallel.log"
+if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
 
-# ==============================================================================
-# 📋 Fonctions
-# ==============================================================================
-
-function Get-VbaMetric {
-    param (
-        [string]$MetricName
-    )
-    
-    try {
-        # Récupération des métriques depuis le fichier de monitoring VBA
-        $vbaMetricsPath = Join-Path $MonitoringPath "vba_metrics.json"
-        if (Test-Path $vbaMetricsPath) {
-            $vbaMetrics = Get-Content $vbaMetricsPath | ConvertFrom-Json
-            return $vbaMetrics.$MetricName
-        }
-        return 0
-    }
-    catch {
-        Write-Warning "Impossible de récupérer la métrique VBA $MetricName : $_"
-        return 0
-    }
+function Write-Log {
+    param([string]$Message, [string]$Level = 'INFO')
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$timestamp][$Level] $Message"
+    Add-Content -Path $logFile -Value $logMessage
+    if ($Level -eq 'ERROR') { Write-Error $Message }
+    else { Write-Verbose $Message }
 }
 
 function Get-ProcessMetrics {
-    param (
-        [string]$ProcessName
-    )
+    param ([string]$ProcessName)
     
     try {
-        $process = Get-Process -Name $ProcessName -ErrorAction SilentlyContinue
-        if (-not $process) {
-            return @{
-                IsRunning    = $false
-                CpuPercent   = 0
-                MemoryMB     = 0
-                ThreadCount  = 0
-                HandleCount  = 0
-                ProcessCount = 0
-            }
-        }
-
-        # Calcul CPU %
-        $cpuPercent = [math]::Round(($process | Measure-Object -Property CPU -Sum).Sum, 2)
+        $processes = Get-Process -Name $ProcessName -ErrorAction SilentlyContinue
+        if (-not $processes) { return $null }
         
-        # Métriques de base
-        $metrics = @{
-            IsRunning    = $true
-            CpuPercent   = $cpuPercent
-            MemoryMB     = [math]::Round($process.WorkingSet64 / 1MB, 2)
-            ThreadCount  = ($process | Measure-Object -Property Threads -Sum).Sum
-            HandleCount  = ($process | Measure-Object -Property Handles -Sum).Sum
-            ProcessCount = ($process | Measure-Object).Count
+        # Get metrics in one pass to reduce CPU usage
+        $metrics = $processes | Measure-Object -Property CPU, WorkingSet, Threads, Handles -Sum
+        
+        return @{
+            CPU = [math]::Round($metrics.Sum[0], 2)
+            Memory = [math]::Round($metrics.Sum[1] / 1MB, 2)
+            Threads = $metrics.Sum[2]
+            Handles = $metrics.Sum[3]
+            Count = $processes.Count
         }
-
-        # Métriques spécifiques Excel/VBA si applicable
-        if ($ProcessName -eq "EXCEL") {
-            $metrics += @{
-                VbaCallTime    = Get-VbaMetric -MetricName "CallTime"
-                VbaMemoryUsage = Get-VbaMetric -MetricName "MemoryUsage"
-                VbaLastCall    = Get-VbaMetric -MetricName "LastCall"
-                VbaErrorCount  = Get-VbaMetric -MetricName "ErrorCount"
-            }
-        }
-
-        return $metrics
     }
     catch {
-        Write-Error "Erreur lors de la collecte des métriques pour $ProcessName : $_"
+        Write-Log "Erreur lors de la collecte des métriques pour $ProcessName : $_" -Level 'ERROR'
         return $null
     }
 }
 
-# ==============================================================================
-# 🚀 Exécution principale
-# ==============================================================================
 try {
-    Write-Verbose "🔄 Démarrage du monitoring des performances..."
+    Write-Log "Démarrage du monitoring optimisé..."
     
     while ($true) {
-        $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-        $report = @{
-            Timestamp = $timestamp
-            VSCode    = Get-ProcessMetrics -ProcessName "Code"
-            Cursor    = Get-ProcessMetrics -ProcessName "Cursor"
-            Excel     = Get-ProcessMetrics -ProcessName "EXCEL"
-        }
-
-        # Vérification des seuils et alertes
-        foreach ($app in @("VSCode", "Cursor", "Excel")) {
-            $metrics = $report[$app]
-            if ($metrics.IsRunning) {
-                if ($metrics.CpuPercent -gt $CpuThreshold) {
-                    $alert = "[$timestamp] ⚠️ $app : CPU élevé ($($metrics.CpuPercent)%)"
-                    Add-Content -Path $alertLogPath -Value $alert
-                }
-                if ($metrics.MemoryMB -gt $MemoryThreshold) {
-                    $alert = "[$timestamp] ⚠️ $app : Mémoire élevée ($($metrics.MemoryMB) MB)"
-                    Add-Content -Path $alertLogPath -Value $alert
-                }
+        try {
+            $startTime = Get-Date
+            
+            # Collect metrics with proper throttling
+            $metrics = @{}
+            foreach ($proc in @('Code', 'Cursor', 'EXCEL')) {
+                $metrics[$proc] = Get-ProcessMetrics -ProcessName $proc
+                Start-Sleep -Milliseconds $config.Pooling.ThrottleIntervalMs
+            }
+            
+            # Generate and save report
+            $report = @{
+                Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+                VSCode = $metrics['Code']
+                Cursor = $metrics['Cursor']
+                Excel = $metrics['EXCEL']
+            }
+            
+            $reportPath = Join-Path $MonitoringPath "performance_$(Get-Date -Format 'yyyyMMdd_HHmmss').json"
+            $report | ConvertTo-Json -Depth 10 | Set-Content $reportPath -ErrorAction Stop
+            
+            # Ensure we wait full interval accounting for processing time
+            $elapsed = ((Get-Date) - $startTime).TotalMilliseconds
+            $remainingWait = [Math]::Max(0, $config.Monitoring.RefreshRateMs - $elapsed)
+            if ($remainingWait -gt 0) {
+                Start-Sleep -Milliseconds $remainingWait
             }
         }
-
-        # Sauvegarde du rapport
-        $reportPath = Join-Path $MonitoringPath "performance_$(Get-Date -Format 'yyyyMMdd_HHmmss').json"
-        $report | ConvertTo-Json -Depth 10 | Out-File $reportPath
-
-        Start-Sleep -Seconds $IntervalSeconds
+        catch {
+            Write-Log "Erreur lors de la collecte des métriques: $_" -Level 'ERROR'
+            Start-Sleep -Seconds ($IntervalSeconds * 2)
+        }
     }
 }
 catch {
-    Write-Error "❌ Erreur dans le monitoring : $_"
+    Write-Log "Erreur fatale dans le monitoring: $_" -Level 'ERROR'
     exit 1
 }
 
@@ -198,4 +119,4 @@ catch {
 # ✅ Clôture de session
 # ==============================================================================
 Write-Verbose "✨ Script terminé avec succès"
-exit 0 
+exit 0
