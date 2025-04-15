@@ -8,6 +8,8 @@ Ce répertoire contient tous les éléments nécessaires à la migration du fram
 - `/backups` - Sauvegarde des fichiers v1.6 avant modification
 - `/tests` - Tests de référence et validation comparative
 - `/migration` - Nouvelles interfaces et implémentations pour v1.7
+  - `/core` - Composants core du framework
+  - `/documentation` - Documentation des nouvelles fonctionnalités
 
 ## Plan d'action
 
@@ -34,12 +36,15 @@ La migration suit le plan défini dans le document `docs/migration/APEX_v1.6_to_
 - [x] Implémentation initiale des factories
   - [x] LoggerFactory
   - [ ] ConfigFactory
-- [ ] Implémentation des composants Core
-  - [ ] Logger
-  - [ ] FileLogger
-  - [ ] ExcelLogger
+- [x] Implémentation des loggers
+  - [x] Logger (standard)
+  - [x] FileLogger
+  - [x] ExcelLogger
+- [ ] Implémentation d'autres composants Core
   - [ ] ConfigManager
   - [ ] ErrorHandler
+- [x] Documentation du système de logging
+- [ ] Documentation du système de configuration
 
 ## Utilisation
 
