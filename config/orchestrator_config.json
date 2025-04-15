@@ -1,6 +1,6 @@
 {
     "general": {
-        "workspace_path": "D:/Dev/Apex_VBA_FRAMEWORK",
+        "workspace_path": ".",
         "environment": "development",
         "debug_mode": true
     },

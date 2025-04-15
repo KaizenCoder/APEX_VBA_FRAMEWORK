@@ -2,46 +2,51 @@
 # APEX Workbench - Module de Logging Commun
 # =============================================================================
 
-$script:logFile = Join-Path $PSScriptRoot "../../logs/workbench.log"
-$script:logLevels = @{
-    "INFO"    = 0
-    "WARNING" = 1
-    "ERROR"   = 2
-}
+[CmdletBinding()]
+param()
 
-function Initialize-LogDirectory {
-    $logDir = Split-Path $script:logFile -Parent
-    if (-not (Test-Path $logDir)) {
-        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
-    }
-}
+$ErrorActionPreference = 'Stop'
+$VerbosePreference = 'Continue'
+
+$script:ModulePath = Split-Path -Parent $MyInvocation.MyCommand.Path
+$script:RootPath = (Get-Item $script:ModulePath).Parent.Parent.Parent.FullName
+$script:LogPath = Join-Path $script:RootPath "logs\workbench"
+$script:LogFile = Join-Path $script:LogPath "workbench.log"
 
 function Write-WorkbenchLog {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Message,
+    [CmdletBinding()]
+    param
+    (
+        [Parameter()]
+        [string]
+        $Message,
         
-        [Parameter(Mandatory = $false)]
-        [ValidateSet("INFO", "WARNING", "ERROR")]
-        [string]$Level = "INFO"
+        [Parameter()]
+        [ValidateSet('INFO', 'WARNING', 'ERROR')]
+        [string]
+        $Level = 'INFO'
     )
-    
-    Initialize-LogDirectory
-    
+
+    # Créer le répertoire des logs s'il n'existe pas
+    if (-not (Test-Path $script:LogPath)) {
+        New-Item -ItemType Directory -Path $script:LogPath -Force | Out-Null
+    }
+
+    # Format du message
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    $logEntry = "$timestamp [$Level] $Message"
-    
+    $logMessage = "$timestamp [$Level] $Message"
+
     # Écriture dans le fichier
-    Add-Content -Path $script:logFile -Value $logEntry -Encoding UTF8
-    
+    Add-Content -Path $script:LogFile -Value $logMessage -Encoding UTF8
+
     # Affichage console avec couleur
     $color = switch ($Level) {
-        "INFO" { "White" }
-        "WARNING" { "Yellow" }
-        "ERROR" { "Red" }
+        'INFO' { 'White' }
+        'WARNING' { 'Yellow' }
+        'ERROR' { 'Red' }
     }
-    Write-Host $logEntry -ForegroundColor $color
+    Write-Host $logMessage -ForegroundColor $color
 }
 
 # Export de la fonction
-Export-ModuleMember -Function Write-WorkbenchLog 
+Export-ModuleMember -Function Write-WorkbenchLog

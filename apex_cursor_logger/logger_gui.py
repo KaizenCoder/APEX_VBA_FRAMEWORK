@@ -124,18 +124,18 @@ class LoggerApp(ctk.CTk):
     def load_config(self):
         """Charge la configuration du système de journalisation"""
         try:
-            # Détermination du chemin du fichier de configuration
+            # Détermination des chemins de base
             script_dir = Path(__file__).parent
-            config_path = script_dir / "logger_config.json"
+            root_dir = script_dir.parent
             
+            config_path = script_dir / "logger_config.json"
             logger.debug(f"Chargement de la configuration depuis {config_path}")
             
             with open(config_path, encoding='utf-8') as f:
                 self.config = json.load(f)
                 
-            # Chemins importants - CORRECTION: pointer vers le dossier logs principal du framework
-            # Au lieu d'utiliser le dossier logs du sous-répertoire apex_cursor_logger
-            self.logs_dir = Path("d:/Dev/Apex_VBA_FRAMEWORK/logs")
+            # Chemins importants - Utilisation de chemins relatifs
+            self.logs_dir = root_dir / "logs"
             self.prompts_dir = script_dir / self.config.get("prompts_subdir", "prompts")
             
             # S'assurer que les répertoires existent

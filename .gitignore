@@ -68,3 +68,30 @@ Test-*.ps1
 *.DEPRECATED
 # Tous les fichiers contenant DEPRECATED dans leur nom
 *DEPRECATED*
+
+# Fichiers de monitoring et performance
+performance_config.json
+performance_baseline.json
+Watch-ConfigPerformance.ps1
+tools/monitoring/Watch-*.ps1
+tools/profiling/
+
+# Backups automatiques
+*_backup_*/
+*_backup/*
+*backup_*/
+
+# Fichiers de configuration spécifiques
+config/cursor/cursor_logger_config.json
+config/vscode/vscode_logger_config.json
+config/monitoring/performance_config.json
+
+# Fichiers Cursor supplémentaires
+.cursor/rules/mycursorrules*.md*
+cursor-rules.apex.full.md.txt
+mycursorrules.md*
+
+# Fichiers Python générés
+__pycache__/
+*.py[cod]
+*$py.class

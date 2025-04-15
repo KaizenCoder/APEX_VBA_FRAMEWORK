@@ -1,8 +1,9 @@
 . (Join-Path $PSScriptRoot "../common/Write-WorkbenchLog.ps1")
 
-# Variables globales
-$script:modulePath = $PSScriptRoot
-$script:monitoringPath = Join-Path $PSScriptRoot "../../monitoring"
+# Configuration du module
+$script:ModulePath = Split-Path -Parent $MyInvocation.MyCommand.Path
+$script:RootPath = (Get-Item $script:ModulePath).Parent.Parent.Parent.FullName
+$script:monitoringPath = Join-Path $script:RootPath "monitoring"
 $script:lastCheck = Get-Date
 $script:performanceMetrics = @{}
 $script:thresholds = @{
@@ -69,4 +70,4 @@ function Get-MemoryTrend {
         return [math]::Round($trend, 2)
     }
     return 0
-} 
+}

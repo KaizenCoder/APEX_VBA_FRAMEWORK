@@ -2,3 +2,6 @@
 [2025-04-14 19:00:31][INFO][collectées] Métriques {"VSCodeMemoryMB":2405.89,"CPU":0.0,"MemoryPct":62.98,"MemoryMB":10316.62}
 [2025-04-14 19:06:11][INFO][collectées] Métriques {"MemoryPct":62.54,"MemoryMB":10244.05,"VSCodeMemoryMB":2473.41,"CPU":0.0}
 [2025-04-14 20:18:21][INFO][collectées] Métriques {"VSCodeMemoryMB":2535.34,"CPU":0.0,"MemoryPct":64.61,"MemoryMB":10583.29}
+[2025-04-14 23:12:12][INFO][collectées] Métriques {"VSCodeMemoryMB":2489.87,"MemoryMB":10493.5,"CPU":0.0,"MemoryPct":64.06}
+[2025-04-14 23:31:03][INFO][collectées] Métriques {"MemoryPct":67.25,"VSCodeMemoryMB":2680.93,"MemoryMB":11016.39,"CPU":0.0}
+[2025-04-15 00:46:34][INFO][collectées] Métriques {"CPU":0.0,"MemoryMB":11110.8,"MemoryPct":67.83,"VSCodeMemoryMB":2872.75}
